@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
 
 const levelSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+    },
     name: {
         type: String,
-        required: true
+        required: true,
+        unique:true,
+        lowercase: true,
+        trim: true,
+        
     },
     target_amt: {
         type: Number,
         required: true
     },
-    user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-    }
 }, { timestamps: true })
 
-export const User = mongoose.models.Level || mongoose.model('Level', levelSchema)
+export const Level = mongoose.models.Level || mongoose.model('Level', levelSchema)
