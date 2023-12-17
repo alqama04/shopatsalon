@@ -13,11 +13,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(options);
- 
+  if(session?.user?.role !== 'admin'){
+    redirect('/')
+  }
   return (
     <div className="flex flex-col md:flex-row items-start overflow-x-hidden">
       <AdminSdiebar />
-      <div className="bg-white w-full h-full">
+      <div className="w-full">
         {children}
         </div>
     </div>

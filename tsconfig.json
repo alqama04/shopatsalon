@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/constant/services.ts", "src/app/loading.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/constant/services.ts", "src/app/loading.tsx", "src/app/admin-dashboard/levels/(action)/(create-levels)/HandleCreate.tsx"],
   "exclude": ["node_modules"]
 }

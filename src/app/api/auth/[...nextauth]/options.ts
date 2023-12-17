@@ -46,14 +46,13 @@ export const options: NextAuthOptions = {
         }),
 
     ],
-    session: {
-        strategy: "jwt"
-    },
+   
     callbacks: {
-        async jwt({ token, user,trigger,session }) {
-            
-            if(trigger ==='update'){
-                return {...token,...session.user}
+        async jwt({ token, user, trigger, session }) {
+           
+          
+            if (trigger === 'update') {
+                return { ...token, ...session.user }
             }
             if (user) {
                 token.role = user.role
@@ -62,6 +61,8 @@ export const options: NextAuthOptions = {
             return token
         },
         async session({ session, token }) {
+             
+           
             if (session?.user) {
                 session.user.business_customer = token.business_customer;
                 session.user.role = token.role

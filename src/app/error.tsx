@@ -1,9 +1,16 @@
 'use client'
 import React from 'react'
 
-const error = () => {
+const error = ({error,reset}:{
+  error:Error,
+  reset:()=>void
+}) => {
   return (
-    <div>error</div>
+
+    <div>
+      {error.message}
+      <button onClick={reset}>Try Again</button>
+    </div>
   )
 }
 

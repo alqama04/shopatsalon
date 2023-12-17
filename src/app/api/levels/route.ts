@@ -3,6 +3,7 @@ import connectDb from "@/database/connectdb";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
 import { Level } from "@/models/level";
+import { getSession } from "next-auth/react";
 
 
 
@@ -10,11 +11,14 @@ const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { stat
 
 const checkAdminPermission = async () => {
     const session = await getServerSession(options);
-    if (!session || session && session.user.role !== "admin") {
-        return false
-    }
-    return true;
+    if (session && session?.user.role === 'admin') {
+        return true;
+    } else return false
 };
+
+
+
+
 
 export async function GET() {
     try {
@@ -33,16 +37,44 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         connectDb()
+
         const isAdmin = await checkAdminPermission()
         if (!isAdmin) {
             return unauthorizedResponse
         }
-        const { name, targetAmt } = await req.json()
-        await Level.create({
+        const { name, target_amt } = await req.json()
+        const level = await Level.create({
             name: name,
-            target_amt: targetAmt,
+            target_amt: target_amt,
         })
+
+       
         return NextResponse.json({ message: 'Level created' }, { status: 201 })
+    } catch (error) {
+        return NextResponse.json({ error: 'internal server error' }, { status: 500 })
+    }
+}
+
+export async function PUT(req: NextRequest) {
+    try {
+        connectDb()
+        const isAdmin = await checkAdminPermission()
+        if (!isAdmin) {
+            return unauthorizedResponse
+        }
+        const { id, name, target_amt } = await req.json()
+
+        if (!id || !name.trim() || !target_amt) {
+            return NextResponse.json({ error: 'all fields are required' }, { status: 400 })
+        }
+
+        const duplicate = await Level.findOne({name:name}).exec()
+        if(duplicate && duplicate._id.toString() !== id){
+            return NextResponse.json({ error: `${name} already exist` }, { status: 409 })
+        }
+        await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt})
+        
+        return NextResponse.json({ message: 'update successfully' }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error: 'internal server error' }, { status: 500 })
     }
@@ -55,12 +87,13 @@ export async function DELETE(req: NextRequest) {
         if (!isAdmin) {
             return unauthorizedResponse
         }
-        const {levelId} = await req.json()
-        if(!levelId) {
-        return NextResponse.json({ error: 'level id is required' }, { status: 400 })
+        const { id } = await req.json()
+
+        if (!id) {
+            return NextResponse.json({ error: 'level id is required' }, { status: 400 })
 
         }
-        await Level.findByIdAndDelete({_id:levelId}).exec();
+        await Level.findByIdAndDelete({ _id: id }).exec();
 
         return NextResponse.json({ message: 'level is deleted successfully' }, { status: 200 })
 

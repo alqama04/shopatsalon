@@ -1,13 +1,13 @@
 import React from "react";
-
-import CreateLevels from "./(action)/CreateLevels";
-import GetLevels from "./(action)/GetLevels";
+import FetchLevels from "./(getLevels)/FetchLevels";
+import CreateLevel from "./(action)/(create-levels)/CreateLevel";
 
 const page = () => {
   return (
-    <div className="min-h-[100svh] h-full">
-      <CreateLevels/>
-      <GetLevels/>
+    <div className="">
+      <CreateLevel/>
+
+      <FetchLevels/>
     </div>
   );
 };
