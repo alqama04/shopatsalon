@@ -2,9 +2,7 @@ import React from "react";
 import UserSidebar from "@/components/sidebar/UserSidebar";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
-
-import BusinessCustomer from "./BusinessCustomer";
-import { redirect } from "next/navigation";
+import BusinessProfile from "./BusinessProfiles";
 
 
 export default async function RootLayout({
@@ -15,12 +13,15 @@ export default async function RootLayout({
   const session = await getServerSession(options);
   // if(!session) redirect('/authenticate')
   
-  if (!session?.user?.business_customer) return <BusinessCustomer />;
+  if (!session?.user?.business_customer) return <BusinessProfile />;
 
   return (
     <div className="flex flex-col md:flex-row items-start overflow-x-hidden">
+      <div className="md:fixed">
+
       <UserSidebar />
-      <div className="bg-white w-full h-full">
+      </div>
+      <div className="bg-white w-full h-full md:ml-64">
         {children}
         </div>
     </div>

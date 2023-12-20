@@ -3,7 +3,7 @@ import connectDb from "@/database/connectdb";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
 import { Level } from "@/models/level";
-import { getSession } from "next-auth/react";
+ 
 
 
 
@@ -12,7 +12,7 @@ const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { stat
 const checkAdminPermission = async () => {
     const session = await getServerSession(options);
     if (session && session?.user.role === 'admin') {
-        return true;
+        return session.user;
     } else return false
 };
 
@@ -72,7 +72,8 @@ export async function PUT(req: NextRequest) {
         if(duplicate && duplicate._id.toString() !== id){
             return NextResponse.json({ error: `${name} already exist` }, { status: 409 })
         }
-        await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt})
+        let iud = await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt}, { new: true, timestamps: true })
+        
         
         return NextResponse.json({ message: 'update successfully' }, { status: 200 })
     } catch (error) {

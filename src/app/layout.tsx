@@ -1,3 +1,4 @@
+import { EdgeStoreProvider } from "../lib/edgestore";
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -16,7 +16,8 @@ const config: Config = {
       
       colors:{
         "heading":"#040D12"
-      },      
+      }, 
+          
     },
     
   },
@@ -29,6 +30,7 @@ const config: Config = {
           "accent": "#37cdbe",
           "neutral": "#3d4451",
           "base-100": "#ffffff",
+          
           
 
         },

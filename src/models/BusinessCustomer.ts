@@ -1,5 +1,5 @@
+// @ts-nochec
 import mongoose from "mongoose";
-
 const Business_customerSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -9,10 +9,10 @@ const Business_customerSchema = new mongoose.Schema({
     },
     gstin: {
         type: String,
-        required: true,
         minLength: [15, "Invalid GST Number"],
         maxLength: [15, 'Invalid GST Number'],
-        trim: true  
+        trim: true  ,
+        unique:true
     },
     display_name: {
         type: String,
@@ -22,7 +22,8 @@ const Business_customerSchema = new mongoose.Schema({
     phone_number: {
         type: String,
         required: true,
-        trim: true  
+        trim: true,
+        unique:true
     },
     address: {
         type: String,

@@ -1,3 +1,4 @@
+// @ts-nochec
 import mongoose from "mongoose";
 
 const levelSchema = new mongoose.Schema({
@@ -8,10 +9,10 @@ const levelSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique:true,
+        unique: true,
         lowercase: true,
         trim: true,
-        
+
     },
     target_amt: {
         type: Number,
@@ -19,4 +20,8 @@ const levelSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
+levelSchema.pre('save', function (next) {
+    this.updatedAt = new Date();
+    next();
+});
 export const Level = mongoose.models.Level || mongoose.model('Level', levelSchema)

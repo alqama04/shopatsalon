@@ -19,4 +19,9 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
- 
+.input-base {
+  @apply w-full bg-[#F1F1F1] my-1.5 py-2.5 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md transition-all duration-75 focus:border-l-4;
+}
+.base-btn{
+  @apply btn bg-gray-800 hover:bg-gray-900 text-white 
+}

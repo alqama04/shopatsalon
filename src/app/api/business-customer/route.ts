@@ -6,23 +6,25 @@ import { User } from "@/models/User";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
 export async function POST(req: NextRequest) {
     try {
+        console.log("session")
         connectDb();
         let GSTRegex = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/;
         const phoneRegex = /^\d{10}$/;
 
         const session = await getServerSession(options);
 
+       
         if (!session) {
             return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
         }
-
-        const currentUser = await User.findOne({ email: session?.user.email }).exec();
+        const currentUser = await User.findById(session.user.userId).exec();
         if (!currentUser) {
+
             return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
         }
         const body = await req.json();
 
-        if (!GSTRegex.test(body.gstIn)) {
+        if (body.gstIn && !GSTRegex.test(body.gstIn)) {
             return NextResponse.json({ error: 'Invalid GST' }, { status: 400 });
 
         }

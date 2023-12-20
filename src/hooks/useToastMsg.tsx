@@ -7,22 +7,27 @@ const useToastMsg = () => {
   const [alertMsg, setAlertMsg] = useState("");
   const [toastType, setToastType] = useState("");
 
+  let component;
 
   setTimeout(() => {
-    setAlertMsg('')
-  }, 10000);
-
-  let component;
+    if(alertMsg){
+      setAlertMsg('')
+    }
+  }, 5000);
 
   if (alertMsg) {
     component = (
-      <div className="toast toast-top toast-center transition-all ease-in-out duration-1000">
-        <div className={`alert ${toastType ? toastType : "alert-info"}`}>
-          <span className="tracking-wider">{alertMsg}</span>
+      <div className="toast toast-top toast-center">
+        <div className={`alert  ${toastType ? toastType : "alert-info"}`}>
+          <span className="tracking-wider capitalize">
+            {alertMsg}
 
-          <button onClick={() => setAlertMsg("")}>
-            <IoClose className="-mt-5 text-white font-bold" />
-          </button>
+            <button
+              className="absolute"
+            onClick={() => setAlertMsg("")}>
+              <IoClose className="text-white font-bold text-2xl" />
+            </button>
+          </span>
         </div>
       </div>
     );

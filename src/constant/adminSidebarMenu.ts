@@ -20,12 +20,12 @@ export const adminSidebarMenu = [
         name: "profile",
         icon: FaRegCircleUser,
         iconColor: "#4169E1",
-        href: "/dashboard/profile"
+        href: "/admin-dashboard/profile"
     },
     {
         name: "Purchase Records",
         icon: CiMemoPad,
         iconColor: "#D3D3D3",
-        href: "/dashboard/purchases"
+        href: "/admin-dashboard/purchases"
     },
 ]
