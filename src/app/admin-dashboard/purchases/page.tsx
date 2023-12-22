@@ -1,14 +1,17 @@
-import React from 'react'
-import CreatePurchaseRecord from './(createPurchaseRecord)/CreatePurchaseRecord'
-import UploadFile from '../../../components/UploadFile'
+import Link from "next/link";
+import React from "react";
+import GetPurchases from "./(getPurchases)/Purchases";
+import FetchPurchases from "./(getPurchases)/FetchPurchases";
 
 const page = () => {
   return (
-     
     <div>
-        <CreatePurchaseRecord/>
+      <Link href="/admin-dashboard/purchases/add-purchase-record">
+        create Record
+      </Link>
+      <FetchPurchases />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

@@ -10,6 +10,7 @@ const HandleCreate = () => {
   const handleSubmit = async (formData: FormData) => {
     const name = formData.get("name");
     const target_amt = formData.get("target_amt");
+    const reward_percentage = formData.get("reward_percentage");
 
     if (!name || !target_amt) {
       setAlertMsg("All Fields are require");
@@ -18,7 +19,7 @@ const HandleCreate = () => {
     }
     const res = await fetch("/api/levels", {
       method: "POST",
-      body: JSON.stringify({ name, target_amt }),
+      body: JSON.stringify({ name, target_amt,reward_percentage}),
     });
     if (res.ok) {
       setAlertMsg("Level Added Successfully");
@@ -45,7 +46,13 @@ const HandleCreate = () => {
         <input
           type="number"
           name="target_amt"
-          placeholder="target amout"
+          placeholder="target amount"
+          className={inputClass}
+        />
+        <input
+          type="number"
+          name="reward_percentage"
+          placeholder="Reward Percentage"
           className={inputClass}
         />
         <div >

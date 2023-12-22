@@ -1,30 +1,22 @@
-'use client'
+"use client";
 
-import React, { useState } from "react";
-import { IoClose } from "react-icons/io5";
+import useToastMsg from "@/hooks/useToastMsg";
+import React from "react";
 
-interface toastMessage{
-    message?:string,
-    toastType?:string,
+interface toastMessage {
+  message: string;
+  toastType?: string;
 }
 
-const ToastMsg = ({ message, toastType}:toastMessage) => {
-  const [alertMsg,setAlertMsg] = useState(message||'')  
-  if(!alertMsg) return  
-  
+const ToastMsg = ({ message, toastType }: toastMessage) => {
+  const { component, setToastType, setAlertMsg } = useToastMsg();
 
-  return (
-
-    <div className="toast toast-top toast-center transition-all duration-100">
-
-      <div className={`alert ${toastType ? toastType : "alert-info"}`}>
-        <span className="tracking-wider">{alertMsg}</span>
-        <IoClose onClick={()=>setAlertMsg('')}
-        className='-mt-5 text-white font-bold'
-        />
-      </div>
-    </div>
-  );
+  if(message){
+    setAlertMsg(message || "");
+    setToastType(toastType || "alert-info");
+  }
+    
+  return <>{component}</>;
 };
 
 export default ToastMsg;

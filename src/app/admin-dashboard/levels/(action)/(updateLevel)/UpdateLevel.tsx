@@ -7,9 +7,10 @@ interface Level {
   id: string;
   name: string;
   target_amt: string;
+  reward_percentage: string;
 }
 
-const UpdateLevel = ({id,name,target_amt}:Level) => {
+const UpdateLevel = ({id,name,target_amt,reward_percentage}:Level) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   return (
     <>
@@ -24,7 +25,7 @@ const UpdateLevel = ({id,name,target_amt}:Level) => {
           <div className="modal-box">
             <h3 className="font-bold text-lg">Update Levels</h3>
             <div className="modal-action">
-              <HandleUpdate id={id} name={name} target_amt={target_amt} closeModal={setIsModalOpen}/>
+              <HandleUpdate id={id} name={name} target_amt={target_amt}  closeModal={setIsModalOpen} reward_percentage={reward_percentage} />
             </div>
             <div className="text-right">
               <button

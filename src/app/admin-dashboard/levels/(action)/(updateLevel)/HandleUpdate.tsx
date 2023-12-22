@@ -8,18 +8,26 @@ interface Level {
   id: string;
   name: string;
   target_amt: string;
+  reward_percentage?: string;
   closeModal: Dispatch<SetStateAction<boolean>>;
 }
 interface ApiResponse {
-    error?: string;
-  }
-const HandleUpdate = ({ id, name, target_amt, closeModal }: Level) => {
-    const router=  useRouter()
+  error?: string;
+}
+const HandleUpdate = ({
+  id,
+  name,
+  target_amt,
+  reward_percentage,
+  closeModal,
+}: Level) => {
+  const router = useRouter();
   const [levelData, setLevelData] = useState({
     name: name,
     target_amt: target_amt,
+    reward_percentage: reward_percentage,
   });
-  const { component,setAlertMsg,setToastType } = useToastMsg();
+  const { component, setAlertMsg, setToastType } = useToastMsg();
 
   const handleSubmit = async () => {
     try {
@@ -27,21 +35,20 @@ const HandleUpdate = ({ id, name, target_amt, closeModal }: Level) => {
         method: "PUT",
         body: JSON.stringify({ id, ...levelData }),
       });
-      
-      if(res.ok){
+
+      if (res.ok) {
         setAlertMsg("Successfully updated level!");
         setToastType("alert-success");
-        router.refresh()
-      }else{
+        router.refresh();
+      } else {
         const apiResponse: ApiResponse = await res.json();
-          setAlertMsg(apiResponse.error || 'something went wrong');
-          setToastType("alert-error");
+        setAlertMsg(apiResponse.error || "something went wrong");
+        setToastType("alert-error");
       }
 
-      console.log(res)
+      console.log(res);
     } catch (error) {
-        throw new Error("internal server Error");
-        
+      throw new Error("internal server Error");
     }
   };
 
@@ -70,6 +77,19 @@ const HandleUpdate = ({ id, name, target_amt, closeModal }: Level) => {
             setLevelData({ ...levelData, target_amt: e.target.value })
           }
         />
+        <div className="mt-2">
+          <label className="font-medium">Reward Rercentage (% not required)</label>
+          <input
+            type="number"
+            name="reward_percentage"
+            placeholder="Reward percentage"
+            className={inputClass}
+            value={levelData.reward_percentage}
+            onChange={(e) =>
+              setLevelData({ ...levelData, reward_percentage: e.target.value })
+            }
+          />
+        </div>
         <div>
           <FormSubmit className="w-full my-2 btn bg-gray-800 hover:bg-gray-900 text-white">
             update

@@ -23,21 +23,18 @@ const CreatePurchaseAction = () => {
         return
       }
       setLoading(true);
-
-      for (const url of files) {
-        await edgestore.publicFiles.confirmUpload({ url });
-      }
+        await edgestore.publicFiles.confirmUpload({ url:files[0] });
 
       const res = await fetch("/api/purchases", {
         method: "POST",
-        body: JSON.stringify({ ...purchaseInput, files }),
+        body: JSON.stringify({ ...purchaseInput, file:files[0] }),
       });
       const apiResponse = await res.json();
-
       if (res.status === 201) {
         setAlertMsg("record added successfully");
         setToastType("alert-success");
         setLoading(false);
+        setFiles([])
       } else {
         setAlertMsg(apiResponse.error || "something went wrong");
         setToastType("alert-error");
@@ -83,7 +80,11 @@ const CreatePurchaseAction = () => {
             </button>
           )}
         </div>
+        <div>
+          <p className="text-center text-[0.8rem] badge m-auto badge-warning">Only Upload One File(.pdf)</p>
+          <p className="text-[0.8rem] ">other files will be useless</p>
         <UploadFile setFiles={setFiles} />
+        </div>
       </div>
     </div>
   );

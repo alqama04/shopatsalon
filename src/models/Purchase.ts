@@ -12,14 +12,11 @@ const purchaseSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    billFile: [
-        {
-            url: {
-                type: String,
-                required: true,
-            },
-        }
-    ],
+    billFile: {
+        type:String,
+        requird:true,
+        trim:true
+    },
     purchase_date: {
         type: Date,
         default: Date.now,

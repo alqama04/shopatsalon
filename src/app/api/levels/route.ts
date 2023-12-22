@@ -42,10 +42,11 @@ export async function POST(req: NextRequest) {
         if (!isAdmin) {
             return unauthorizedResponse
         }
-        const { name, target_amt } = await req.json()
-        const level = await Level.create({
+        const { name, target_amt,reward_percentage} = await req.json()
+      await Level.create({
             name: name,
             target_amt: target_amt,
+            reward_percentage:reward_percentage
         })
 
        
@@ -62,7 +63,7 @@ export async function PUT(req: NextRequest) {
         if (!isAdmin) {
             return unauthorizedResponse
         }
-        const { id, name, target_amt } = await req.json()
+        const { id, name, target_amt,reward_percentage } = await req.json()
 
         if (!id || !name.trim() || !target_amt) {
             return NextResponse.json({ error: 'all fields are required' }, { status: 400 })
@@ -72,7 +73,7 @@ export async function PUT(req: NextRequest) {
         if(duplicate && duplicate._id.toString() !== id){
             return NextResponse.json({ error: `${name} already exist` }, { status: 409 })
         }
-        let iud = await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt}, { new: true, timestamps: true })
+        let iud = await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt,reward_percentage:reward_percentage}, { new: true, timestamps: true })
         
         
         return NextResponse.json({ message: 'update successfully' }, { status: 200 })
