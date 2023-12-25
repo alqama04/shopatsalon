@@ -1,24 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/options";
 import { Purchase } from "@/models/Purchase";
+import { isAuthenticated } from "../(lib)/checkAuth";
 
-;
-
-
-
-
-const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { status: 401 });
-
-const isAuthenticated = async () => {
-    const session = await getServerSession(options);
-    if (session) {
-        return session.user;
-    } else return false
-};
 function isValidDate(dateString:string) {
-    // Try to create a Date object from the string and check if it is a valid date
     return !isNaN(Date.parse(dateString));
 }
 
@@ -33,7 +18,9 @@ export async function GET(req: NextRequest) {
         } = {};
         await connectDb()
         const user = await isAuthenticated()
-        if (!user) return unauthorizedResponse
+        if (!user) {
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+        }
 
         let page = Number(req.nextUrl.searchParams.get('page')) || 1
         let limit = Number(req.nextUrl.searchParams.get('limit')) || 20

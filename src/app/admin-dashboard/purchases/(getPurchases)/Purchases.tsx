@@ -1,7 +1,6 @@
-"use client";
+ 
 import CustomDatePicker from "@/components/CustomDatePicker";
 import DownloadFile from "@/components/DownloadFile";
-import { useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import DeletePurchases from "../(deletePurchases)/DeletePurchases";
 
@@ -19,12 +18,6 @@ interface GetPurchasesProps {
 }
 
 const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
-  const [queryVal, setQuery] = useState({
-    userId: "",
-    amount: "",
-  });
-
-
 
   return (
     <div className="w-full min-h-screen h-full ">

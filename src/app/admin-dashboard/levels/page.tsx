@@ -4,7 +4,7 @@ import CreateLevel from "./(action)/(create-levels)/CreateLevel";
 
 const page = () => {
   return (
-    <div className="">
+    <div className="bg-white">
       <CreateLevel/>
 
       <FetchLevels/>

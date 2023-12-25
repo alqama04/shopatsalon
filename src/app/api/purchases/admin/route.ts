@@ -1,31 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { getServerSession } from "next-auth";
-import { options } from "../../auth/[...nextauth]/options";
 import { Purchase } from "@/models/Purchase";
 import { User } from "@/models/User";
-;
+import { checkAdminPermission } from "../../(lib)/checkAuth";
 
-
-
-
-const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { status: 401 });
-
-const checkAdminPermission = async () => {
-    const session = await getServerSession(options);
-    if (session && session?.user.role === 'admin') {
-        return session.user;
-    } else return false
-};
-
+ 
 export async function GET(req: NextRequest) {
     try {
         await connectDb()
         const isAdmin = await checkAdminPermission()
         if (!isAdmin) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
-
+        console.log('------------',)
         const purchases = await Purchase.find({}).populate(['user', 'addedBy'])
 
         return NextResponse.json(purchases, { status: 200 });
@@ -36,7 +23,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     try {
         const admin = await checkAdminPermission()
-        if (!admin) return unauthorizedResponse;
+        if (!admin) {
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 })
+        }
         const { userId, billamount, file } = await req.json()
         if (!userId || !billamount || !file) {
             return NextResponse.json({ error: 'all fields are required' }, { status: 400 })
@@ -66,7 +55,7 @@ export async function DELETE(req: NextRequest) {
     try {
         const admin = await checkAdminPermission()
         if (!admin) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
         const { id } = await req.json()
         if (!id) {

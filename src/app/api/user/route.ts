@@ -1,27 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/options";
 import { User } from "@/models/User";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
-
-const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { status: 401 });
-
-const isAuthenticated = async () => {
-    const session = await getServerSession(options);
-    if (session) {
-        return session.user;
-    } else return false
-};
+import { isAuthenticated } from "../(lib)/checkAuth";
 
  
-// GET User For admin to add Purchase record
+ 
+// admin can GET User For admin to add Purchase record
 export async function GET(req: NextRequest) {
     try {
         await connectDb()
         const isAuth = isAuthenticated()
         if (!isAuth) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         let user;
         const value = req.nextUrl.searchParams.get('value')

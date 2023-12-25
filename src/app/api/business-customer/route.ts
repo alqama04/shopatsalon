@@ -1,24 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/options";
 import { User } from "@/models/User";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
+import { isAuthenticated } from "../(lib)/checkAuth";
 
-const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { status: 401 });
-const isAuthenticated = async () => {
-    const session = await getServerSession(options);
-    if (session) {
-        return session.user;
-    } else return false
-};
 // get Business customer
 export async function GET(req: NextRequest) {
     try {
         await connectDb()
         const isAuth = await isAuthenticated()
         if (!isAuth) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
 
         const profile = await BusinessCustomer.findOne({ user: isAuth.userId })
@@ -34,8 +26,6 @@ export async function GET(req: NextRequest) {
     }
 }
 
-
-
 export async function POST(req: NextRequest) {
     try {
         connectDb();
@@ -44,7 +34,7 @@ export async function POST(req: NextRequest) {
 
         const isAuth = await isAuthenticated()
         if (!isAuth) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         console.log(isAuth)
         const body = await req.json();
@@ -119,7 +109,7 @@ export async function PUT(req: NextRequest) {
         const phoneRegex = /^\d{10}$/;
         const isAuth = await isAuthenticated()
         if (!isAuth) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         const body = await req.json();
         const { id, display_name, gstIn, phone, address, city, state } = body
@@ -158,8 +148,6 @@ export async function PUT(req: NextRequest) {
         customer.state = state
 
         await customer.save()
-
-
         return NextResponse.json({ user: "Profile Update successfully" }, { status: 200 });
 
     } catch (error: any) {

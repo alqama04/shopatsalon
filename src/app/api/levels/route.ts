@@ -1,33 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/options";
 import { Level } from "@/models/level";
- 
-
-
-
-const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { status: 401 });
-
-const checkAdminPermission = async () => {
-    const session = await getServerSession(options);
- 
-    if (session && session?.user.role === 'admin') {
-        return session.user;
-    } else return false
-};
-
-
-
-
+import { checkAdminPermission } from "../(lib)/checkAuth";
 
 export async function GET() {
     try {
         connectDb()
         const isAdmin = await checkAdminPermission()
-        console.log(isAdmin)
+        
         if (!isAdmin) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         const levels = await Level.find().exec()
         return NextResponse.json(levels, { status: 200 })
@@ -39,10 +21,9 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         connectDb()
-
         const isAdmin = await checkAdminPermission()
         if (!isAdmin) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         const { name, target_amt,reward_percentage} = await req.json()
       await Level.create({
@@ -50,8 +31,6 @@ export async function POST(req: NextRequest) {
             target_amt: target_amt,
             reward_percentage:reward_percentage
         })
-
-       
         return NextResponse.json({ message: 'Level created' }, { status: 201 })
     } catch (error) {
         return NextResponse.json({ error: 'internal server error' }, { status: 500 })
@@ -63,7 +42,7 @@ export async function PUT(req: NextRequest) {
         connectDb()
         const isAdmin = await checkAdminPermission()
         if (!isAdmin) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         const { id, name, target_amt,reward_percentage } = await req.json()
 
@@ -75,7 +54,7 @@ export async function PUT(req: NextRequest) {
         if(duplicate && duplicate._id.toString() !== id){
             return NextResponse.json({ error: `${name} already exist` }, { status: 409 })
         }
-        let iud = await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt,reward_percentage:reward_percentage}, { new: true, timestamps: true })
+        await Level.findByIdAndUpdate({_id:id},{name:name,target_amt:target_amt,reward_percentage:reward_percentage}, { new: true, timestamps: true })
         
         
         return NextResponse.json({ message: 'update successfully' }, { status: 200 })
@@ -89,20 +68,17 @@ export async function DELETE(req: NextRequest) {
         connectDb()
         const isAdmin = await checkAdminPermission()
         if (!isAdmin) {
-            return unauthorizedResponse
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 });
         }
         const { id } = await req.json()
 
         if (!id) {
             return NextResponse.json({ error: 'level id is required' }, { status: 400 })
-
         }
         await Level.findByIdAndDelete({ _id: id }).exec();
-
         return NextResponse.json({ message: 'level is deleted successfully' }, { status: 200 })
 
     } catch (error) {
         return NextResponse.json({ error: 'internal server error' }, { status: 500 })
-
     }
 }

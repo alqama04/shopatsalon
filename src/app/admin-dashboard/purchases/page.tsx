@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import GetPurchases from "./(getPurchases)/Purchases";
 import FetchPurchases from "./(getPurchases)/FetchPurchases";
 
 const page = () => {

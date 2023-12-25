@@ -17,6 +17,7 @@ const fetchData = async (
     );
     apiResponse = await res.json();
   } catch (error) {
+    
     throw new Error("Something went wrong");
   }
   return apiResponse;

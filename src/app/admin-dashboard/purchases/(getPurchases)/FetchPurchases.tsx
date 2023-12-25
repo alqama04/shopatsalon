@@ -9,6 +9,7 @@ const FetchPurchases = async () => {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/purchases/admin`,{ headers: headers(),});
     apiResponse = await res.json();
   } catch (error) {
+     
     throw new Error("Something went wrong");
   }
   if(apiResponse.error || !apiResponse){
@@ -18,7 +19,6 @@ const FetchPurchases = async () => {
   }
   return (
     <div>
-     
       <Purchases purchase={apiResponse}/>
     </div>
   );

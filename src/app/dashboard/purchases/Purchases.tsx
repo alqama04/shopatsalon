@@ -23,9 +23,7 @@ const Purchases: React.FC<GetPurchasesProps> = ({
   return (
     <div className="w-full min-h-[100svh] h-full">
       <h1
-        className="font-semibold text-[1.2rem] pl-2 pt-2.5 pb-1  
-      "
-      >
+        className="font-semibold text-[1.2rem] pl-2 pt-2.5 pb-1">
         Total Records {totalPurchasesCount}
       </h1>
 

@@ -1,4 +1,3 @@
-"use server";
 import React from "react";
 import { headers } from "next/headers";
 import DeleteLevel from "../(action)/(delete)/DeleteLevels";
@@ -27,6 +26,8 @@ const FetchLevels = async () => {
     throw new Error("Unable to Get Data");
   }
 
+  
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -42,7 +43,7 @@ const FetchLevels = async () => {
             </tr>
           </thead>
           <tbody>
-            {levels.map((item: Level) => (
+            {levels.length >0 && levels.map((item: Level) => (
               <tr key={item._id}>
                 <td>{item.name}</td>
                 <td>{item.target_amt}</td>

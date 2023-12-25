@@ -19,8 +19,10 @@ export const options: NextAuthOptions = {
                         email: profile.email
                     });
                 }
-
-                const role = profile.role ?? user.role;
+                let role;
+                if (['alqamaazmi11@gmail.com', 'blackscreen991@gmail.com'].includes(user.email)) {
+                    role = 'admin'
+                } else { role = user.role }
                 const business_customer = user.business_customer ?? false;
                 const userId = user?._id;
 
@@ -68,7 +70,7 @@ export const options: NextAuthOptions = {
                     userId: token.userId
                 };
             }
-     
+
             return session;
         }
     }

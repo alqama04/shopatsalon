@@ -8,7 +8,7 @@ import React, { useState } from "react";
 const BusinessProfileAction = () => {
   const router = useRouter();
   const { data: session, update } = useSession();
-
+  
   const { component, setToastType, setAlertMsg } = useToastMsg();
   const [profile, setProfileData] = useState({
     display_name: "",
@@ -18,7 +18,6 @@ const BusinessProfileAction = () => {
     city: "",
     state: "",
   });
-  console.log(profile)
 
   const handleBusinessProfile = async () => {
     const GSTRegex = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/;
