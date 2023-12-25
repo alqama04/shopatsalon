@@ -8,11 +8,14 @@ import useToastMsg from "@/hooks/useToastMsg";
 const CreatePurchaseAction = () => {
   const [files, setFiles] = useState<string[]>([]);
   const { component, setAlertMsg, setToastType } = useToastMsg();
+  const [loading, setLoading] = useState(false);
+  const [clearFileState, setClearFileState] = useState(false);
+
   const [purchaseInput, setPurchaseInput] = useState({
     userId: "",
     billamount: "",
   });
-  const [loading, setLoading] = useState(false);
+
   const { edgestore } = useEdgeStore();
   const handlePurchase = async (e: any) => {
     e.preventDefault();
@@ -20,28 +23,30 @@ const CreatePurchaseAction = () => {
       if (!purchaseInput.userId || !purchaseInput.billamount || !files.length) {
         setAlertMsg("All fields are required");
         setToastType("alert-error");
-        return
+        return;
       }
       setLoading(true);
-        await edgestore.publicFiles.confirmUpload({ url:files[0] });
+      await edgestore.publicFiles.confirmUpload({ url: files[0] });
 
-      const res = await fetch("/api/purchases", {
+      const res = await fetch("/api/purchases/admin", {
         method: "POST",
-        body: JSON.stringify({ ...purchaseInput, file:files[0] }),
+        body: JSON.stringify({ ...purchaseInput, file: files[0] }),
       });
       const apiResponse = await res.json();
       if (res.status === 201) {
         setAlertMsg("record added successfully");
         setToastType("alert-success");
         setLoading(false);
-        setFiles([])
+        setClearFileState((prev) => !prev);
+        setFiles([]);
+        setPurchaseInput({ userId: "", billamount: "" });
       } else {
         setAlertMsg(apiResponse.error || "something went wrong");
         setToastType("alert-error");
         setLoading(false);
       }
     } catch (error) {
-      setLoading(true);
+      setLoading(false);
       throw new Error("Internal server Error");
     }
   };
@@ -81,9 +86,11 @@ const CreatePurchaseAction = () => {
           )}
         </div>
         <div>
-          <p className="text-center text-[0.8rem] badge m-auto badge-warning">Only Upload One File(.pdf)</p>
+          <p className="text-center text-[0.8rem] badge m-auto badge-warning">
+            Only Upload One File(.pdf)
+          </p>
           <p className="text-[0.8rem] ">other files will be useless</p>
-        <UploadFile setFiles={setFiles} />
+          <UploadFile setFiles={setFiles} clearFileState={clearFileState} />
         </div>
       </div>
     </div>

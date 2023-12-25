@@ -12,7 +12,6 @@ import { IoClose } from "react-icons/io5";
 const UserSidebar = () => {
   const { data: session } = useSession();
   const currentRoute = usePathname();
-
   const [DrawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -76,9 +75,9 @@ const UserSidebar = () => {
                     key={item.name}
                     href={item.href}
                     className={`flex gap-2 items-center mt-4 capitalize tracking-wider text-[1rem]   py-[0.7rem] px-1 rounded-md
-                    transition-all ease-in duration-150 delay-0  ${
-                      currentRoute == item.href &&
-                      "shadow-gray-700 shadow-md border-l-[8px] border-gray-300"
+                    transition-all ease-in duration-150 delay-0 border-gray-700  ${
+                      currentRoute === item.href &&
+                      "shadow-gray-800 shadow-inner border-l-[6px]"
                     }`}
                   >
                     <item.icon

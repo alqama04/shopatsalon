@@ -19,7 +19,7 @@ const DeletePurchases = ({ id, url }: purchaseId) => {
   async function delteData() {
     try {
       setLoading(true)
-      const res = await fetch("/api/purchases", {
+      const res = await fetch("/api/purchases/admin", {
         method: "DELETE",
         body: JSON.stringify({ id }),
       });
@@ -73,7 +73,6 @@ const DeletePurchases = ({ id, url }: purchaseId) => {
                   Continue
                 </button>
                 :
-
                 <button
                   className="btn btn-md bg-red-600 rounded-lg text-white tracking-wider border-none hover:bg-red-700">
                   Deleting <span className="loading loading-dots"/>

@@ -3,7 +3,7 @@ import connectDb from "@/database/connectdb";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/options";
 import { Purchase } from "@/models/Purchase";
-import { User } from "@/models/User";
+
 ;
 
 
@@ -11,79 +11,62 @@ import { User } from "@/models/User";
 
 const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
-const checkAdminPermission = async () => {
+const isAuthenticated = async () => {
     const session = await getServerSession(options);
-    if (session && session?.user.role === 'admin') {
+    if (session) {
         return session.user;
     } else return false
 };
-
+function isValidDate(dateString:string) {
+    // Try to create a Date object from the string and check if it is a valid date
+    return !isNaN(Date.parse(dateString));
+}
 
 export async function GET(req: NextRequest) {
-    await connectDb()
-    let purchases
-    // const admin = await checkAdminPermission()
-    // if(admin){
-    // }
-    // console.log(req.nextUrl.searchParams.get('keyword'))
-
-    purchases = await Purchase.find({}).populate(['user','addedBy'])
-
-    return NextResponse.json(purchases, { status: 200 });
-}
-export async function POST(req: NextRequest) {
     try {
-        const admin = await checkAdminPermission()
-        if (!admin) return unauthorizedResponse;
-        const { userId, billamount, file } = await req.json()
-        if (!userId || !billamount || !file) {
-            return NextResponse.json({ error: 'all fields are required' }, { status: 400 })
+        let queryData: {
+            user?: string,
+            createdAt?: {
+                $gte: any,
+                $lt: any,
+            };
+        } = {};
+        await connectDb()
+        const user = await isAuthenticated()
+        if (!user) return unauthorizedResponse
+
+        let page = Number(req.nextUrl.searchParams.get('page')) || 1
+        let limit = Number(req.nextUrl.searchParams.get('limit')) || 20
+        let fromDate = req.nextUrl.searchParams.get('fromDate') || ''
+        let toDate = req.nextUrl.searchParams.get('toDate') || ''
+
+
+
+        if (isValidDate(fromDate) && isValidDate(toDate)) {
+            queryData.createdAt = {
+                $gte: new Date(fromDate).toISOString(),
+                $lt: new Date(toDate).toISOString(),
+            };
         }
-        const user = await User.findById(userId).exec()
-        if (!user) {
-            return NextResponse.json({ error: 'user does not exist' }, { status: 400 })
-        }
-        const purchase = await Purchase.create({
-            user: user._id,
-            amount: Number(billamount),
-            billFile: file.toString(),
-            addedBy: admin.userId
-        })
-        if (purchase) {
-            return NextResponse.json({ success: 'saved successfully' }, { status: 201 })
-        }
-        else {
-            return NextResponse.json({ error: 'Unable create purchase record' }, { status: 400 })
-        }
+        let skip = (page - 1) * limit
+
+        queryData.user = user?.userId
+        console.log(queryData)
+
+        const purchases = await Purchase.find(queryData)
+            .populate('user', { username: 1 })
+            .populate('addedBy', { username: 1 })
+            .skip(skip)
+            .limit(limit)
+            .sort('-createdAt')
+
+
+        const totalPurchasesCount = await Purchase.countDocuments(queryData)
+
+        return NextResponse.json({ purchases, totalPurchasesCount }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error: 'internal server error' }, { status: 500 })
+        console.log(error)
+        return NextResponse.json({ error: "internal server error" }, { status: 500 })
     }
 }
 
-export async function DELETE(req: NextRequest) {
-    try {
-        
-    const admin = checkAdminPermission()
-    if(!admin){
-        return unauthorizedResponse
-    }
-
-    const {id} = await req.json()
-     
-    if(!id){
-        return NextResponse.json({error:"Id is required"},{status:400})
-    }
-
-    const purchase = await Purchase.findByIdAndDelete({_id:id})
-  
-    if(purchase){
-        return NextResponse.json({message:"record deleted successfully"},{status:200})
-    }
-    return NextResponse.json({error:"record not found"},{status:400})
-
-
-} catch (error) {
-    return NextResponse.json({error:"Something went wrong"},{status:500})
-}
-
-}

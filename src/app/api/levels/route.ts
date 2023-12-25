@@ -11,6 +11,7 @@ const unauthorizedResponse = NextResponse.json({ error: "unauthorized" }, { stat
 
 const checkAdminPermission = async () => {
     const session = await getServerSession(options);
+ 
     if (session && session?.user.role === 'admin') {
         return session.user;
     } else return false
@@ -24,6 +25,7 @@ export async function GET() {
     try {
         connectDb()
         const isAdmin = await checkAdminPermission()
+        console.log(isAdmin)
         if (!isAdmin) {
             return unauthorizedResponse
         }

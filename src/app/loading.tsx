@@ -2,7 +2,7 @@ import React from "react";
 
 const loading = () => {
   return (
-    <div className="absolute w-screen h-[100svh] z-10">
+    <div className=" w-screen h-[100svh] z-10">
       <div className="flex flex-col gap-4 p-4 sm:hidden justify-center w-full">
         <div className="skeleton h-32 w-full"></div>
         <div className="skeleton h-4 w-28"></div>

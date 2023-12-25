@@ -1,24 +1,25 @@
 import React from "react";
-import GetPurchases from "./Purchases";
-import ToastMsg from "@/components/ToastMsg";
-
+import Purchases from "./Purchases";
+import { headers } from "next/headers";
+ 
 const FetchPurchases = async () => {
-  let messages;
+
   let apiResponse;
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/purchases`);
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/purchases/admin`,{ headers: headers(),});
     apiResponse = await res.json();
-
-    if (apiResponse.error) {
-      messages = apiResponse.error || "unknown error Occured";
-    }
   } catch (error) {
     throw new Error("Something went wrong");
   }
+  if(apiResponse.error || !apiResponse){
+    return <div>
+      <h1 className="text-center text-4xl font-bold mt-20">{apiResponse?.error || "unknown error Occured"} </h1>
+    </div>
+  }
   return (
     <div>
-      <ToastMsg message={messages} />
-      <GetPurchases purchase={apiResponse}/>
+     
+      <Purchases purchase={apiResponse}/>
     </div>
   );
 };

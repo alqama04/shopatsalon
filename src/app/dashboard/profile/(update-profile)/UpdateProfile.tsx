@@ -1,30 +1,44 @@
 "use client";
 import FormSubmit from "@/components/FormSubmit";
 import useToastMsg from "@/hooks/useToastMsg";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const BusinessProfileAction = () => {
-  const router = useRouter();
-  const { data: session, update } = useSession();
+interface ProfileDataProps {
+  profileData: {
+    _id: string;
+    display_name: string;
+    gstin?: string;
+    phone_number?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+  };
+}
 
+const BusinessProfileAction = ({ profileData }: ProfileDataProps) => {
+  const router = useRouter();
   const { component, setToastType, setAlertMsg } = useToastMsg();
   const [profile, setProfileData] = useState({
-    display_name: "",
-    gstIn: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
+    display_name: profileData.display_name || "",
+    gstIn: profileData.gstin || "",
+    phone: profileData.phone_number || "",
+    address: profileData.address || "",
+    city: profileData.city || "",
+    state: profileData.state || "",
   });
-  console.log(profile)
 
   const handleBusinessProfile = async () => {
     const GSTRegex = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/;
     const phoneRegex = /^\d{10}$/;
 
-    if (!profile.display_name || !profile.phone || !profile.address) {
+    if (
+      !profile.display_name ||
+      !profile.phone ||
+      !profile.address ||
+      !profile.address ||
+      !profile.city
+    ) {
       setAlertMsg("all fields are required");
       setToastType("alert-error");
       return;
@@ -42,21 +56,17 @@ const BusinessProfileAction = () => {
 
     try {
       const res = await fetch("/api/business-customer", {
-        method: "POST",
-        body: JSON.stringify(profile),
+        method: "PUT",
+        body: JSON.stringify({id:profileData._id,...profile}),
         headers: { "Content-Type": "application/json" },
       });
 
       const apiResponse = await res.json();
       if (res.status === 200) {
-        await update({
-          ...session,
-          user: { ...session?.user, business_customer: true },
-        });
-
+        setAlertMsg('Profile Updated')
+        setToastType('alert-success')
         router.refresh();
       } else {
-        console.log(apiResponse.error)
         setAlertMsg(apiResponse.error || "Unknown error occurred");
         setToastType("alert-error");
         return;
@@ -71,14 +81,15 @@ const BusinessProfileAction = () => {
       {component}
       <div className="flex-1 flex md:justify-center items-center flex-col">
         <h1 className="mt-2 font-bold text-[1.4rem] text-center text-heading tracking-wider">
-          Complete Your Profile
+          Your Profile Details
         </h1>
 
         <form action={handleBusinessProfile}>
           <div className="px-2.5 md:px-10 md:mt-3">
-            {Object.keys(profile).map((item) => (
-             
-                 item !== "city" && item !== "state" && (
+            {Object.keys(profile).map(
+              (item) =>
+                item !== "city" &&
+                item !== "state" && (
                   <input
                     type="text"
                     key={item}
@@ -90,34 +101,33 @@ const BusinessProfileAction = () => {
                       })
                     }
                     placeholder={item.replace("_", " ")}
-                    className="input-base"
+                    className="input-base my-1.5"
                   />
                 )
-               
-            ))}
-            <div className="flex gap-2 w-full">
-            {Object.keys(profile).map((item) => (
-              
-                ['city','state'].includes(item)? (
-                  <input
-                    type="text"
-                    key={item}
-                    value={profile[item as keyof typeof profile]}
-                    onChange={(e) =>
-                      setProfileData({
-                        ...profile,
-                        [item]: e.target.value,
-                      })
-                    }
-                    placeholder={item.replace("_", " ")}
-                    className="input-base"
-                  />
-                ):''
-            ))}
+            )}
+            <div className="flex gap-2.5 w-full">
+              {Object.keys(profile).map(
+                (item) =>
+                  ["city", "state"].includes(item) && (
+                    <input
+                      type="text"
+                      key={item}
+                      value={profile[item as keyof typeof profile]}
+                      onChange={(e) =>
+                        setProfileData({
+                          ...profile,
+                          [item]: e.target.value,
+                        })
+                      }
+                      placeholder={item.replace("_", " ")}
+                      className="input-base"
+                    />
+                  )
+              )}
             </div>
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 pb-2">
               <FormSubmit className="base-btn w-1/2 tracking-wider  ">
-                Save
+                Update
               </FormSubmit>
             </div>
           </div>

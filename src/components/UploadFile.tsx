@@ -4,14 +4,19 @@ import {
   type FileState,
 } from "@/components/Multi-file-dropzone";
 import { useEdgeStore } from "@/lib/edgestore";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface setFilesProps {
   setFiles: Dispatch<SetStateAction<string[]>>;
+  clearFileState?:Boolean,
 }
-export default function UploadFile({ setFiles }: setFilesProps) {
+export default function UploadFile({ setFiles,clearFileState }: setFilesProps) {
   const [fileStates, setFileStates] = useState<FileState[]>([]);
 
+  useEffect(()=>{
+    setFileStates([])
+  },[clearFileState])
+  
   const { edgestore } = useEdgeStore();
   function updateFileProgress(key: string, progress: FileState["progress"]) {
     setFileStates((fileStates) => {
@@ -53,6 +58,7 @@ export default function UploadFile({ setFiles }: setFilesProps) {
                 });
 
                 setFiles((prevFiles) => [...prevFiles, res.url]);
+                
               } catch (err) {
                 updateFileProgress(addedFileState.key, "ERROR");
               }

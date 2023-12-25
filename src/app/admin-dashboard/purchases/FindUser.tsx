@@ -23,9 +23,9 @@ const FindUser = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      let res = await fetch("/api/user", {
-        method: "POST",
-        body: JSON.stringify({ value, searchThrough }),
+      let res = await fetch(`/api/user?value=${value}&searchThrough=${searchThrough}`, {
+        // method: "POST",
+        // body: JSON.stringify({ value, searchThrough }),
       });
       setLoading(false);
       const apiResponse: ApiResponse = await res.json();

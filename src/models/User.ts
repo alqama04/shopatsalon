@@ -6,21 +6,26 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'User Name is required'],
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
         required: [true, 'Email is required'],
-        unique:true
+        unique: true
     },
-   
-    role:{
-        type:String,
-        default:"user"
+    profileImage: {
+        type: String,
     },
-    business_customer:{
-        type:Boolean,
-        default:false
-    } ,
-   
-},{timestamps:true})
+    role: {
+        type: String,
+        default: "user"
+    },
+    business_customer: {
+        type: Boolean,
+        default: false
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    }
+}, { timestamps: true })
 
-export const User = mongoose.models.User || mongoose.model('User',userSchema)
+export const User = mongoose.models.User || mongoose.model('User', userSchema)

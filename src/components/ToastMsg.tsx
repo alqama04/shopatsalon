@@ -10,13 +10,12 @@ interface toastMessage {
 
 const ToastMsg = ({ message, toastType }: toastMessage) => {
   const { component, setToastType, setAlertMsg } = useToastMsg();
-
   if(message){
     setAlertMsg(message || "");
     setToastType(toastType || "alert-info");
-  }
     
-  return <>{component}</>;
+    return <>{component}</>;
+  }
 };
 
 export default ToastMsg;

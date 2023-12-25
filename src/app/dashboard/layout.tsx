@@ -21,7 +21,7 @@ export default async function RootLayout({
 
       <UserSidebar />
       </div>
-      <div className="bg-white w-full h-full md:ml-64">
+      <div className="w-full min-h-screen h-full md:ml-64">
         {children}
         </div>
     </div>

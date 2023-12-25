@@ -31,7 +31,21 @@ const Business_customerSchema = new mongoose.Schema({
         minLength: [10, "Address should be 10 characters long"],
         maxLength: [60, 'Address can not be more than 60 characters.'],
         trim: true  
-    }
+    },
+    city: {
+        type: String,
+        required: true,
+        minLength: [4, "Address should be 10 characters long"],
+        maxLength: [60, 'Address can not be more than 60 characters.'],
+        trim: true  
+    },
+    state: {
+        type: String,
+        required: true,
+        minLength: [4, "Address should be 10 characters long"],
+        maxLength: [60, 'Address can not be more than 60 characters.'],
+        trim: true  
+    },
 }, { timestamps: true });
 
 export const BusinessCustomer = mongoose.models.BusinessCustomer || mongoose.model('BusinessCustomer', Business_customerSchema);

@@ -16,11 +16,13 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 .input-base {
-  @apply w-full bg-[#F1F1F1] my-1.5 py-2.5 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md transition-all duration-75 focus:border-l-4;
+  @apply w-full bg-[#F1F1F1] my-[5px] py-2.5 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md transition-all duration-75 focus:border-l-4;
 }
 .base-btn{
   @apply btn bg-gray-800 hover:bg-gray-900 text-white 
 }
+
+/* calender edit */
 .react-calendar__tile{
   border-radius: 20px;
   transition: all 0.3s ease-in;
@@ -39,9 +41,9 @@ input::-webkit-inner-spin-button {
   color: #f1f1f1!important;
 }
 .react-calendar__tile--now{
-  background:#ececec!important;
-  color: #1b1c1d!important;
-  box-shadow: none;
+  background:#1f1e1e!important;
+  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
+   
 }
 .react-calendar__month-view__days__day--weekend{
   color:#f1f1f1!important
@@ -52,6 +54,7 @@ input::-webkit-inner-spin-button {
     border-radius: 10px;
 }
 /* nav button */
+.react-calendar__navigation button:focus,
 .react-calendar__navigation button:hover{
   background-color: #1f1e1e!important;
   border-radius: 10px;

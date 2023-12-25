@@ -22,6 +22,7 @@ const levelSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    
 }, { timestamps: true })
 
 levelSchema.pre('save', function (next) {

@@ -7,7 +7,7 @@ import DeletePurchases from "../(deletePurchases)/DeletePurchases";
 
 interface Purchase {
   _id: string;
-  billFile: string ;
+  billFile: string;
   amount: string;
   createdAt: string;
   user: { username: string };
@@ -18,12 +18,14 @@ interface GetPurchasesProps {
   purchase: Purchase[];
 }
 
-const GetPurchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
+const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
   const [queryVal, setQuery] = useState({
     userId: "",
     amount: "",
   });
-  
+
+
+
   return (
     <div className="w-full min-h-screen h-full ">
       <div className="flex justify-between p-2">
@@ -63,13 +65,18 @@ const GetPurchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
             {purchase.map((item) => (
               <tr key={item._id}>
                 <td>
-                  <DownloadFile url={item.billFile} fileName={`bill of ${item.amount}`} />
+                  <DownloadFile
+                    url={item.billFile}
+                    fileName={`bill of ${item.amount}`}
+                  />
                 </td>
                 <td>{item?.amount}</td>
                 <td>{item?.createdAt}</td>
                 <td>{item?.user?.username}</td>
                 <td className="font-bold">{item?.addedBy?.username}</td>
-                <td><DeletePurchases id={item._id} url={item.billFile} /></td>
+                <td>
+                  <DeletePurchases id={item._id} url={item.billFile} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -79,4 +86,4 @@ const GetPurchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
   );
 };
 
-export default GetPurchases;
+export default Purchases;

@@ -1,6 +1,5 @@
 import { getDownloadUrl } from "@edgestore/react/utils";
 import { IoMdCloudDownload } from "react-icons/io";
-import ToastMsg from "./ToastMsg";
 
 interface DownloadProps {
   url: string;
@@ -9,18 +8,16 @@ interface DownloadProps {
 
 const DownloadFile = async({ url, fileName }: DownloadProps) => {
   let downloadUrl
-  let message=''
     try {
       const getUrl = await getDownloadUrl(url, `bill-of ${fileName}.pdf`);
       downloadUrl = getUrl
     } catch (error) {
-      message = "Error retrieving download URL"
+      console.log("Error downloading file", error)
     }
  
 
   return (
     <div>
-      <ToastMsg message={message} toastType="alert-error"/>
       {downloadUrl &&
         <a href={downloadUrl} download={fileName}  className="flex flex-col">
         <IoMdCloudDownload  size={25}/>
