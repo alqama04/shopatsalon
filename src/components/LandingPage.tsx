@@ -9,7 +9,6 @@ const LandingPage = () => {
     <div>
       <div className="w-screen h-[100svh]">
         <div className="h-full">
-          <Navbar />
           <Image
             src={landingImage}
             width={1300}

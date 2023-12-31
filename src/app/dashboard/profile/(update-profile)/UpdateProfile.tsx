@@ -8,7 +8,6 @@ interface ProfileDataProps {
   profileData: {
     _id: string;
     display_name: string;
-    gstin?: string;
     phone_number?: string;
     address?: string;
     city?: string;
@@ -19,35 +18,18 @@ interface ProfileDataProps {
 const BusinessProfileAction = ({ profileData }: ProfileDataProps) => {
   const router = useRouter();
   const { component, setToastType, setAlertMsg } = useToastMsg();
+
   const [profile, setProfileData] = useState({
     display_name: profileData.display_name || "",
-    gstIn: profileData.gstin || "",
     phone: profileData.phone_number || "",
     address: profileData.address || "",
     city: profileData.city || "",
     state: profileData.state || "",
   });
 
-  const handleBusinessProfile = async () => {
-    const GSTRegex = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/;
+const handleBusinessProfile = async () => {
     const phoneRegex = /^\d{10}$/;
 
-    if (
-      !profile.display_name ||
-      !profile.phone ||
-      !profile.address ||
-      !profile.address ||
-      !profile.city
-    ) {
-      setAlertMsg("all fields are required");
-      setToastType("alert-error");
-      return;
-    }
-    if (profile.gstIn && !GSTRegex.test(profile.gstIn)) {
-      setAlertMsg("Invalid GSTIN");
-      setToastType("alert-error");
-      return;
-    }
     if (!phoneRegex.test(profile.phone)) {
       setAlertMsg("Invalid phone number");
       setToastType("alert-error");
@@ -62,7 +44,7 @@ const BusinessProfileAction = ({ profileData }: ProfileDataProps) => {
       });
 
       const apiResponse = await res.json();
-      if (res.status === 200) {
+      if (res.ok) {
         setAlertMsg('Profile Updated')
         setToastType('alert-success')
         router.refresh();
@@ -72,6 +54,7 @@ const BusinessProfileAction = ({ profileData }: ProfileDataProps) => {
         return;
       }
     } catch (error) {
+      
       throw new Error("something went wrong");
     }
   };
@@ -93,6 +76,7 @@ const BusinessProfileAction = ({ profileData }: ProfileDataProps) => {
                   <input
                     type="text"
                     key={item}
+                    required
                     value={profile[item as keyof typeof profile]}
                     onChange={(e) =>
                       setProfileData({
@@ -112,6 +96,7 @@ const BusinessProfileAction = ({ profileData }: ProfileDataProps) => {
                     <input
                       type="text"
                       key={item}
+                      required
                       value={profile[item as keyof typeof profile]}
                       onChange={(e) =>
                         setProfileData({

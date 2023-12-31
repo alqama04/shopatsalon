@@ -1,12 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body{
+
+html,body {
   overflow-x: hidden;
   overflow-y: auto;
   background: #f1f1f1;
+  min-height: 100svh;
+  height: 100%;
 }
-p{
+p {
   color: rgba(32, 31, 31, 0.925);
   letter-spacing: 1.1px;
 }
@@ -18,56 +21,60 @@ input::-webkit-inner-spin-button {
 .input-base {
   @apply w-full bg-[#F1F1F1] my-[5px] py-2.5 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md transition-all duration-75 focus:border-l-4;
 }
-.base-btn{
-  @apply btn bg-gray-800 hover:bg-gray-900 text-white 
+.base-btn {
+  @apply btn bg-gray-800 hover:bg-gray-900 text-white;
 }
 
 /* calender edit */
-.react-calendar__tile{
+.react-calendar__tile {
   border-radius: 20px;
   transition: all 0.3s ease-in;
 }
 .react-calendar__tile--active {
-  background: #1f1e1e!important;
-  color: #e4e4e4!important;
+  background: #1f1e1e !important;
+  color: #e4e4e4 !important;
   border-radius: 20px;
-  font-weight: bold!important;
-  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
+  font-weight: bold !important;
+  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset,
+    rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
 }
 
-.react-calendar__tile:hover{
-  background: #1f1e1e!important;
-  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
-  color: #f1f1f1!important;
+.react-calendar__tile:hover {
+  background: #1f1e1e !important;
+  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset,
+    rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
+  color: #f1f1f1 !important;
 }
-.react-calendar__tile--now{
-  background:#1f1e1e!important;
-  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
-   
+.react-calendar__tile--now {
+  background: #1f1e1e !important;
+  box-shadow: rgb(39, 39, 39) 3px 3px 6px 0px inset,
+    rgba(7, 7, 7, 0.5) -3px -3px 6px 1px inset;
 }
-.react-calendar__month-view__days__day--weekend{
-  color:#f1f1f1!important
+.react-calendar__month-view__days__day--weekend {
+  color: #f1f1f1 !important;
 }
 .react-calendar {
-    background-color: #1b1c1d!important;
-    color: #f1f1f1;
-    border-radius: 10px;
+  background-color: #1b1c1d !important;
+  color: #f1f1f1;
+  border-radius: 10px;
 }
 /* nav button */
 .react-calendar__navigation button:focus,
-.react-calendar__navigation button:hover{
-  background-color: #1f1e1e!important;
+.react-calendar__navigation button:hover {
+  background-color: #1f1e1e !important;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 .react-date-picker__inputGroup__input:invalid {
-  background: transparent!important  ;
+  background: transparent !important  ;
 }
-.react-date-picker__wrapper{
-  background: #1f1e1e!important;
+.react-date-picker__wrapper {
+  background: #1f1e1e !important;
   border: none;
   border-radius: 50px;
   color: #f1f1f1;
-  padding:0 5px;
-  height: 40px!important;
+  padding: 0 5px;
+  height: 40px !important;
 }
+
+ 

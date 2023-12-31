@@ -1,9 +1,27 @@
 "use client";
 import React, { useState } from "react";
-import UploadFile from "../../../../components/UploadFile";
 import { useEdgeStore } from "@/lib/edgestore";
-import FindUser from "../FindUser";
+import dynamic from "next/dynamic";
 import useToastMsg from "@/hooks/useToastMsg";
+import { Skeleton, Skeleton2 } from "@/components/Skeleton";
+
+const UploadFile = dynamic(() => import("@/components/UploadFile"), {
+  ssr: false,
+  loading() {
+    return <Skeleton/>;
+  },
+});
+
+const FindUser = dynamic(() => import("../FindUser"), {
+  ssr: false,
+  loading() {
+    return (
+      <div>
+        <Skeleton2 />
+      </div>
+    );
+  },
+});
 
 const CreatePurchaseAction = () => {
   const [files, setFiles] = useState<string[]>([]);

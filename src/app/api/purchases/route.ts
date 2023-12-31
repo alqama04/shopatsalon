@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
         let skip = (page - 1) * limit
 
         queryData.user = user?.userId
-        console.log(queryData)
+       
 
         const purchases = await Purchase.find(queryData)
             .populate('user', { username: 1 })
@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ purchases, totalPurchasesCount }, { status: 200 });
     } catch (error) {
-        console.log(error)
+    
         return NextResponse.json({ error: "internal server error" }, { status: 500 })
     }
 }

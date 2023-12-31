@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "./context/AuthProvider";
-const inter = Rubik({ subsets: ["latin"] });
+const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Shop At Salon",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={rubik.className}>
         <AuthProvider>
           <EdgeStoreProvider>{children}</EdgeStoreProvider>
         </AuthProvider>

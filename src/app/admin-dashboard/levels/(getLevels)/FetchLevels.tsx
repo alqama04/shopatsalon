@@ -1,7 +1,20 @@
-import React from "react";
 import { headers } from "next/headers";
-import DeleteLevel from "../(action)/(delete)/DeleteLevels";
-import UpdateLevel from "../(action)/(updateLevel)/UpdateLevel";
+import dynamic from "next/dynamic";
+
+const UpdateLevel = dynamic(()=>import('../(action)/(updateLevel)/UpdateLevel'),{
+  ssr:false,
+  loading() {
+    return <button className="loading loading-spinner loading-sm bg-gray-800"/>;
+  },
+})
+ 
+const DeleteLevel = dynamic(()=>import("../(action)/(delete)/DeleteLevels"),{
+  ssr:false,
+  loading() {
+    return <button className="loading loading-spinner loading-sm bg-red-700"/>;
+  },
+})
+
 
 interface Level {
   _id: string;
@@ -18,16 +31,12 @@ const FetchLevels = async () => {
       method: "GET",
       headers: headers(),
     });
-
     levels = await response.json();
   } catch (error) {
     levels = [];
-    console.log(error)
+   
     throw new Error("Unable to Get Data");
   }
-
-  
-
   return (
     <>
       <div className="overflow-x-auto">

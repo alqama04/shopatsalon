@@ -19,7 +19,6 @@ const HandleUpdate = ({
   name,
   target_amt,
   reward_percentage,
-  closeModal,
 }: Level) => {
   const router = useRouter();
   const [levelData, setLevelData] = useState({
@@ -30,6 +29,14 @@ const HandleUpdate = ({
   const { component, setAlertMsg, setToastType } = useToastMsg();
 
   const handleSubmit = async () => {
+    console.log(reward_percentage)
+    if (!name || !target_amt || !reward_percentage) {
+      setAlertMsg("all fields are required");
+      setToastType("alert-error");
+      return;
+    }
+
+   
     try {
       let res = await fetch("/api/levels", {
         method: "PUT",
@@ -63,6 +70,7 @@ const HandleUpdate = ({
           type="text"
           name="name"
           placeholder="Name"
+          required
           className={inputClass}
           value={levelData.name}
           onChange={(e) => setLevelData({ ...levelData, name: e.target.value })}
@@ -70,7 +78,8 @@ const HandleUpdate = ({
         <input
           type="number"
           name="target_amt"
-          placeholder="target amout"
+          placeholder="target amount"
+          required
           className={inputClass}
           value={levelData.target_amt}
           onChange={(e) =>
@@ -78,11 +87,14 @@ const HandleUpdate = ({
           }
         />
         <div className="mt-2">
-          <label className="font-medium">Reward Rercentage (% not required)</label>
+          <label className="font-medium">
+            Reward Rercentage (% not required)
+          </label>
           <input
             type="number"
             name="reward_percentage"
             placeholder="Reward percentage"
+            required
             className={inputClass}
             value={levelData.reward_percentage}
             onChange={(e) =>

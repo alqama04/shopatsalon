@@ -3,6 +3,7 @@
 import mongoose from "mongoose";
 
 const purchaseSchema = new mongoose.Schema({
+    // buye ->(or customer) user
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
@@ -17,10 +18,7 @@ const purchaseSchema = new mongoose.Schema({
         requird:true,
         trim:true
     },
-    purchase_date: {
-        type: Date,
-        default: Date.now,
-    },
+    
     addedBy: {
         type: mongoose.Schema.ObjectId,
         ref: "User",

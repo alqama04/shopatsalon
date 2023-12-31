@@ -1,7 +1,8 @@
 import React from "react";
-import { headers } from "next/headers";
-import Purchases from "./Purchases";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { headers } from "next/headers";
+const Purchases = dynamic(()=>import('./Purchases'))
 
 const fetchData = async (
   page: number,
@@ -17,7 +18,6 @@ const fetchData = async (
     );
     apiResponse = await res.json();
   } catch (error) {
-    
     throw new Error("Something went wrong");
   }
   return apiResponse;
@@ -28,8 +28,9 @@ const FetchPurchases = async ({ searchParams }: any) => {
   const limit = Number(searchParams.limit) || 5;
   const fromDate = searchParams.from;
   const toDate = searchParams.to;
-   
+
   let apiResponse = await fetchData(page, limit, fromDate, toDate);
+
   if (apiResponse.error || !apiResponse) {
     return (
       <div>
@@ -41,13 +42,14 @@ const FetchPurchases = async ({ searchParams }: any) => {
   }
 
   return (
-    <div className="bg-white rounded-md shadow-lg h-full">
+    <div className="bg-gray-900 text-white shadow-lg">
+
       <Purchases
         purchases={apiResponse.purchases}
         totalPurchasesCount={apiResponse.totalPurchasesCount}
       />
 
-      <div className="join mb-1 justify-center w-full m-aut">
+      <div className="join my-1 justify-center w-full m-auto">
         {page > 1 ? (
           <Link
             href={`/dashboard/purchases?page=${page - 1}&limit=${limit}`}
@@ -59,12 +61,21 @@ const FetchPurchases = async ({ searchParams }: any) => {
           <button className="join-item base-btn opacity-70">«</button>
         )}
 
-        <button className="join-item base-btn">Page {page}</button>
+        <button className="join-item base-btn">
+          Page
+          {Math.ceil(
+            apiResponse.purchases.length/apiResponse.totalPurchasesCount 
+          )}
+        </button>
 
         {apiResponse.purchases.length === limit ? (
           <Link
             href={`/dashboard/purchases?page=${page + 1}&limit=${limit}
-            ${fromDate && toDate?`&fromDate=${fromDate} &toDate=${toDate}`:''}`}
+            ${
+              fromDate && toDate
+                ? `&fromDate=${fromDate} &toDate=${toDate}`
+                : ""
+            }`}
             className="join-item base-btn"
           >
             »

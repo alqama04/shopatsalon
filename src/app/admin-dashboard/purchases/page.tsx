@@ -1,6 +1,13 @@
 import Link from "next/link";
-import React from "react";
-import FetchPurchases from "./(getPurchases)/FetchPurchases";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/Skeleton";
+
+const FetchPurchases = dynamic(()=>import("./(getPurchases)/FetchPurchases"),{
+  loading(){
+    return <div><Skeleton/></div>;
+  }
+})
+
 
 const page = () => {
   return (

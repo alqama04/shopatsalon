@@ -35,7 +35,7 @@ const FilterPurchases = () => {
     <div className="flex  p-2 gap-2 mb-2 items-end  ">
       
       <div>
-        <p className="pl-2 font-medium">From</p>
+        <h2 className="pl-2 font-medium">From</h2>
         <div>
           <DatePicker
             onChange={(date)=>setFromDate(date)}
@@ -52,7 +52,7 @@ const FilterPurchases = () => {
         </div>
       </div>
       <div>
-        <p className="pl-2 font-medium">To</p>
+        <h2 className="pl-2 font-medium">To</h2>
         <DatePicker
           onChange={setToDate}
           value={toDate}

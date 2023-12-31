@@ -1,17 +1,26 @@
 import Image from "next/image";
 import React from "react";
+import dynamic from "next/dynamic";
 import { FaRocketchat } from "react-icons/fa";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { RiDoubleQuotesR } from "react-icons/ri";
-import loginImage from '@/assets/loginPageImage.webp'
-import LogingAction from "./LoginAction";
+import loginImage from "@/assets/loginPageImage.webp";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
+import { redirect } from "next/navigation";
 
-const page = async() => {
-  const session =await getServerSession(options)
-  
-  
+const LogingAction = dynamic(() => import("./LoginAction"), {
+  ssr: false,
+  loading() {
+    return <div className="flex justify-center items-center w-full">
+      <button className="loading loading-dots" />;
+      </div>
+  },
+});
+
+const page = async () => {
+  const session = await getServerSession(options) 
+  // if(session) redirect('/dashboard ')
 
   return (
     <div className="p-2 sm:[90%] md:[w-80%] lg:w-[70%] h-[100svh] sm:h-full md:h-screen m-auto">
@@ -24,22 +33,22 @@ const page = async() => {
             </h2>
 
             <p className="font-semibold mt-3 md:mt-4">
-              <RiDoubleQuotesL className='text-green-500' /> Shop At Salon offers you convenience and peace
-              of mind, unlike anything you&apos;ve experienced before.
-              <RiDoubleQuotesR  className='text-green-600' />
+              <RiDoubleQuotesL className="text-green-500" /> Shop At Salon
+              offers you convenience and peace of mind, unlike anything
+              you&apos;ve experienced before.
+              <RiDoubleQuotesR className="text-green-600" />
             </p>
 
-            <LogingAction/>
-         
+            <LogingAction />
           </div>
 
           <figure className="w-full">
-            <Image 
-            src={loginImage}
-            width={600}
-            height={500}
-            alt="Shop At Salon Login"
-            className="object-fill w-full"
+            <Image
+              src={loginImage}
+              width={400}
+              height={400}
+              alt="Shop At Salon Login"
+              className="object-fill"
             />
           </figure>
         </div>

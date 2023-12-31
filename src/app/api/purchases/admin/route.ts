@@ -3,8 +3,10 @@ import connectDb from "@/database/connectdb";
 import { Purchase } from "@/models/Purchase";
 import { User } from "@/models/User";
 import { checkAdminPermission } from "../../(lib)/checkAuth";
+import { BusinessCustomer } from "@/models/BusinessCustomer";
+import { Level } from "@/models/level";
 
- 
+
 export async function GET(req: NextRequest) {
     try {
         await connectDb()
@@ -12,9 +14,7 @@ export async function GET(req: NextRequest) {
         if (!isAdmin) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
-        console.log('------------',)
-        const purchases = await Purchase.find({}).populate(['user', 'addedBy'])
-
+        const purchases = await Purchase.find({}).populate(['user', 'addedBy']).sort({ createdAt: -1 })
         return NextResponse.json(purchases, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: "internal server error" }, { status: 500 })
@@ -34,19 +34,43 @@ export async function POST(req: NextRequest) {
         if (!user) {
             return NextResponse.json({ error: 'user does not exist' }, { status: 400 })
         }
+        const customer = await BusinessCustomer.findOne({ user: user._id })
+
+
+        if (customer.cycleEndDate < Date.now() && customer.reward >=0) {
+            return NextResponse.json({ error: `unsettled reward of Rs.${customer.reward}` }, { status: 400 })
+        }
+
         const purchase = await Purchase.create({
             user: user._id,
             amount: Number(billamount),
             billFile: file.toString(),
             addedBy: admin.userId
         })
+
+        const level = await Level.findOne({ name: customer.currentCycle })
+
         if (purchase) {
+            customer.allTimePurchase += purchase.amount
+            customer.cyclePurchase += purchase.amount
+            customer.reward = customer.cyclePurchase * (level.reward_percentage / 100)
+
+            // upgrade customer level if he achieved level target
+            if (customer.cycleEndDate > Date.now() && customer.cyclePurchase > level.target_amt) {
+                const nextLevel = await Level.findOne({
+                    target_amt: { $gte: customer.cyclePurchase }
+                })
+                customer.currentCycle = nextLevel.name,
+                    customer.reward = customer.cyclePurchase * (nextLevel.reward_percentage / 100)
+            }
+            await customer.save()
             return NextResponse.json({ success: 'saved successfully' }, { status: 201 })
         }
         else {
             return NextResponse.json({ error: 'Unable create purchase record' }, { status: 400 })
         }
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ error: 'internal server error' }, { status: 500 })
     }
 }
@@ -58,15 +82,40 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
         const { id } = await req.json()
+
         if (!id) {
             return NextResponse.json({ error: "Id is required" }, { status: 400 })
         }
-        const purchase = await Purchase.findByIdAndDelete({ _id: id })
+
+        const purchase: any = await Purchase.findByIdAndDelete({ _id: id })
         if (purchase) {
+            // find customer 
+            const customer = await BusinessCustomer.findOne({ user: purchase.user })
+            customer.allTimePurchase -= purchase.amount
+
+            if (customer.cyclePurchase! <= 0 && customer.cycleStartDate < purchase.createdAt) {
+                const level = await Level.findOne({ name: customer.currentCycle })
+                customer.cyclePurchase -= purchase.amount
+                customer.reward = customer.cyclePurchase * (level.reward_percentage / 100)
+
+                if (customer.cyclePurchase < level.target_amt) {
+                    // find level & decrease customer level
+                    const prevLevel = await Level.find({
+                        target_amt: { $gte: customer.cyclePurchase }
+                    }).sort({ target_amt: 1 })
+
+                    customer.reward = customer.cyclePurchase * (prevLevel[0].reward_percentage / 100)
+                    customer.currentCycle = prevLevel[0].name
+                }
+                await customer.save()
+            }
+
             return NextResponse.json({ message: "record deleted successfully" }, { status: 200 })
         }
+
         return NextResponse.json({ error: "record not found" }, { status: 400 })
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ error: "Something went wrong" }, { status: 500 })
     }
 }

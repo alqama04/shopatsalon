@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
-import HandleDelete from "./HandleCreate";
+import dynamic from "next/dynamic";
+
+const HandleCreate  = dynamic(()=>import('./HandleCreate'))
+
 const CreateLevel = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   return (
@@ -16,7 +19,7 @@ const CreateLevel = () => {
           <div className="modal-box">
             <h3 className="font-bold text-lg">Add Levels</h3>
             <div className="modal-action">
-              <HandleDelete />
+              <HandleCreate />
             </div>
             <div className="text-right">
               <button

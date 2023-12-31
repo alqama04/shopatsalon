@@ -12,21 +12,29 @@ const HandleCreate = () => {
     const target_amt = formData.get("target_amt");
     const reward_percentage = formData.get("reward_percentage");
 
-    if (!name || !target_amt) {
+    if (!name || !target_amt ||!reward_percentage) {
       setAlertMsg("All Fields are require");
       setToastType("alert-error");
       return;
     }
+
+    if(!Number(target_amt) || !Number(reward_percentage)){
+      setAlertMsg("Only Numbers");
+      setToastType("alert-error");
+      return;
+    }
+
     const res = await fetch("/api/levels", {
       method: "POST",
       body: JSON.stringify({ name, target_amt,reward_percentage}),
     });
+    const apiRes = await res.json()
     if (res.ok) {
       setAlertMsg("Level Added Successfully");
       setToastType("alert-success");
       router.refresh();
     } else {
-      setAlertMsg("unable to add Level");
+      setAlertMsg(apiRes.error || "unable to add Level");
       setToastType("alert-error");
     }
   };
@@ -51,6 +59,7 @@ const HandleCreate = () => {
         />
         <input
           type="number"
+          step='0.1'
           name="reward_percentage"
           placeholder="Reward Percentage"
           className={inputClass}

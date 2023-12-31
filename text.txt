@@ -1,0 +1,69 @@
+import React from "react";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  Tooltip,
+} from "recharts";
+const Chart = () => {
+  const data = [
+    {
+      name: "JAVA",
+      student: 10,
+      fees: 5,
+    },
+    {
+      name: "python",
+      student: 40,
+      fees: 12,
+    },
+    {
+      name: "JS",
+      student: 110,
+      fees: 15,
+    },
+    {
+      name: "Golang",
+      student: 11,
+      fees: 21,
+    },
+  ];
+
+  return (
+    <div>
+      <h1 className="">line chart</h1>
+      <ResponsiveContainer width="100%" aspect={3}>
+        <LineChart
+          data={data}
+          width={500}
+          height={300}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+           dataKey={"name"} interval={"preserveStartEnd"}
+           tickFormatter={(value)=>value+" production"}
+
+           />
+          <YAxis 
+          
+          />
+          <Legend />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: "#111827",
+            }}
+          />
+          <Line type="bump" dataKey={"student"} activeDot={{ r: 5 }} />
+          <Line dataKey={"fees"} stroke="red" activeDot={{ r: 5 }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+export default Chart;

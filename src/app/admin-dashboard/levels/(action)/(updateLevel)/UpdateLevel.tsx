@@ -1,7 +1,9 @@
 "use client";
-
 import React from "react";
-import HandleUpdate from './HandleUpdate'
+import dynamic from "next/dynamic";
+
+const HandleUpdate = dynamic(()=>import('./HandleUpdate'))
+
 
 interface Level {
   id: string;

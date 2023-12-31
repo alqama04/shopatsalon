@@ -1,6 +1,12 @@
-import CustomDatePicker from "@/components/CustomDatePicker";
+import dynamic from "next/dynamic";
 import DownloadFile from "@/components/DownloadFile";
-import FilterPurchases from "./FilterPurchases";
+import { Skeleton2 } from "@/components/Skeleton";
+// import FilterPurchases from "./FilterPurchases";
+
+const FilterPurchases = dynamic(()=>import('./FilterPurchases'),{
+  ssr:false,
+  loading: () => <div><Skeleton2 className="bg-gray-800"/></div>,
+})
 
 interface Purchases {
   _id: string;
@@ -28,6 +34,7 @@ const Purchases: React.FC<GetPurchasesProps> = ({
       </h1>
 
       <FilterPurchases/>
+
       <div className="overflow-x-auto">
         <table className="table">
           <thead className="text-[0.9rem] text-gray-700">
@@ -42,7 +49,7 @@ const Purchases: React.FC<GetPurchasesProps> = ({
             {purchases.map((item) => (
               <tr
                 key={item._id}
-                className="hover:bg-[#f1f1f1] transition-all duration-200 hover:shadow-inner"
+                className="hover:bg-gray-800 transition-all duration-200 hover:shadow-inner"
               >
                 <td>
                   <DownloadFile

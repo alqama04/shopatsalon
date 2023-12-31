@@ -1,8 +1,20 @@
- 
-import CustomDatePicker from "@/components/CustomDatePicker";
-import DownloadFile from "@/components/DownloadFile";
-import { CiFilter } from "react-icons/ci";
-import DeletePurchases from "../(deletePurchases)/DeletePurchases";
+import dynamic from "next/dynamic";
+const DeletePurchases = dynamic(
+  () => import("../(deletePurchases)/DeletePurchases"),
+  {
+    ssr: false,
+    loading() {
+      return <span className="loading loading-spinner" />;
+    },
+  }
+);
+
+const DownloadFile = dynamic(() => import("@/components/DownloadFile"), {
+  ssr: false,
+  loading() {
+    return <span className="loading loading-dots" />;
+  },
+});
 
 interface Purchase {
   _id: string;
@@ -18,29 +30,9 @@ interface GetPurchasesProps {
 }
 
 const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
-
   return (
     <div className="w-full min-h-screen h-full ">
-      <div className="flex justify-between p-2">
-        <CustomDatePicker />
-
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn m-1">
-            <CiFilter />
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      
 
       <div className="overflow-x-auto">
         <table className="table">

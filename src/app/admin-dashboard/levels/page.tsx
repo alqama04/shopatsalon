@@ -1,6 +1,6 @@
-import React from "react";
+import dynamic from "next/dynamic";
 import FetchLevels from "./(getLevels)/FetchLevels";
-import CreateLevel from "./(action)/(create-levels)/CreateLevel";
+const CreateLevel = dynamic((()=>import('./(action)/(create-levels)/CreateLevel')))
 
 const page = () => {
   return (

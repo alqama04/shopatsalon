@@ -27,7 +27,7 @@ const FindUser = () => {
       });
       setLoading(false);
       const apiResponse: ApiResponse = await res.json();
-      console.log(apiResponse?.user);
+      
       if (apiResponse.user) {
         setAlertMsg("User Found");
         setToastType("alert-success");

@@ -12,7 +12,7 @@ const BusinessProfileAction = () => {
   const { component, setToastType, setAlertMsg } = useToastMsg();
   const [profile, setProfileData] = useState({
     display_name: "",
-    gstIn: "",
+    
     phone: "",
     address: "",
     city: "",
@@ -20,7 +20,6 @@ const BusinessProfileAction = () => {
   });
 
   const handleBusinessProfile = async () => {
-    const GSTRegex = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/;
     const phoneRegex = /^\d{10}$/;
 
     if (!profile.display_name || !profile.phone || !profile.address) {
@@ -28,11 +27,7 @@ const BusinessProfileAction = () => {
       setToastType("alert-error");
       return;
     }
-    if (profile.gstIn && !GSTRegex.test(profile.gstIn)) {
-      setAlertMsg("Invalid GSTIN");
-      setToastType("alert-error");
-      return;
-    }
+    
     if (!phoneRegex.test(profile.phone)) {
       setAlertMsg("Invalid phone number");
       setToastType("alert-error");
@@ -55,7 +50,7 @@ const BusinessProfileAction = () => {
 
         router.refresh();
       } else {
-        console.log(apiResponse.error)
+        
         setAlertMsg(apiResponse.error || "Unknown error occurred");
         setToastType("alert-error");
         return;
