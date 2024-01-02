@@ -9,7 +9,7 @@ interface RewardProps {
 
 const Reward: React.FC<RewardProps> = ({ reward }) => {
   return (
-    <div className="h-32 sm:h-28 bg-gray-900 p-2 rounded-md shadow-md shadow-gray-800">
+    <div className="h-24 sm:h-28 md:h-32 bg-gray-900 p-2 rounded-md shadow-md shadow-gray-800">
       <div className="flex justify-between gap-1 h-full">
         <div className="flex-1">
           <div className="flex flex-col justify-between h-full">

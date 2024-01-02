@@ -21,10 +21,10 @@ interface Purchase {
 }
 
 interface ChartProps {
-  purchase: Purchase[];
+  purchase?: Purchase[];
 }
 
-const Chart: React.FC<ChartProps> = ({ purchase }) => {
+const Chart: React.FC<ChartProps> = ({ purchase=[{amount:0,createdAt:Date.now()}] }) => {
   const data = purchase.map((purchase) => ({
     purchases: purchase.amount,
     createdAt: `${new Date(purchase.createdAt).toDateString()}`, //

@@ -5,6 +5,7 @@ interface Customer {
     currentCycle: string;
     cyclePurchase: number;
     reward: number;
+    cycleStartDate:string,
     cycleEndDate: string;
     allTimePurchase: number;
 }

@@ -20,7 +20,7 @@ const LogingAction = dynamic(() => import("./LoginAction"), {
 
 const page = async () => {
   const session = await getServerSession(options) 
-  // if(session) redirect('/dashboard ')
+  if(session) redirect('/dashboard ')
 
   return (
     <div className="p-2 sm:[90%] md:[w-80%] lg:w-[70%] h-[100svh] sm:h-full md:h-screen m-auto">

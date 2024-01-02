@@ -1,7 +1,7 @@
 import React from "react";
 import "./Level.css";
 
-import { FaIndianRupeeSign, FaMedal } from "react-icons/fa6";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
 interface LevelsStyle extends React.CSSProperties {
   "--dynamicTop": string;
@@ -14,6 +14,8 @@ interface LevelProp{
   rewardPercentage:number
 }
 
+33 //purchae  
+
 const Levels: React.FC<LevelProp> = ({name,target,reward,rewardPercentage}) => {
   
   const rewarPrcentCompletePercent = `${((reward / target) * 100).toFixed(1)}%`;
@@ -23,7 +25,7 @@ const Levels: React.FC<LevelProp> = ({name,target,reward,rewardPercentage}) => {
   };
 
   return (
-    <div className="h-32 sm:h-28  bg-gray-900 p-2 rounded-md shadow-md shadow-gray-700">
+    <div className="h-32 sm:h-28 md:h-32 bg-gray-900 p-2 rounded-md shadow-md shadow-gray-800">
       <div className="flex justify-between gap-1 h-full">
         <div className="flex-1">
           <div className="flex flex-col justify-between h-full">

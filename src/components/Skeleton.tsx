@@ -13,7 +13,7 @@ export const Skeleton = ({ className }: { className?: string }) => {
 export const Skeleton2 = ({className}:{className?:string}) => {
   return (
     <div className="flex flex-col  p-1 justify-center w-full">
-      <div className={`${className} rounded-md skeleton h-32 sm:h-28 w-full`}></div>
+      <div className={`${className} rounded-md skeleton h-24 md:h-32 sm:h-28 w-full`}></div>
     </div>
   );
 };

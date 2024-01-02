@@ -18,7 +18,7 @@ const Logout = () => {
     <div>
       <button
         title="Logout"
-        className="btn min-h-[auto] h-[2.2rem] flex items-center gap-4 text-[1rem] bg-gray-50 text-heading font-medium rounded-full hover:bg-gray-300 border-none px-2"
+        className="btn min-h-[auto] h-[2.2rem] flex items-center gap-4 text-[1rem] bg-gray-50 text-heading rounded-full hover:bg-gray-300 border-none px-2"
         onClick={() => handleLogout()}
       >
         Logout

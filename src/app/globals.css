@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body {
+html,
+body {
   overflow-x: hidden;
   overflow-y: auto;
   background: #f1f1f1;
   min-height: 100svh;
   height: 100%;
+  scroll-behavior: smooth;
 }
 p {
   color: rgba(32, 31, 31, 0.925);
@@ -77,4 +79,28 @@ input::-webkit-inner-spin-button {
   height: 40px !important;
 }
 
- 
+.react-calendar__navigation button:disabled {
+  background: transparent !important;
+}
+
+/* landing page css */
+.bg-Clip {
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0% 88%);
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(0, 0, 0) 0%,
+    rgb(64, 64, 64) 90.2%
+  );
+
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0% 88%);
+  -webkit-background: radial-gradient(
+    circle at 10% 20%,
+    rgb(0, 0, 0) 0%,
+    rgb(64, 64, 64) 90.2%
+  );
+}
+@media (min-width: 749px) {
+  .bg-Clip {
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 50% 100%, 0 80%);
+  }
+}

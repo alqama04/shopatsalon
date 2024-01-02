@@ -1,3 +1,4 @@
+import Hero from "@/components/Hero";
 import LandingPage from "@/components/LandingPage";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/Skeleton";
@@ -15,9 +16,17 @@ const Services = dynamic(() => import("@/components/Services"), {
 const Home = () => {
   return (
     <>
-      <Navbar/>
-      <LandingPage />
-      <Services />
+      <div>
+        <div
+          
+          className="bg-Clip bg-gradient-to-br from-black via-gray-900 to-gray-950 "
+        >
+          <Navbar />
+          <LandingPage />
+        </div>
+        <Hero />
+        <Services />
+      </div>
     </>
   );
 };

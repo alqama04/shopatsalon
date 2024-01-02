@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Reward from "./Reward";
 import { Skeleton, Skeleton2 } from "@/components/Skeleton";
 import fetchData from "./fetchData";
-const TotalPurchase = dynamic(() => import("./TotalPurchase"));
+import { RiDoubleQuotesL, RiDoubleQuotesR } from "react-icons/ri";
 
 const Levels = dynamic(() => import("./(currentCycle)/Levels"), {
   ssr: false,
@@ -17,7 +17,6 @@ const Levels = dynamic(() => import("./(currentCycle)/Levels"), {
 });
 
 const CyclePurchase = dynamic(() => import("./(currentCycle)/CyclePurchase"), {
-  ssr: false,
   loading() {
     return (
       <div>
@@ -49,64 +48,64 @@ const page = async () => {
 
   return (
     <div
-      className="
-        pt-3
-        flex-1
-        min-h-full
-        max-h-max
-        shadow-lg
-        p-2
-        bg-gray-900
-        text-white
-        md:border-l-2
-        border-gray-800
-              "
+      className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800"
     >
       <div>
         <h2
-          className="
-            font-extrabold
-            text-[1.4rem]
-            tracking-wider
-            "
+          className="font-extrabold text-[1.4rem] tracking-wider"
         >
           Dashboard
         </h2>
+        <div className="mt-3 flex items-center gap-2">
+          <h2 className="font-bold tracking-wider">Cycle Date</h2>
+          {new Date(customer.cycleEndDate).toDateString() <=
+            new Date(Date.now()).toDateString() && (
+            <span className="badge font-bold">Ended</span>
+          )}
+        </div>
+
+        <div className="flex item-center mt-2 gap-2">
+          {new Date(customer.cycleStartDate)
+            .toLocaleDateString()
+            .replace(/\//g, "-")}
+          <p className="font-bold text-[#FACC15]">To</p>
+
+          {new Date(customer.cycleEndDate)
+            .toLocaleDateString()
+            .replace(/\//g, "-")}
+        </div>
 
         {customer && level && (
-          <div
-            className="
-              mt-3
-              grid
-              grid-cols-1
-              sm:grid-cols-2
-              lg:grid-cols-4
-              gap-4
-              md:gap-x-5
-                  "
-          >
+          <div className=" mt-3 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-5">
             <Reward reward={customer.reward} />
-
-            <Levels
-              name={level.name}
-              target={level.target_amt}
-              reward={customer.reward}
-              rewardPercentage={level.reward_percentage}
-            />
 
             <CyclePurchase
               amount={customer.cyclePurchase}
               endDate={customer.cycleEndDate}
             />
 
-            <TotalPurchase totalPurchase={customer.allTimePurchase} />
+            <div className="col-span-2 mt-2 md:col-span-1  md:mt-0">
+              <Levels
+                name={level.name}
+                target={level.target_amt}
+                reward={customer.reward}
+                rewardPercentage={level.reward_percentage}
+              />
+            </div>
+
           </div>
         )}
-        {purchase.length && (
+        {purchase.length ? (
           <>
             <Chart purchase={purchase} />
 
             <PurchaseTable purchases={purchase} />
+          </>
+        ) : (
+          <>
+            <Chart />
+
+            <PurchaseTable />
           </>
         )}
       </div>

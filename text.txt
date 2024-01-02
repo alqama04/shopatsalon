@@ -65,5 +65,37 @@ const Chart = () => {
     </div>
   );
 };
-
 export default Chart;
+
+
+//animation
+ const fadeInAnimationVariants = {
+  initial: {
+    opacity:0,
+    y:100
+  },
+  animate: (i:number)=>({
+    opacity:1,
+    y:0,
+    transition:{
+      delay:0.05*i
+    }
+  })
+ }
+
+ <motion.div variants={container} initial="hidden" animate="visible">
+            {words.map((word, i) => (
+              
+              <motion.span
+              variants={fadeInAnimationVariants}
+              initial="initial"
+              whileInView='animate'
+              viewport={{ once: true }}
+              custom={i}
+                key={i}
+                className="px-1.5"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.div>

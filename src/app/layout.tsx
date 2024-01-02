@@ -1,9 +1,10 @@
 import { EdgeStoreProvider } from "../lib/edgestore";
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "./context/AuthProvider";
-const rubik = Rubik({ subsets: ["latin"] });
+
+const rubik = Montserrat({ subsets: ["latin"],weight:'400' });
 
 export const metadata: Metadata = {
   title: "Shop At Salon",

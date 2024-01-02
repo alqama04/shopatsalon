@@ -15,7 +15,7 @@ export async function GET() {
         if (!isAuth) return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 
         let customer = await BusinessCustomer.findOne({ user: isAuth.userId }).select(
-            'currentCycle cyclePurchase reward cycleEndDate allTimePurchase',
+            'currentCycle cyclePurchase reward cycleStartDate cycleEndDate allTimePurchase',
         )
         const level = await Level.findOne({ name: customer.currentCycle }).select('name target_amt reward_percentage')
 

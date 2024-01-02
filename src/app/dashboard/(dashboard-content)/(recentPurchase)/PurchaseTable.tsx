@@ -11,10 +11,10 @@ interface Purchases {
 }
 
 interface PurchaseTableProp {
-  purchases: Purchases[];
+  purchases?: Purchases[];
 }
 
-const PurchaseTable: React.FC<PurchaseTableProp> = ({ purchases }) => {
+const PurchaseTable: React.FC<PurchaseTableProp> = ({ purchases=[]}) => {
   return (
     <div className="mt-5">
       <div className="overflow-x-auto">
