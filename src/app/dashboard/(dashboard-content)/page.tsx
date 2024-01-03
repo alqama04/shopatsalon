@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Reward from "./Reward";
 import { Skeleton, Skeleton2 } from "@/components/Skeleton";
 import fetchData from "./fetchData";
-import { RiDoubleQuotesL, RiDoubleQuotesR } from "react-icons/ri";
+ 
 
 const Levels = dynamic(() => import("./(currentCycle)/Levels"), {
   ssr: false,
@@ -26,12 +26,7 @@ const CyclePurchase = dynamic(() => import("./(currentCycle)/CyclePurchase"), {
   },
 });
 
-const Chart = dynamic(() => import("./(recentPurchase)/Chart"), {
-  ssr: false,
-  loading() {
-    return <Skeleton2 className="bg-gray-800" />;
-  },
-});
+const ChartPurchase = dynamic(() => import("./(recentPurchase)/ChartPurchase"));
 
 const PurchaseTable = dynamic(
   () => import("./(recentPurchase)/PurchaseTable"),
@@ -44,16 +39,12 @@ const PurchaseTable = dynamic(
 );
 const page = async () => {
   const data = await fetchData();
-  const { customer, level, purchase } = data;
+  const { customer } = data;
 
   return (
-    <div
-      className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800"
-    >
+    <div className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
       <div>
-        <h2
-          className="font-extrabold text-[1.4rem] tracking-wider"
-        >
+        <h2 className="font-extrabold text-[1.4rem] tracking-wider">
           Dashboard
         </h2>
         <div className="mt-3 flex items-center gap-2">
@@ -75,39 +66,20 @@ const page = async () => {
             .replace(/\//g, "-")}
         </div>
 
-        {customer && level && (
-          <div className=" mt-3 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-5">
-            <Reward reward={customer.reward} />
+        <div className=" mt-3 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-5">
+          <Reward reward={customer.reward} />
 
-            <CyclePurchase
-              amount={customer.cyclePurchase}
-              endDate={customer.cycleEndDate}
-            />
+          <CyclePurchase />
 
-            <div className="col-span-2 mt-2 md:col-span-1  md:mt-0">
-              <Levels
-                name={level.name}
-                target={level.target_amt}
-                reward={customer.reward}
-                rewardPercentage={level.reward_percentage}
-              />
-            </div>
-
+          <div className="col-span-2 mt-2 md:col-span-1  md:mt-0">
+            <Levels />
           </div>
-        )}
-        {purchase.length ? (
-          <>
-            <Chart purchase={purchase} />
+        </div>
+        <>
+          <ChartPurchase />
 
-            <PurchaseTable purchases={purchase} />
-          </>
-        ) : (
-          <>
-            <Chart />
-
-            <PurchaseTable />
-          </>
-        )}
+          <PurchaseTable />
+        </>
       </div>
     </div>
   );

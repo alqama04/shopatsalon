@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { Purchase } from "@/models/Purchase";
 import { User } from "@/models/User";
 import { checkAdminPermission } from "../(lib)/checkAuth";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
@@ -24,8 +23,7 @@ export async function GET(req: NextRequest) {
         if (phone) queryObj.phone_number = phone
         if (user) queryObj.user = user._id
 
-        const rewards = await BusinessCustomer.find(queryObj).sort({ createdAt: -1 }).populate('user')
-
+        const rewards = await BusinessCustomer.find(queryObj).sort({ createdAt: -1 }).populate('user', { username: 1,email:1 }).select('currentCycle cyclePurchase reward cycleStartDate cycleEndDate').sort('-cycleEndDate')
         return NextResponse.json({ rewards: rewards }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error: "internal server error" }, { status: 500 })

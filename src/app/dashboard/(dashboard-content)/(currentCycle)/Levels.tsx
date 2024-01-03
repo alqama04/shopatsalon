@@ -2,26 +2,38 @@ import React from "react";
 import "./Level.css";
 
 import { FaIndianRupeeSign } from "react-icons/fa6";
+import fetchData from "../fetchData";
 
 interface LevelsStyle extends React.CSSProperties {
   "--dynamicTop": string;
+  "--dynamicBg": string;
 }
 
-interface LevelProp{
-  name:string,
-  target:number,
-  reward:number,
-  rewardPercentage:number
-}
+const Levels = async () => {
+  const { level, customer } = await fetchData();
 
-33 //purchae  
+  const currentLevel = level.find(
+    (item) => item.name === customer.currentCycle
+  );
 
-const Levels: React.FC<LevelProp> = ({name,target,reward,rewardPercentage}) => {
+  const nextLevel = level
+    .sort((a, b) => a.target_amt - b.target_amt)
+    .find((item) => item.target_amt >= customer.cyclePurchase);
+
+
+  let totalTarget = 0;
+  level.forEach((item) => (totalTarget += item.target_amt));
+  console.log(totalTarget);
+
+  const percentageAchieved = (
+    (customer.cyclePurchase / totalTarget) *
+    100
+  ).toFixed(2);
+
   
-  const rewarPrcentCompletePercent = `${((reward / target) * 100).toFixed(1)}%`;
-
-  const style:LevelsStyle = {
-    "--dynamicTop":rewarPrcentCompletePercent,
+  const style: LevelsStyle = {
+    "--dynamicTop": `${percentageAchieved}%`,
+    "--dynamicBg": `#facc15`,
   };
 
   return (
@@ -29,27 +41,39 @@ const Levels: React.FC<LevelProp> = ({name,target,reward,rewardPercentage}) => {
       <div className="flex justify-between gap-1 h-full">
         <div className="flex-1">
           <div className="flex flex-col justify-between h-full">
-            <h1 className="uppercase tracking-widest font-semibold text-[1.2rem]">
-              {name}
-            </h1>
-            <small className="-mt-4">{rewardPercentage}% reward on each buy</small>
+            <div className="flex flex-col">
+              <h1 className="uppercase tracking-widest font-semibold text-[1.1rem]">
+                {currentLevel!.name || ""}
+              </h1>
+              <small className="my-1">
+                {`You'r receiving ${
+                  currentLevel!.reward_percentage || 0
+                }% reward`}
+              </small>
+              <small className="font-medium tracking-wider text-purple-700">
+                {`Next ${nextLevel!.reward_percentage || 0}%`}
+              </small>
+            </div>
             <div>
               <h1 className="text-white flex items-center gap-1">
                 <FaIndianRupeeSign size={26} />
-                <span className="text-[1.2rem]">{target}</span>
+                <span className="text-[1.2rem]">
+                  {currentLevel!.target_amt || 0}
+                </span>
               </h1>
             </div>
           </div>
         </div>
 
         <div
-          title="5000"
-          className="box flex justify-center items-center"
+          title={`Yearly Target is ${totalTarget || 0}`}
+          className="box flex-shrink-0 flex justify-center items-center"
           style={style}
         >
-          <span className="absolute text-[0.9rem] font-bold tracking-wider z-10">{rewarPrcentCompletePercent}</span>
+          <span className="absolute text-[0.9rem] font-bold tracking-wider z-10">
+            {percentageAchieved}
+          </span>
         </div>
-
       </div>
     </div>
   );

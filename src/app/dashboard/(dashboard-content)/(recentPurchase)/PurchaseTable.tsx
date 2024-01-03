@@ -1,20 +1,8 @@
 import React from "react";
-
-interface Purchases {
+import fetchData from "../fetchData";
  
-  amount: number;
-  purchase_date: string;
-  addedBy: {
-    username: string;
-  };
-  createdAt: string;
-}
-
-interface PurchaseTableProp {
-  purchases?: Purchases[];
-}
-
-const PurchaseTable: React.FC<PurchaseTableProp> = ({ purchases=[]}) => {
+const PurchaseTable = async() => {
+  const {purchase} = await fetchData()
   return (
     <div className="mt-5">
       <div className="overflow-x-auto">
@@ -27,8 +15,8 @@ const PurchaseTable: React.FC<PurchaseTableProp> = ({ purchases=[]}) => {
             </tr>
           </thead>
           <tbody className="mt-2">
-            {purchases.length ? (
-              purchases.map((item) => (
+            {purchase.length ? (
+              purchase.map((item) => (
                 <tr
                   key={item.createdAt}
                   style={{ borderRadius: "10px" }}

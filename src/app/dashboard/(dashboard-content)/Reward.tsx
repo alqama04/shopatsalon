@@ -4,7 +4,6 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 
 interface RewardProps {
   reward: number;
-  rewardPercentage?: number;
 }
 
 const Reward: React.FC<RewardProps> = ({ reward }) => {
@@ -13,7 +12,7 @@ const Reward: React.FC<RewardProps> = ({ reward }) => {
       <div className="flex justify-between gap-1 h-full">
         <div className="flex-1">
           <div className="flex flex-col justify-between h-full">
-            <h1 className="uppercase tracking-widest font-semibold text-[1.2rem]">
+            <h1 className="uppercase tracking-widest font-semibold text-[1.1rem]">
               Reward
             </h1>
 

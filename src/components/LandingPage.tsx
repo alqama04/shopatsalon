@@ -81,26 +81,26 @@ const LandingPage = () => {
               w-[20rem]
               md:w-[30rem]
               overflow-hidden
-              p-2
               select-none
-              flex justify-center items-center
+              m-auto
+              pt-2
            "
           >
             <Image
-              src="circleRibbon1.svg"
+              src="circleRibbon.svg"
               width={600}
               height={500}
               alt="shop at salon"
               className="object-cover select-none"
             />
           </motion.div>
-          <div className="absolute w-[10rem] md:w-[15rem] m-auto text-center ">
+          <div className="absolute w-[10rem] md:w-[15rem] m-auto text-center">
             <Image
               src="logoIcon.svg"
               width={600}
               height={500}
               alt="shop at salon"
-              className="object-cover opacity-90"
+              className="object-cover opacity-90 mt-1  "
             />
           </div>
         </motion.div>
