@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
             address: address,
             city: city,
             state: state,
-            currentCycle: level.length ? level[0].name : 'bronze',
+            currentCycle: level.length && level[0]._id,
         })
 
         currentUser.business_customer = true

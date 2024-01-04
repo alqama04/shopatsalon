@@ -32,9 +32,9 @@ const page = async () => {
             {rewards.length &&
               rewards.map((item) => (
                 <tr key={item._id}>
-                  <td>{item.reward}</td>
-                  <td>{item.cyclePurchase}</td>
-                  <td>{item.currentCycle}</td>
+                  <td>Rs. {item.reward}</td>
+                  <td>Rs. {item.cyclePurchase}</td>
+                  <td>{item.currentCycle.name}</td>
                   <td>{new Date(item.cycleStartDate).toDateString()}</td>
                   <td>{new Date(item.cycleEndDate).toDateString()}</td>
                   <td>{item.user.username}</td>

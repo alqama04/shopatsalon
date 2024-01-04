@@ -8,8 +8,9 @@ const Business_customerSchema = new mongoose.Schema({
         unique: true
     },
     currentCycle: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Level",
+        required: true,
     },
 
     cyclePurchase: {

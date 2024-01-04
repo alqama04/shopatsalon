@@ -23,7 +23,12 @@ export async function GET(req: NextRequest) {
         if (phone) queryObj.phone_number = phone
         if (user) queryObj.user = user._id
 
-        const rewards = await BusinessCustomer.find(queryObj).sort({ createdAt: -1 }).populate('user', { username: 1,email:1 }).select('currentCycle cyclePurchase reward cycleStartDate cycleEndDate').sort('-cycleEndDate')
+        const rewards = await BusinessCustomer.find(queryObj).sort({ createdAt: -1 })
+        .populate('user', { username: 1,email:1 })
+        .populate('currentCycle', { name: 1})
+        
+        .select('cyclePurchase reward cycleStartDate cycleEndDate')
+        .sort('-cycleEndDate')
         return NextResponse.json({ rewards: rewards }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error: "internal server error" }, { status: 500 })
@@ -42,11 +47,11 @@ export async function PUT(req: NextRequest) {
 
 
         const reward = await BusinessCustomer.findByIdAndUpdate({ _id: id }, {
-            currentCycle: level[0].name,
+            currentCycle: level[0]._id,
             cyclePurchase: 0,
             reward: 0,
             cycleStartDate: Date.now(),
-            cycleEndDate: Date.now() + 31536000000
+            cycleEndDate: Date.now() + 12*60*1000
         })
 
         if(!reward) return NextResponse.json({error:"reward not settled"})

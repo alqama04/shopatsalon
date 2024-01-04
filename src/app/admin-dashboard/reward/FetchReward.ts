@@ -3,7 +3,10 @@ import { headers } from "next/headers";
 interface RewardProps {
     _id: string;
     user: { username: string; email: string };
-    currentCycle: string;
+    currentCycle: {
+        _id:string,
+        name:string
+    };
     cyclePurchase: number;
     reward: number;
     cycleStartDate: string;

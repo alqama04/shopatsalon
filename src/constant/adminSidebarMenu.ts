@@ -11,6 +11,12 @@ export const adminSidebarMenu = [
         href: "/admin-dashboard"
     },
     {
+        name: "Reward",
+        icon: TbLayoutDashboard,
+        iconColor: "#98FB98",
+        href: "/admin-dashboard/reward"
+    },
+    {
         name: "Levels",
         icon: IoHomeOutline,
         iconColor: "#800080",

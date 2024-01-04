@@ -1,11 +1,12 @@
 import Hero from "@/components/Hero";
+import { Skeleton } from "@/components/Skeleton";
 import LandingPage from "@/components/LandingPage";
 import Navbar from "@/components/Navbar";
-import { Skeleton } from "@/components/Skeleton";
 import dynamic from "next/dynamic";
 import React from "react";
 
 const Services = dynamic(() => import("@/components/Services"), {
+  ssr:false,
   loading: () => (
     <div>
       <Skeleton />

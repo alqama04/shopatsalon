@@ -13,20 +13,19 @@ const Levels = async () => {
   const { level, customer } = await fetchData();
 
   const currentLevel = level.find(
-    (item) => item.name === customer.currentCycle
+    (item) => item._id === customer.currentCycle._id
   );
 
-  const nextLevel = level
-    .sort((a, b) => a.target_amt - b.target_amt)
-    .find((item) => item.target_amt >= customer.cyclePurchase);
-
+  const sortLevel = level
+  .sort((a, b) => a.target_amt - b.target_amt)
+ 
+  const nextLevel = sortLevel.find((item) => item.target_amt > customer.currentCycle.target_amt);
 
   let totalTarget = 0;
   level.forEach((item) => (totalTarget += item.target_amt));
-  console.log(totalTarget);
 
   const percentageAchieved = (
-    (customer.cyclePurchase / totalTarget) *
+    (customer.cyclePurchase / sortLevel[sortLevel.length -1].target_amt) *
     100
   ).toFixed(2);
 
@@ -50,9 +49,12 @@ const Levels = async () => {
                   currentLevel!.reward_percentage || 0
                 }% reward`}
               </small>
+              {
+                nextLevel?.reward_percentage &&
               <small className="font-medium tracking-wider text-purple-700">
-                {`Next ${nextLevel!.reward_percentage || 0}%`}
+                {`Next ${nextLevel?.reward_percentage}%`}
               </small>
+              }
             </div>
             <div>
               <h1 className="text-white flex items-center gap-1">

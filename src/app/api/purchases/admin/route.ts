@@ -14,7 +14,12 @@ export async function GET(req: NextRequest) {
         if (!isAdmin) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
-        const purchases = await Purchase.find({}).populate(['user', 'addedBy']).sort({ createdAt: -1 })
+        const purchases = await Purchase.find({})
+            .populate(['user', 'addedBy'])
+            .sort({ createdAt: -1 })
+            .limit(18)
+            // .skip()
+            
         return NextResponse.json(purchases, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: "internal server error" }, { status: 500 })
@@ -37,7 +42,7 @@ export async function POST(req: NextRequest) {
         const customer = await BusinessCustomer.findOne({ user: user._id })
 
 
-        if (customer.cycleEndDate < Date.now() && customer.reward >=0) {
+        if (customer.cycleEndDate < Date.now() && customer.reward >= 0) {
             return NextResponse.json({ error: `unsettled reward of Rs.${customer.reward}` }, { status: 400 })
         }
 
@@ -48,21 +53,26 @@ export async function POST(req: NextRequest) {
             addedBy: admin.userId
         })
 
-        const level = await Level.findOne({ name: customer.currentCycle })
-
+        const level = await Level.findOne({ _id: customer.currentCycle })
+        let reward
         if (purchase) {
             customer.allTimePurchase += purchase.amount
             customer.cyclePurchase += purchase.amount
-            customer.reward = customer.cyclePurchase * (level.reward_percentage / 100)
+            // customer.reward = customer.cyclePurchase * (level.reward_percentage / 100)
+            reward = (level.reward_percentage / 100) * purchase.amount
 
             // upgrade customer level if he achieved level target
             if (customer.cycleEndDate > Date.now() && customer.cyclePurchase > level.target_amt) {
-                const nextLevel = await Level.findOne({
+                const nextLevel = await Level.find({
                     target_amt: { $gte: customer.cyclePurchase }
-                })
-                customer.currentCycle = nextLevel.name,
-                    customer.reward = customer.cyclePurchase * (nextLevel.reward_percentage / 100)
+                }).sort('target_amt')
+
+                customer.currentCycle = nextLevel[0]._id,
+                    reward = (nextLevel[0].reward_percentage / 100) * purchase.amount
+                console.log(nextLevel, '------------')
             }
+
+            customer.reward += reward
             await customer.save()
             return NextResponse.json({ success: 'saved successfully' }, { status: 201 })
         }
@@ -88,15 +98,17 @@ export async function DELETE(req: NextRequest) {
         }
 
         const purchase: any = await Purchase.findByIdAndDelete({ _id: id })
+        let reward
         if (purchase) {
             // find customer 
             const customer = await BusinessCustomer.findOne({ user: purchase.user })
             customer.allTimePurchase -= purchase.amount
 
-            if (customer.cyclePurchase! <= 0 && customer.cycleStartDate < purchase.createdAt) {
-                const level = await Level.findOne({ name: customer.currentCycle })
+
+            if (customer.cyclePurchase != 0 && customer.cycleStartDate < purchase.createdAt) {
+                const level = await Level.findOne({ _id: customer.currentCycle })
                 customer.cyclePurchase -= purchase.amount
-                customer.reward = customer.cyclePurchase * (level.reward_percentage / 100)
+                reward = (level.reward_percentage / 100) * purchase.amount
 
                 if (customer.cyclePurchase < level.target_amt) {
                     // find level & decrease customer level
@@ -104,9 +116,11 @@ export async function DELETE(req: NextRequest) {
                         target_amt: { $gte: customer.cyclePurchase }
                     }).sort({ target_amt: 1 })
 
-                    customer.reward = customer.cyclePurchase * (prevLevel[0].reward_percentage / 100)
-                    customer.currentCycle = prevLevel[0].name
+                    reward = (prevLevel[0].reward_percentage / 100) * customer.cyclePurchase
+                    customer.currentCycle = prevLevel[0]._id
                 }
+
+                customer.reward = reward
                 await customer.save()
             }
 

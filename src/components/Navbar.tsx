@@ -48,9 +48,10 @@ const Navbar = () => {
         }}
         className="flex justify-between items-center"
       >
-        <div className="flex whitespace-nowrap uppercase tracking-widest text-[1.3rem] sm:text-[1.5rem] font-bold leading-8">
+        <div className="flex whitespace-nowrap uppercase tracking-widest text-[1.3rem] sm:text-[1.5rem]
+        xl:text-[2rem] font-bold leading-8 xl:leading-normal">
           <h1 className="border-4 px-1 text-white border-white">Shop AT</h1>
-          <h1 className="bg-white text-black py-[.2rem] px-1">Salon</h1>
+          <h1 className="bg-white lg:font-extrabold text-black py-[.2rem] px-1">Salon</h1>
         </div>
         <div>
           <button onClick={onClick} className={btnClassName}>

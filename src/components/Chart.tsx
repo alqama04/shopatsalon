@@ -18,7 +18,7 @@ const Chart = ({data}:any) => {
     <LineChart
       data={data}
       style={{ padding: 0, margin: 0 }}
-      margin={{ top: 5, right: 3, left: -15, bottom: 5 }}
+      margin={{ top: 5, right: 3, left: 0, bottom: 5 }}
     >
       <CartesianGrid stroke="#720375" strokeDasharray="2 2" />
       <YAxis />

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import {NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
 
 import { BusinessCustomer } from "@/models/BusinessCustomer";
@@ -15,8 +15,8 @@ export async function GET() {
 
         let customer = await BusinessCustomer.findOne({ user: isAuth.userId }).select(
             'currentCycle cyclePurchase reward cycleStartDate cycleEndDate',
-        )
-        const level = await Level.find().select('name target_amt reward_percentage').sort({target_amt:1})
+        ).populate('currentCycle',{name:1,target_amt:1})
+        const level = await Level.find().select('name target_amt reward_percentage').sort({target_amt:-1})
 
         const currentDate = new Date();
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -26,8 +26,6 @@ export async function GET() {
             user: isAuth.userId,
             createdAt: { $gte: firstDayOfMonth, $lt: lastDayOfMonth },
         }).select('-billFile -addedBy -user -_id -updatedAt').populate('addedBy', { username: 1 }).limit(30);
-
-      
 
         return NextResponse.json({ customer, level, purchase }, { status: 200 })
     } catch (error) {

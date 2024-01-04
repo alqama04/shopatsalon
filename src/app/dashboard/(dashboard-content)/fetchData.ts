@@ -2,7 +2,11 @@ import { headers } from "next/headers";
 
 interface Customer {
     _id: string;
-    currentCycle: string;
+    currentCycle: {
+        _id:string,
+        name:string,
+        target_amt:number
+    };
     cyclePurchase: number;
     reward: number;
     cycleStartDate:string,

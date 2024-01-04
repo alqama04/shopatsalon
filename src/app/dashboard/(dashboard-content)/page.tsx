@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import Reward from "./Reward";
 import { Skeleton, Skeleton2 } from "@/components/Skeleton";
 import fetchData from "./fetchData";
- 
 
 const Levels = dynamic(() => import("./(currentCycle)/Levels"), {
   ssr: false,
@@ -49,8 +48,7 @@ const page = async () => {
         </h2>
         <div className="mt-3 flex items-center gap-2">
           <h2 className="font-bold tracking-wider">Cycle Date</h2>
-          {new Date(customer.cycleEndDate).toDateString() <=
-            new Date(Date.now()).toDateString() && (
+          {new Date(customer.cycleEndDate) <= new Date(Date.now()) && (
             <span className="badge font-bold">Ended</span>
           )}
         </div>
