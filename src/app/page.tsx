@@ -1,12 +1,11 @@
-import Hero from "@/components/Hero";
-import { Skeleton } from "@/components/Skeleton";
-import LandingPage from "@/components/LandingPage";
-import Navbar from "@/components/Navbar";
-import dynamic from "next/dynamic";
 import React from "react";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/Skeleton";
+import Navbar from "@/components/Navbar";
+import Anim from "@/components/anim";
 
 const Services = dynamic(() => import("@/components/Services"), {
-  ssr:false,
+  ssr: false,
   loading: () => (
     <div>
       <Skeleton />
@@ -14,19 +13,33 @@ const Services = dynamic(() => import("@/components/Services"), {
   ),
 });
 
+const Brand = dynamic(() => import("@/components/Brands/Brand"));
+const Hero = dynamic(() => import("@/components/Hero"));
+const LandingPage = dynamic(() => import("@/components/LandingPage"));
+const Footer = dynamic(() => import("@/components/Footer"));
+
 const Home = () => {
   return (
     <>
       <div>
-        <div
-          
-          className="bg-Clip bg-gradient-to-br from-black via-gray-900 to-gray-950 "
-        >
+        <div className="bg-Clip">
           <Navbar />
           <LandingPage />
         </div>
-        <Hero />
-        <Services />
+
+        <Anim>
+          <Hero />
+        </Anim>
+
+        <Anim>
+          <Services />
+        </Anim>
+        <Anim>
+          <Brand />
+        </Anim>
+        <Anim>
+          <Footer />
+        </Anim>
       </div>
     </>
   );

@@ -11,7 +11,7 @@ const LandingPage = () => {
   let text = "Change the way you shop";
 
   return (
-    <div className="mt-8 md:mt-0 relative h-full text-white lg:py-20 2xl:py-32">
+    <div className="pt-8 md:pt-0 relative h-full text-white lg:py-20 2xl:py-32">
       <div className="flex justify-between flex-col-reverse md:flex-row md:px-10 pb-10">
         <div className="px-1 md:px-16 pb-10 md:pb-4 flex flex-col justify-center">
           <div
@@ -26,7 +26,7 @@ const LandingPage = () => {
                   delay: i / 20,
                 }}
                 key={i}
-                className="leading-[4.3rem]"
+                className="select-none leading-[4.3rem]"
               >
                 {el}
               </motion.span>
@@ -43,7 +43,7 @@ const LandingPage = () => {
             className="text-[1.5rem]"
           >
             Now There is a
-            <span className="font-bold">Newer, Smarter & More Rewarding</span>
+            <span className="font-bold"> Newer, Smarter & More Rewarding</span>
             Way To Shop for Your Salon’s Needs.
           </motion.h1>
           <div className="text-center md:text-left mt-6 mb-3">
@@ -91,7 +91,7 @@ const LandingPage = () => {
               width={600}
               height={500}
               alt="shop at salon"
-              className="object-cover opacity-90 mt-1  "
+              className="object-cover opacity-90 mt-1 select-none "
             />
           </div>
         </motion.div>
