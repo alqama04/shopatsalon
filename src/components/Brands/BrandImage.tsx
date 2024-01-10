@@ -1,18 +1,17 @@
 "use client";
 import { brandImages } from "@/constant/brandImage";
 import Marquee from "react-fast-marquee";
-import React, { useState } from "react";
+import React from "react";
 
 import Image from "next/image";
 
 const BrandImage = () => {
-  const [pause, setPause] = useState(true);
 
   return (
     <div>
       <Marquee pauseOnHover={true} speed={70} delay={0.5}>
         <div
-          onClick={() => setPause(!pause)}
+           
           className="relative flex gap-3 mr-3"
         >
           {brandImages.map((item, i) => (

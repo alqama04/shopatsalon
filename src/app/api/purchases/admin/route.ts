@@ -14,6 +14,10 @@ export async function GET(req: NextRequest) {
         if (!isAdmin) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
+        
+       
+
+        
         const purchases = await Purchase.find({})
             .populate(['user', 'addedBy'])
             .sort({ createdAt: -1 })

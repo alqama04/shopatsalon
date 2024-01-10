@@ -75,7 +75,6 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image}) => {
                 {userSidebarMenu.map((item) => (
                   <Link
                     onClick={() => setDrawerOpen((prev) => !prev)}
-                    prefetch={true}
                     key={item.name}
                     href={item.href}
                     className={`flex gap-2 items-center mt-4 capitalize tracking-wider text-[1rem]   py-[0.7rem] px-1 rounded-md

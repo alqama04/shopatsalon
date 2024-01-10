@@ -20,7 +20,7 @@ export default async function RootLayout({
           image={session?.user.image || "Shop At salon"}
         />
       </div>
-      <div className="w-full h-full md:ml-64 md:border-l-2 border-gray-600">{children}</div>
+      <div className="w-full md:ml-64 md:border-l-2 border-gray-600 bg-gray-900 text-white">{children}</div>
     </div>
   );
 }

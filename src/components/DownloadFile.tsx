@@ -4,24 +4,24 @@ import { IoMdCloudDownload } from "react-icons/io";
 interface DownloadProps {
   url: string;
   fileName?: string;
+  iconSize?:number
 }
 
-const DownloadFile = async({ url, fileName }: DownloadProps) => {
+const DownloadFile = async({ url, fileName,iconSize=30 }: DownloadProps) => {
+  const fileFormate = url.slice(-5).split('.')[1]
   let downloadUrl
     try {
-      const getUrl = await getDownloadUrl(url, `bill-of ${fileName}.pdf`);
+      const getUrl = getDownloadUrl(url, `${fileName}.${fileFormate}`);
       downloadUrl = getUrl
     } catch (error) {
       console.log("Error downloading file", error)
     }
- 
 
   return (
     <div>
       {downloadUrl &&
-        <a href={downloadUrl} download={fileName}  className="flex flex-col">
-        <IoMdCloudDownload  size={25}/>
-        <span className="text-[0.8rem] capitalize">{fileName}</span>
+        <a href={downloadUrl} download={fileName}  className="flex flex-col" title="download">
+        <IoMdCloudDownload  size={iconSize}/>
       </a>
       }
     </div>

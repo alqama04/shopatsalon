@@ -6,11 +6,14 @@ const es = initEdgeStore.create();
  
  
 const edgeStoreRouter = es.router({
-  publicFiles: es.fileBucket()
+  publicFiles: es.fileBucket({
+    maxSize:1024*1024*4,
+    accept: ['image/jpeg', 'image/jpg','image/png','image/webp', 'application/pdf']
+  })
 
   .input(
     z.object({
-      type:z.enum(["purchases","profile"]),
+      type:z.enum(["purchases"]),
     })
   )
   .path(({input})=>[{type:input.type}])

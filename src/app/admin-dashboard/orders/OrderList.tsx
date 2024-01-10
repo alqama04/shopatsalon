@@ -1,0 +1,67 @@
+import React from "react";
+
+import dynamic from "next/dynamic";
+import Link from "next/link";
+
+const DownloadFile = dynamic(() => import("@/components/DownloadFile"), {
+  ssr: false,
+  loading() {
+    return <span className="loading loading-spinner" />;
+  },
+});
+
+interface orders {
+  _id: string;
+  user: {
+    _id: string;
+    username: string;
+  };
+  orderList: string;
+  files: string[];
+  isAccepted: boolean;
+  createdAt: string;
+}
+
+const OrderList = ({ orders }: { orders: orders[] }) => {
+  return (
+    <>
+      {orders.map((item) => (
+        <div
+          key={item._id}
+          className="shadow-md rounded-lg px-1 py-2 bg-gray-800"
+        >
+          <div className="flex justify-between items-center">
+            <h1>{new Date(item.createdAt).toDateString()}</h1>
+            <div>
+              <Link href={`/admin-dashboard/orders/${item._id}`} className="">
+                View
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center gap-2">
+            {item.files.length
+              ? item.files.map((file) => (
+                  <div key={file}>
+                    <DownloadFile url={file} fileName={item._id} />
+                  </div>
+                ))
+              : ""}
+          </div>
+
+          <div>
+            <textarea
+              rows={3}
+              defaultValue={item.orderList || "nothing to show here"}
+              readOnly
+              className="textarea textarea-ghost w-full font-semibold "
+              placeholder="Enter order List"
+            ></textarea>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+export default OrderList;

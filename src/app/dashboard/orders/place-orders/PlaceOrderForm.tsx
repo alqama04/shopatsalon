@@ -1,0 +1,56 @@
+"use client";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import { Skeleton2 } from "@/components/Skeleton";
+import FormSubmit from "@/components/FormSubmit";
+
+const UploadFile = dynamic(() => import("@/components/UploadFile"), {
+  ssr: false,
+  loading() {
+    return <Skeleton2 />;
+  },
+});
+
+interface PlaceOrderFormProps {
+  handler: (data: { orderList: string; files: string[] }) => void;
+}
+
+const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
+  const [files, setFiles] = useState<string[]>([]);
+  const [clearFileState, setClearFileState] = useState<boolean>(false);
+  const [orderList, setOrderList] = useState("");
+
+  const handleOrder = () => {
+    setClearFileState(true)
+    handler({ orderList, files });
+    setOrderList("");
+    setFiles([]);
+
+  };
+
+  return (
+    <>
+      <form action={handleOrder}>
+        <div className="flex flex-col gap-1 justify-center items-center">
+          <textarea
+            rows={5}
+            value={orderList}
+            onChange={(e) => setOrderList(e.target.value)}
+            className="textarea textarea-ghost w-full font-semibold "
+            placeholder="Enter order List"
+          ></textarea>
+          <div className="divider divider-vertical">OR</div>
+          <UploadFile setFiles={setFiles} clearFileState={clearFileState} />
+        </div>
+        <div className="my-5 w-full">
+
+          <FormSubmit className="btn w-full text-[1.1rem] bg-gray-900 text-white shadow-gray-800 shadow-inner border-gray-800 hover:bg-gray-950">
+            Place Order
+          </FormSubmit>
+        </div>
+      </form>
+    </>
+  );
+};
+
+export default PlaceOrderForm;

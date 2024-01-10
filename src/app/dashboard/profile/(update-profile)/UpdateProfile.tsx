@@ -68,7 +68,7 @@ const handleBusinessProfile = async () => {
         </h1>
 
         <form action={handleBusinessProfile}>
-          <div className="px-2.5 md:px-10 md:mt-3">
+          <div className="px-2.5 md:px-10 md:mt-3 text-gray-900">
             {Object.keys(profile).map(
               (item) =>
                 item !== "city" &&

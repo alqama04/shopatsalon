@@ -159,7 +159,7 @@ const MultiFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           {value?.map(({ file, progress }, i) => (
             <div
               key={i}
-              className="flex h-16 w-80 max-w-[100vw] flex-col justify-center rounded border border-gray-300 px-4 py-2"
+              className="flex h-10 w-80 max-w-[100vw] flex-col justify-center rounded border border-gray-300 px-1 py-2"
             >
               <div className="flex items-center gap-2 text-gray-500">
                 <FaRegFile size="30" className="shrink-0" />

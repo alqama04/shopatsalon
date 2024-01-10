@@ -6,7 +6,6 @@ export default withAuth(
         if (req.nextUrl.pathname.startsWith('/admin-dashboard')
             && req.nextauth.token?.role !== 'admin'
         ) {
-            console.log(req.nextUrl.href)
             return NextResponse.rewrite(
                 new URL('/access-denied', req.url)
             )
@@ -33,11 +32,15 @@ export const config = {
         '/dashboard',
         '/dashboard/purchases',
         '/dashboard/profile',
+        '/dashboard/orders',
+        '/dashboard/place-orders',
         
         '/admin-dashboard', 
         '/admin-dashboard/levels',
+        '/admin-dashboard/reward',
         '/admin-dashboard/purchases',
         '/admin-dashboard/purchases/add-purchase-record',
+        '/admin-dashboard/orders',
 
 
 

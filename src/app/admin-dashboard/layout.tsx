@@ -13,7 +13,7 @@ export default async function RootLayout({
 
       <AdminSdiebar />
       </div>
-      <div className="w-full md:ml-64">
+      <div className="w-full md:ml-64 bg-gray-900 text-white border-l-[0.5px]">
         {children}
         </div>
     </div>

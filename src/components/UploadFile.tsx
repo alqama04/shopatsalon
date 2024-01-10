@@ -46,6 +46,7 @@ export default function UploadFile({ setFiles,clearFileState }: setFilesProps) {
                   file: addedFileState.file,
                   options: {
                     temporary: true,
+                    
                   },
                   input: { type: "purchases" },
                   onProgressChange: async (progress) => {

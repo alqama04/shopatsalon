@@ -13,7 +13,6 @@ const UploadFile = dynamic(() => import("@/components/UploadFile"), {
 });
 
 const FindUser = dynamic(() => import("../FindUser"), {
-  ssr: false,
   loading() {
     return (
       <div>

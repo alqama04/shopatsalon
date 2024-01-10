@@ -1,8 +1,8 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
-import Navbar from "@/components/Navbar";
-import Anim from "@/components/anim";
+
+import Anim from "@/components/Anim";
 
 const Services = dynamic(() => import("@/components/Services"), {
   ssr: false,
@@ -13,12 +13,22 @@ const Services = dynamic(() => import("@/components/Services"), {
   ),
 });
 
+const Navbar = dynamic(()=>import('@/components/Navbar'))
 const Brand = dynamic(() => import("@/components/Brands/Brand"));
 const Hero = dynamic(() => import("@/components/Hero"));
-const LandingPage = dynamic(() => import("@/components/LandingPage"));
+const LandingPage = dynamic(() => import("@/components/LandingPage")
+,{
+  loading: () => (
+    <div>
+      <Skeleton />
+    </div>
+  ),
+}
+);
 const Footer = dynamic(() => import("@/components/Footer"));
 
 const Home = () => {
+
   return (
     <>
       <div>

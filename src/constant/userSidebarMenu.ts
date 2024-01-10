@@ -1,7 +1,8 @@
 import { TbLayoutDashboard } from "react-icons/tb";
-import { IoHomeOutline } from "react-icons/io5";
+import { GiNotebook } from "react-icons/gi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { CiMemoPad } from "react-icons/ci";
+import { FaHistory } from "react-icons/fa";
 
 export const userSidebarMenu = [
     {
@@ -11,10 +12,16 @@ export const userSidebarMenu = [
         href: "/dashboard"
     },
     {
-        name: "Home",
-        icon: IoHomeOutline,
+        name: "Place Order",
+        icon: GiNotebook,
         iconColor: "#800080",
-        href: "/"
+        href: "/dashboard/orders/place-orders"
+    },
+    {
+        name: "Recent Orders",
+        icon: FaHistory,
+        iconColor: "#FCE883",
+        href: "/dashboard/orders"
     },
     {
         name: "profile",
