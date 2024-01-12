@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
         const rewards = await BusinessCustomer.find(queryObj).sort({ createdAt: -1 })
         .populate('user', { username: 1,email:1 })
         .populate('currentCycle', { name: 1})
-        
         .select('cyclePurchase reward cycleStartDate cycleEndDate')
         .sort('-cycleEndDate')
         return NextResponse.json({ rewards: rewards }, { status: 200 })

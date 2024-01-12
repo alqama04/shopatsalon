@@ -1,7 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import fetchReward from "./FetchReward";
-// import UpdateReward from "./(action)/UpdateReward";
 const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
   ssr: false,
   loading() {

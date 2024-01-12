@@ -2,7 +2,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 const AdminSdiebar = dynamic(()=>import('@/components/sidebar/AdminSidebar'))
-
 export default function RootLayout({
   children,
 }: {
