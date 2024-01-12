@@ -34,8 +34,6 @@ const FetchLevels = async () => {
     levels = await response.json();
   } catch (error) {
     levels = [];
-   
-    throw new Error("Unable to Get Data");
   }
   return (
     <>
