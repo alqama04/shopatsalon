@@ -26,7 +26,7 @@ const Order = ({order}:orderProp) => {
       <div className="flex flex-col ga-2">
         <textarea
           defaultValue={order.orderList}
-          className="bg-gray-800 textarea flex-1 "
+          className="bg-gray-800 textarea "
         />
         <div className="flex gap-2 mt-3">
           {order.files.length ?

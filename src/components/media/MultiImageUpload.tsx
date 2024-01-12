@@ -1,26 +1,28 @@
 "use client";
+
 import {
-  MultiFileDropzone,
+  MultiImageDropzone,
   type FileState,
-} from "@/components/Multi-file-dropzone";
+} from "@/components/media/MultiImageDropzone";
 import { useEdgeStore } from "@/lib/edgestore";
+import imageCompression from "browser-image-compression";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface setFilesProps {
   setFiles: Dispatch<SetStateAction<string[]>>;
   clearFileState?: Boolean;
 }
-export default function UploadFile({
+export default function MultiImageUpload({
   setFiles,
   clearFileState,
 }: setFilesProps) {
   const [fileStates, setFileStates] = useState<FileState[]>([]);
+  const { edgestore } = useEdgeStore();
 
   useEffect(() => {
     setFileStates([]);
   }, [clearFileState]);
 
-  const { edgestore } = useEdgeStore();
   function updateFileProgress(key: string, progress: FileState["progress"]) {
     setFileStates((fileStates) => {
       const newFileStates = structuredClone(fileStates);
@@ -33,13 +35,35 @@ export default function UploadFile({
       return newFileStates;
     });
   }
+
+  const compressImage = async (file: any) => {
+    console.log(typeof file);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1080,
+      useWebWorker: true,
+      alwaysKeepResolution: true,
+      initialQuality: 0.8,
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+
+      return compressedFile;
+    } catch (error) {
+      console.error(error);
+      window.location.reload();
+      throw error;
+    }
+  };
+
   return (
     <div>
-      <MultiFileDropzone
+      <MultiImageDropzone
         value={fileStates}
         dropzoneOptions={{
           maxFiles: 4,
-          maxSize: 1024 * 1024 * 5,
+          maxSize: 1024 * 1024 * 10,
         }}
         onChange={(files) => {
           setFileStates(files);
@@ -50,11 +74,11 @@ export default function UploadFile({
             addedFiles.map(async (addedFileState) => {
               try {
                 const res = await edgestore.publicFiles.upload({
-                  file: addedFileState.file,
+                  file: await compressImage(addedFileState.file),
+                  input: { type: "orders" },
                   options: {
                     temporary: true,
                   },
-                  input: { type: "purchases" },
                   onProgressChange: async (progress) => {
                     updateFileProgress(addedFileState.key, progress);
                     if (progress === 100) {
@@ -63,7 +87,7 @@ export default function UploadFile({
                     }
                   },
                 });
-
+                console.log(res);
                 setFiles((prevFiles) => [...prevFiles, res.url]);
               } catch (err) {
                 updateFileProgress(addedFileState.key, "ERROR");

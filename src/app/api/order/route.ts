@@ -37,7 +37,6 @@ export async function POST(req: NextRequest) {
         if (!orderList && !files) {
             return NextResponse.json({ error: "one field is required" }, { status: 400 })
         }
-        console.log(orderList, files)
 
         const order = await Order.create({
             user: isAuth.userId,

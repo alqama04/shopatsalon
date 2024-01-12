@@ -1,7 +1,10 @@
 import { TbLayoutDashboard } from "react-icons/tb";
-import { IoHomeOutline } from "react-icons/io5";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { CiMemoPad } from "react-icons/ci";
+import { GiNotebook } from "react-icons/gi";
+import { SiLevelsdotfyi } from "react-icons/si";
+import { PiMedalMilitaryFill } from "react-icons/pi";
+
 
 export const adminSidebarMenu = [
     {
@@ -10,23 +13,26 @@ export const adminSidebarMenu = [
         iconColor: "#98FB98",
         href: "/admin-dashboard"
     },
+    
+    {
+        name: "orders",
+        icon: GiNotebook,
+        iconColor: "##800080",
+        href: "/admin-dashboard/orders"
+    },
+
+   
     {
         name: "Reward",
-        icon: TbLayoutDashboard,
-        iconColor: "#98FB98",
+        icon: PiMedalMilitaryFill,
+        iconColor: "#FFB534",
         href: "/admin-dashboard/reward"
     },
     {
         name: "Levels",
-        icon: IoHomeOutline,
+        icon: SiLevelsdotfyi,
         iconColor: "#800080",
         href: "/admin-dashboard/levels"
-    },
-    {
-        name: "profile",
-        icon: FaRegCircleUser,
-        iconColor: "#4169E1",
-        href: "/admin-dashboard/profile"
     },
     {
         name: "Purchase Records",

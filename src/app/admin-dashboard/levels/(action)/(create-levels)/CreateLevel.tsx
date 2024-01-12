@@ -9,7 +9,7 @@ const CreateLevel = () => {
   return (
     <>
       <button
-        className="btn btn-outline btn-sm m-2 bg-gray-900 text-gray-100"
+        className="btn btn-sm m-2  text-gray-900"
         onClick={() => setIsModalOpen((prev) => !prev)}
       >
         Create Level

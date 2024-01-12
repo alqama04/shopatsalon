@@ -3,6 +3,7 @@ import UserSidebar from "@/components/sidebar/UserSidebar";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import BusinessProfile from "./BusinessProfiles";
+import Help from "@/components/Help";
 
 export default async function RootLayout({
   children,
@@ -20,7 +21,13 @@ export default async function RootLayout({
           image={session?.user.image || "Shop At salon"}
         />
       </div>
-      <div className="w-full md:ml-64 md:border-l-2 border-gray-600 bg-gray-900 text-white">{children}</div>
+      <div className="w-full md:ml-64 md:border-l-2 border-gray-600 bg-gray-900 text-white">{children}
+
+      </div>
+
+        <div className="absolute z-10 right-6 bottom-1">
+        <Help/>
+      </div>
     </div>
   );
 }

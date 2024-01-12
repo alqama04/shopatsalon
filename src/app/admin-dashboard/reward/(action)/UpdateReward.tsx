@@ -46,7 +46,7 @@ const UpdateReward = ({ id }: { id: string }) => {
       {isModalOpen && (
         <dialog id="my_modal_1" className="modal" open>
           <div className="modal-box">
-            <h3 className="font-bold text-lg">
+            <h3 className="font-bold text-lg text-black">
               Are you sure you want to settle the reward?
             </h3>
 

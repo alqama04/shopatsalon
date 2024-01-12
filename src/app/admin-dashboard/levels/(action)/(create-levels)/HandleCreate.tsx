@@ -42,7 +42,7 @@ const HandleCreate = () => {
   const inputClass =
     "w-full bg-[#F1F1F1] my-1.5 py-2.5 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md transition-all duration-75 focus:border-l-4";
   return (
-    <div className="w-full">
+    <div className="w-full text-black" >
       {component}
       <form action={handleSubmit}>
         <input

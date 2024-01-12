@@ -2,6 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
 import { headers } from "next/headers";
+import Link from "next/link";
 
 const Order = dynamic(() => import("./Order"), {
   loading() {
@@ -37,6 +38,9 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="min-h-screen h-full p-2">
+      <Link 
+      className='btn btn-sm mb-2 mt-0.5'
+      href='/admin-dashboard/orders'>Go Back</Link>
       <CustomerDetail customer={customer} />
 
       <Order order={order} />
@@ -45,6 +49,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         <UpdateOrder id={order._id} />
 
         <DeleteOrder id={order._id} files={order.files} />
+
       </div>
     </div>
   );

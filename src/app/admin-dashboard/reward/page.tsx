@@ -10,14 +10,14 @@ const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
 });
 const page = async () => {
   const { rewards } = await fetchReward();
-  console.log(rewards);
+ 
 
   return (
-    <div>
+    <div className="min-h-screen h-full" >
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
-            <tr>
+            <tr className="text-white tracking-wider  ">
               <th>Reward</th>
               <th>cycle purchase</th>
               <th>Level</th>

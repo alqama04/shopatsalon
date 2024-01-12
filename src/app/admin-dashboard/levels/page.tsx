@@ -1,10 +1,9 @@
 import dynamic from "next/dynamic";
-import FetchLevels from "./(getLevels)/FetchLevels";
 const CreateLevel = dynamic((()=>import('./(action)/(create-levels)/CreateLevel')))
-
+const FetchLevels = dynamic(()=>import('./(getLevels)/FetchLevels'))
 const page = () => {
   return (
-    <div className="bg-white">
+    <div className="min-h-screen h-full">
       <CreateLevel/>
 
       <FetchLevels/>

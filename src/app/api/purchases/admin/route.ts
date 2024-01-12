@@ -73,7 +73,6 @@ export async function POST(req: NextRequest) {
 
                 customer.currentCycle = nextLevel[0]._id,
                     reward = (nextLevel[0].reward_percentage / 100) * purchase.amount
-                console.log(nextLevel, '------------')
             }
 
             customer.reward += reward
@@ -84,7 +83,6 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Unable create purchase record' }, { status: 400 })
         }
     } catch (error) {
-        console.log(error)
         return NextResponse.json({ error: 'internal server error' }, { status: 500 })
     }
 }
@@ -96,7 +94,6 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
         const { id } = await req.json()
-
         if (!id) {
             return NextResponse.json({ error: "Id is required" }, { status: 400 })
         }

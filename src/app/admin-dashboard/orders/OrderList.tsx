@@ -30,10 +30,18 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
           key={item._id}
           className="shadow-md rounded-lg px-1 py-2 bg-gray-800"
         >
-          <div className="flex justify-between items-center">
-            <h1>{new Date(item.createdAt).toDateString()}</h1>
+          <div className="flex justify-between gap-2 items-center">
+            <div className="flex gap-2 items-center">
+              <h1>{new Date(item.createdAt).toDateString()}</h1>
+              {!item.isAccepted && (
+                <span className="badge badge-sm badge-warning ">pending</span>
+              )}
+            </div>
             <div>
-              <Link href={`/admin-dashboard/orders/${item._id}`} className="">
+              <Link
+                href={`/admin-dashboard/orders/${item._id}`}
+                className="underline"
+              >
                 View
               </Link>
             </div>

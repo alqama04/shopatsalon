@@ -29,7 +29,7 @@ const HandleUpdate = ({
   const { component, setAlertMsg, setToastType } = useToastMsg();
 
   const handleSubmit = async () => {
-    console.log(reward_percentage)
+   
     if (!name || !target_amt || !reward_percentage) {
       setAlertMsg("all fields are required");
       setToastType("alert-error");
@@ -53,7 +53,7 @@ const HandleUpdate = ({
         setToastType("alert-error");
       }
 
-      console.log(res);
+       
     } catch (error) {
       throw new Error("internal server Error");
     }

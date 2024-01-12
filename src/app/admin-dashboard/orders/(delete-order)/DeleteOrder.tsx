@@ -15,8 +15,7 @@ const DeleteOrder = ({ id,files }: { id: string,files:string[] }) => {
   const { edgestore } = useEdgeStore();
 
   const handleDelete = async () => {
-
-    console.log('asynclldsf')
+ 
     try {
 
         const res = await fetch("/api/order/admin", {
@@ -40,7 +39,7 @@ const DeleteOrder = ({ id,files }: { id: string,files:string[] }) => {
         setToastType('alert-error')
       }
     } catch (error) {
-        console.log(error)
+     
       throw new Error("something went wrong");
     }
   };

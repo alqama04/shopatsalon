@@ -46,7 +46,7 @@ const DeleteLevels = ({ id }: levelId) => {
       {isModalOpen && (
         <dialog id="my_modal_1" className="modal" open>
           <div className="modal-box">
-            <h3 className="font-bold text-lg">
+            <h3 className="font-bold text-lg text-black">
               Are you sure you want to delete this item?
             </h3>
             <p>it will also delete the user Level who are opted in</p>

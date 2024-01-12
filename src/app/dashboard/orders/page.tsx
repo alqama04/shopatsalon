@@ -22,6 +22,7 @@ const page = async ({ searchParams }: any) => {
     const apiResponse = await res.json();
     orders = apiResponse.orders;
   }
+ 
 
   return (
     <div className="min-h-screen h-full flex flex-col">

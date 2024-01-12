@@ -68,7 +68,7 @@ const FindUser = () => {
           >
             <option>Email</option>
             <option>Phone</option>
-            <option>GSTIN</option>
+    
           </select>
 
           {!loading ? (
@@ -76,10 +76,10 @@ const FindUser = () => {
               type="submit"
               className="bg-gray-200 p-2 px-2 shadow-md rounded-lg "
             >
-              <CiSearch className="stroke-2 text-gray-50 text-2xl " />
+              <CiSearch className="stroke-2 text-gray-800 text-2xl " />
             </button>
           ) : (
-            <button className="bg-gray-200 p-2 px-2 shadow-md rounded-lg ">
+            <button className="bg-gray-800 p-2 px-2 shadow-md rounded-lg ">
               <span className="loading loading-spinner loading-sm" />
             </button>
           )}
@@ -88,13 +88,13 @@ const FindUser = () => {
       <div>
         {userId && (
           <div className="flex gap-2 items-center">
-            <p>{userId}</p>
+            <p className="text-white">{userId}</p>
             <button
               title="copy"
               className="btn btn-sm bg-transparent border-none hover:bg-gray-200"
               onClick={() => navigator.clipboard.writeText(userId)}
             >
-              <FaCopy className="text-[1.4rem]" />
+              <FaCopy className="text-[1.4rem] text-gray-200" />
             </button>
           </div>
         )}

@@ -69,7 +69,7 @@ const CreatePurchaseAction = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full text-black">
       {component}
       <div className="flex md:items-stretch md:flex-row gap-4 flex-col">
         <div>
@@ -106,7 +106,7 @@ const CreatePurchaseAction = () => {
           <p className="text-center text-[0.8rem] badge m-auto badge-warning">
             Only Upload One File(.pdf)
           </p>
-          <p className="text-[0.8rem] ">other files will be useless</p>
+          <p className="text-[0.8rem] text-white ">other files will be consider useless</p>
           <UploadFile setFiles={setFiles} clearFileState={clearFileState} />
         </div>
       </div>

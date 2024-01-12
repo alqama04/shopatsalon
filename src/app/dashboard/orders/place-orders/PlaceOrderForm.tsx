@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { Skeleton2 } from "@/components/Skeleton";
 import FormSubmit from "@/components/FormSubmit";
 
-const UploadFile = dynamic(() => import("@/components/UploadFile"), {
+const MultiImageUpload = dynamic(() => import("@/components/media/MultiImageUpload"), {
   ssr: false,
   loading() {
     return <Skeleton2 />;
@@ -12,7 +12,7 @@ const UploadFile = dynamic(() => import("@/components/UploadFile"), {
 });
 
 interface PlaceOrderFormProps {
-  handler: (data: { orderList: string; files: string[] }) => void;
+  handler: (data: { orderList: string; files: string[] }) =>Promise<boolean>;
 }
 
 const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
@@ -20,12 +20,13 @@ const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
   const [clearFileState, setClearFileState] = useState<boolean>(false);
   const [orderList, setOrderList] = useState("");
 
-  const handleOrder = () => {
-    setClearFileState(true)
-    handler({ orderList, files });
-    setOrderList("");
-    setFiles([]);
-
+  const handleOrder = async() => {
+   const success  = await handler({ orderList, files });
+    if(success){
+      setClearFileState((prev) => !prev);
+      setOrderList("");
+      setFiles([]);
+    }
   };
 
   return (
@@ -40,10 +41,13 @@ const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
             placeholder="Enter order List"
           ></textarea>
           <div className="divider divider-vertical">OR</div>
-          <UploadFile setFiles={setFiles} clearFileState={clearFileState} />
+
+          <MultiImageUpload
+            setFiles={setFiles}
+            clearFileState={clearFileState}
+          />
         </div>
         <div className="my-5 w-full">
-
           <FormSubmit className="btn w-full text-[1.1rem] bg-gray-900 text-white shadow-gray-800 shadow-inner border-gray-800 hover:bg-gray-950">
             Place Order
           </FormSubmit>

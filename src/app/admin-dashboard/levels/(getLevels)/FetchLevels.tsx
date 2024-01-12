@@ -42,7 +42,7 @@ const FetchLevels = async () => {
       <div className="overflow-x-auto">
         <table className="table table-md">
           <thead>
-            <tr>
+            <tr className="text-white tracking-wider text-[0.9rem]">
               <th>Name</th>
               <th>Target</th>
               <th>Reward Percentage</th>

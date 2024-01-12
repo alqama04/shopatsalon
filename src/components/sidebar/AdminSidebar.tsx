@@ -16,11 +16,11 @@ const AdminSdiebar = () => {
   const [DrawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div>
-      <div className={`md:hidden bg-white flex justify-between w-[100svw] px-2 py-0.5  ${DrawerOpen ? "hidden" : "block"}`}>
+    <div className="h-full bg-gray-900">
+      <div className={`md:hidden flex justify-between w-[100svw] px-2 py-0.5  ${DrawerOpen ? "hidden" : "block"}`}>
         <button
           onClick={() => setDrawerOpen((prev) => !prev)}
-          className="text-3xl font-bold"
+          className="text-3xl font-bold text-white"
         >
           <HiMenuAlt2 />
         </button>
@@ -46,7 +46,7 @@ const AdminSdiebar = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
         <div className="drawer-side">
-          <div className="w-screen md:w-64 pt-5 px-1 menu min-h-full h-full bg-gray-900 text-gray-100">
+          <div className="w-screen md:w-64 pt-5 px-1 menu min-h-full h-full text-gray-100">
             <div className="flex flex-col items-center h-full">
               <button
                 onClick={() => setDrawerOpen((prev) => !prev)}
@@ -69,13 +69,13 @@ const AdminSdiebar = () => {
                 {session?.user?.name}
               </p>
 
-              <div className="w-full mt-4 p-1.5">
+              <div className="w-full mt-3 p-1.5">
                 {adminSidebarMenu.map((item) => (
                   <Link
                     onClick={() => setDrawerOpen((prev) => !prev)}
                     key={item.name}
                     href={item.href}
-                    className={`flex gap-2 items-center mt-4 capitalize tracking-wider text-[1rem]   py-[0.7rem] px-1 rounded-md
+                    className={`flex gap-2 items-center mt-4 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
                     transition-all ease-in duration-150 delay-0  ${
                       currentRoute == item.href &&
                       "shadow-gray-700 shadow-md border-l-[8px] border-gray-300"

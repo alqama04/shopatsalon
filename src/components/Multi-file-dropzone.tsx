@@ -1,7 +1,5 @@
 'use client';
 
- 
-
 import { FaCheckCircle,FaRegFile,FaTrashAlt } from "react-icons/fa";
 import { LuFileWarning } from "react-icons/lu";
 import { LuUploadCloud } from "react-icons/lu";

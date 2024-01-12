@@ -24,7 +24,7 @@ const UpdateLevel = ({id,name,target_amt,reward_percentage}:Level) => {
       </button>
       {isModalOpen && (
         <dialog id="my_modal_1" className="modal" open>
-          <div className="modal-box">
+          <div className="modal-box text-black">
             <h3 className="font-bold text-lg">Update Levels</h3>
             <div className="modal-action">
               <HandleUpdate id={id} name={name} target_amt={target_amt}  closeModal={setIsModalOpen} reward_percentage={reward_percentage} />

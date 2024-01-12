@@ -10,21 +10,24 @@ const PlaceOrderForm = dynamic(() => import("./PlaceOrderForm"), {
 });
 import useToastMsg from "@/hooks/useToastMsg";
 import { useEdgeStore } from "@/lib/edgestore";
+import { useRouter } from "next/navigation";
 
 interface OrderProps {
   orderList: string;
   files: string[];
+
 }
 
 const PlaceOrder = () => {
   const { component, setAlertMsg, setToastType } = useToastMsg();
   const { edgestore } = useEdgeStore();
+  const router = useRouter()
 
-  const handleOrder = async ({ orderList, files }: OrderProps) => {
+  const handleOrder = async ({ orderList, files }: OrderProps):Promise<boolean> => {
     if (!orderList && !files.length) {
       setAlertMsg("one field is required");
       setToastType("alert-error");
-      return;
+      return false;
     }
     try {
       const res = await fetch("/api/order", {
@@ -34,15 +37,18 @@ const PlaceOrder = () => {
       const apiResponse = await res.json();
 
       if (res.ok) {
-        for(let file of files){
-          await edgestore.publicFiles.confirmUpload({ url:file});
-        }
         setAlertMsg("Order Sent");
         setToastType("alert-success");
 
+        for(let file of files){
+          await edgestore.publicFiles.confirmUpload({ url:file});
+        }
+        router.refresh()
+        return true
       }else{
         setAlertMsg(apiResponse?.error || "An error occurred");
         setToastType("alert-error");
+        return false
       }
     } catch (error) {
       throw new Error("something went wrong");

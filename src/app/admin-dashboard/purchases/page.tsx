@@ -11,8 +11,8 @@ const FetchPurchases = dynamic(()=>import("./(getPurchases)/FetchPurchases"),{
 
 const page = () => {
   return (
-    <div>
-      <Link href="/admin-dashboard/purchases/add-purchase-record">
+    <div className="min-h-screen h-full">
+      <Link className="btn btn-sm m-2" href="/admin-dashboard/purchases/add-purchase-record">
         create Record
       </Link>
       <FetchPurchases />

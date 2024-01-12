@@ -37,7 +37,7 @@ const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
-            <tr>
+            <tr className="text-white text-[0.9rem]">
               <th>Bill</th>
               <th>Amount</th>
               <th>Purchase Date</th>
