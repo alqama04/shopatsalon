@@ -31,7 +31,9 @@ const FetchLevels = async () => {
       method: "GET",
       headers: headers(),
     });
-    levels = await response.json();
+    if(response.ok){
+      levels = await response.json();
+    }
   } catch (error) {
     levels = [];
   }
