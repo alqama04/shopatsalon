@@ -25,7 +25,7 @@ interface Level {
 }
 
 const FetchLevels = async () => {
-  let levels: Level[];
+  let levels: Level[] = [];
   try {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/levels`, {
       method: "GET",
