@@ -13,17 +13,17 @@ const Levels = async () => {
   const { level, customer } = await fetchData();
 
   const currentLevel = level.find(
-    (item) => item._id === customer.currentCycle._id
+    (item:any) => item._id === customer.currentCycle._id
   );
 
-  const sortLevel = level.sort((a, b) => a.target_amt - b.target_amt);
+  const sortLevel = level.sort((a:any, b:any) => a.target_amt - b.target_amt);
 
   const nextLevel = sortLevel.find(
-    (item) => item.target_amt > customer.currentCycle.target_amt
+    (item:any) => item.target_amt > customer.currentCycle.target_amt
   );
 
   let totalTarget = 0;
-  level.forEach((item) => (totalTarget += item.target_amt));
+  level.forEach((item:any) => (totalTarget += item.target_amt));
 
   const percentageAchieved = (
     (customer.cyclePurchase / sortLevel[sortLevel.length - 1]?.target_amt) *
