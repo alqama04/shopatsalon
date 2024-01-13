@@ -9,8 +9,6 @@ const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
 });
 const page = async () => {
   const rewardData = await fetchReward();
-  console.log(rewardData)
-
 
   if (!rewardData) {
     return <div>No records found</div>;
