@@ -37,9 +37,7 @@ interface DataProps {
 
 export default async function fetchData() {
     try {
-        let res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`
-            , { headers: headers()}
-        )
+        let res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`)
         const apiResponse: DataProps = await res.json()
         return apiResponse
     } catch (error) {
