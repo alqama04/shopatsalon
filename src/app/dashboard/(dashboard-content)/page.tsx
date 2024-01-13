@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import React from "react";
 // import dynamic from "next/dynamic";
 // import Reward from "./Reward";
@@ -40,7 +41,7 @@ const page = async () => {
   // const data = await fetchData();
   // const { customer } = data;
   let data
-  const res = await fetch('https://www.shopatsalon.com/api/dashboard')
+  const res = await fetch('https://www.shopatsalon.com/api/dashboard',{headers:headers()})
   if(!res.ok){
     data = await res.json()
   }
