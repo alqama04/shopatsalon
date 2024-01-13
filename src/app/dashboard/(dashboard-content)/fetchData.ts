@@ -1,17 +1,17 @@
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 interface Customer {
     _id: string;
     currentCycle: {
-        _id:string,
-        name:string,
-        target_amt:number
+        _id: string,
+        name: string,
+        target_amt: number
     };
     cyclePurchase: number;
     reward: number;
-    cycleStartDate:string,
+    cycleStartDate: string,
     cycleEndDate: string;
- }
+}
 
 interface Level {
     _id: string;
@@ -25,7 +25,7 @@ interface Purchase {
     addedBy: {
         username: string
     };
-    createdAt:string
+    createdAt: string
 
 }
 
@@ -35,13 +35,17 @@ interface DataProps {
     purchase: Purchase[];
 }
 
-export default async function fetchData() {
+export default async function fetchData() {   
+
     try {
-        let res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`)
+        let res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`
+            , {
+                headers : new Headers(headers())
+            }
+        )
         const apiResponse: DataProps = await res.json()
         return apiResponse
     } catch (error) {
-        console.log(error);
         throw new Error("unable to get data");
     }
 }

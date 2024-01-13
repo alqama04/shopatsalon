@@ -16,7 +16,7 @@ const page = async ({ searchParams }: any) => {
   let orders = [];
   const res = await fetch(
     `${process.env.NEXTAUTH_URL}/api/order?page=${page}&limit=${limit}`,
-    { headers: headers() }
+    {headers : new Headers(headers()) }
   );
   if (res.ok) {
     const apiResponse = await res.json();

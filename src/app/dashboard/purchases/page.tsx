@@ -14,7 +14,7 @@ const fetchData = async (
   try {
     const res = await fetch(
       `${process.env.NEXTAUTH_URL}/api/purchases?page=${page}&limit=${limit}&fromDate=${fromDate}&toDate=${toDate}`,
-      { headers: headers() }
+      { headers : new Headers(headers()) }
     );
     apiResponse = await res.json();
   } catch (error) {

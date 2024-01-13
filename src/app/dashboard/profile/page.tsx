@@ -8,7 +8,7 @@ const UpdateProfile = dynamic(()=>import('./(update-profile)/UpdateProfile'))
 
 const fetchProfile = async () => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/business-customer`, {
-    headers: headers(),
+    headers : new Headers(headers()),
   });
   const apiResponse = await res.json();
   return apiResponse;

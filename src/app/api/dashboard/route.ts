@@ -16,7 +16,7 @@ export async function GET() {
         let customer = await BusinessCustomer.findOne({ user: isAuth.userId }).select(
             'currentCycle cyclePurchase reward cycleStartDate cycleEndDate',
         ).populate('currentCycle',{name:1,target_amt:1})
-        const level = await Level.find().select('name target_amt reward_percentage').sort({target_amt:-1}).limit(5)
+        const level = await Level.find().select('name target_amt reward_percentage').sort({target_amt:-1})
 
         const currentDate = new Date();
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
