@@ -53,17 +53,17 @@ const FetchLevels = async () => {
             </tr>
           </thead>
           <tbody>
-            {levels.length >0 && levels.map((item: Level) => (
-              <tr key={item._id}>
-                <td>{item.name}</td>
-                <td>{item.target_amt}</td>
-                <td>{item.reward_percentage}</td>
-                <td>{new Date(item.createdAt).toDateString()}</td>
-                <td>{new Date(item.createdAt).toDateString()}</td>
+            {levels.length >=0 && levels.map((item: Level) => (
+              <tr key={item?._id}>
+                <td>{item?.name}</td>
+                <td>{item?.target_amt}</td>
+                <td>{item?.reward_percentage}</td>
+                <td>{new Date(item?.createdAt).toDateString()}</td>
+                <td>{new Date(item?.createdAt).toDateString()}</td>
                 <td>
                   <div className="flex items-center gap-1">
-                    <DeleteLevel id={item._id.toString()} />
-                    <UpdateLevel id={item._id.toString()} name={item.name} target_amt={item.target_amt.toString()} reward_percentage={item.reward_percentage.toString()} />
+                    <DeleteLevel id={item?._id.toString()} />
+                    <UpdateLevel id={item?._id.toString()} name={item?.name} target_amt={item?.target_amt.toString()} reward_percentage={item?.reward_percentage.toString()} />
                   </div>
                 </td>
               </tr>
