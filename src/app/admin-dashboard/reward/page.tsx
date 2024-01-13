@@ -9,11 +9,7 @@ const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
 });
 const page = async () => {
   const rewardData = await fetchReward();
-
-  // if (!rewardData) {
-  //   return <div>No records found</div>;
-  // }
-
+  
   return (
     <div className="min-h-screen h-full">
       <div className="overflow-x-auto">

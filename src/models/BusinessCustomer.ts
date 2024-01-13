@@ -32,8 +32,7 @@ const Business_customerSchema = new mongoose.Schema({
     cycleEndDate: {
         type: Date,
         required: true,
-        default: Date.now() + 12*60*1000
-        // 31536000000, it exist in reward/route, admin/purchase route
+        default: Date.now() + 31536000000
     },
    
     allTimePurchase: {

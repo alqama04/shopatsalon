@@ -36,8 +36,8 @@ export const options: NextAuthOptions = {
                 };
             },
 
-            clientId: '358905436901-qg1e71k5oqetfk265nsjr8m9iqeg81iq.apps.googleusercontent.com',
-            clientSecret: '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',
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
             authorization: {
                 params: {
                     prompt: 'consent',

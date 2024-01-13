@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
             cyclePurchase: 0,
             reward: 0,
             cycleStartDate: Date.now(),
-            cycleEndDate: Date.now() + 12*60*1000
+            cycleEndDate: Date.now() + 31536000000
         })
 
         if(!reward) return NextResponse.json({error:"reward not settled"})
