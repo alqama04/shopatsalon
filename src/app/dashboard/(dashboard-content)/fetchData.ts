@@ -1,46 +1,11 @@
 import { headers } from "next/headers";
 
-interface Customer {
-    _id: string;
-    currentCycle: {
-        _id:string,
-        name:string,
-        target_amt:number
-    };
-    cyclePurchase: number;
-    reward: number;
-    cycleStartDate:string,
-    cycleEndDate: string;
- }
-
-interface Level {
-    _id: string;
-    name: string;
-    target_amt: number;
-    reward_percentage: number;
-}
-interface Purchase {
-    amount: number;
-    purchase_date: string;
-    addedBy: {
-        username: string
-    };
-    createdAt:string
-
-}
-
-interface DataProps {
-    level: Level[];
-    customer: Customer;
-    purchase: Purchase[];
-}
-
 export default async function fetchData() {
     try {
         let res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`
             , { headers: headers()}
         )
-        const apiResponse = await res.json()
+        const apiResponse:any = await res.json()
         return apiResponse
     } catch (error) {
          console.log('unable to get Data',error)
