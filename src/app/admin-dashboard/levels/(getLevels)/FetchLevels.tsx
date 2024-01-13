@@ -56,7 +56,7 @@ const FetchLevels = async () => {
             </tr>
           </thead>
           <tbody>
-            {levels.length >=0 && levels.map((item: Level) => (
+            {levels.length >0 && levels.map((item: Level) => (
               <tr key={item?._id}>
                 <td>{item?.name}</td>
                 <td>{item?.target_amt}</td>

@@ -10,9 +10,9 @@ const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
 const page = async () => {
   const rewardData = await fetchReward();
 
-  if (!rewardData) {
-    return <div>No records found</div>;
-  }
+  // if (!rewardData) {
+  //   return <div>No records found</div>;
+  // }
 
   return (
     <div className="min-h-screen h-full">
@@ -31,8 +31,8 @@ const page = async () => {
             </tr>
           </thead>
           <tbody>
-            {rewardData.rewards.length &&
-              rewardData.rewards.map((item) => (
+            {rewardData?.rewards.length &&
+              rewardData?.rewards.map((item) => (
                 <tr key={item._id}>
                   <td>Rs. {item?.reward}</td>
                   <td>Rs. {item?.cyclePurchase}</td>
