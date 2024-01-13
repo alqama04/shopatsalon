@@ -2,7 +2,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Reward from "./Reward";
 import { Skeleton, Skeleton2 } from "@/components/Skeleton";
-import fetchData from "./fetchData";
 import { headers } from "next/headers";
 
 const Levels = dynamic(() => import("./(currentCycle)/Levels"), {
@@ -40,13 +39,13 @@ const PurchaseTable = dynamic(
 const page = async () => {
   let data;
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`, {
-    headers: headers(),
-  });
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`, {});
 
   if (res.ok) {
     data = await res.json();
   }
+
+  console.log(res,data,'----------')
 
   return (
     <div className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
