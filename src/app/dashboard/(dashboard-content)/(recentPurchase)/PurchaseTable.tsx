@@ -16,7 +16,7 @@ const PurchaseTable = async() => {
           </thead>
           <tbody className="mt-2">
             {purchase.length ? (
-              purchase.map((item) => (
+              purchase.map((item:any) => (
                 <tr
                   key={item.createdAt}
                   style={{ borderRadius: "10px" }}

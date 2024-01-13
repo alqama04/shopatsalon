@@ -13,7 +13,7 @@ import fetchData from "../fetchData";
 const ChartPurchase = async() => {
   const {purchase} = await fetchData()
  
-  const data1= purchase.length?purchase.map((purchase ) => ({
+  const data1= purchase.length?purchase.map((purchase:any ) => ({
     purchases: purchase.amount,
     createdAt: `${new Date(purchase.createdAt).toDateString()}`,
 
