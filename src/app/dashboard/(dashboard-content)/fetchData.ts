@@ -43,6 +43,6 @@ export default async function fetchData() {
         const apiResponse: DataProps = await res.json()
         return apiResponse
     } catch (error) {
-         console.log('unable to get Data',error)
+        throw new Error("unable to get data");
     }
 }
