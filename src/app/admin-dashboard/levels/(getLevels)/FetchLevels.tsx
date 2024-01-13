@@ -34,10 +34,13 @@ const FetchLevels = async () => {
     if(response.ok){
       levels = await response.json();
     }
+    console.log(response)
   } catch (error) {
     console.log(error)
 
   }
+  console.log(levels)
+
   return (
     <>
       <div className="overflow-x-auto">
