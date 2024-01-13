@@ -38,7 +38,7 @@ const PurchaseTable = dynamic(
 );
 const page = async () => {
   const data = await fetchData();
-  const { customer } = data;
+  
 
   return (
     <div className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
@@ -48,24 +48,24 @@ const page = async () => {
         </h2>
         <div className="mt-3 flex items-center gap-2">
           <h2 className="font-bold tracking-wider">Cycle Date</h2>
-          {new Date(customer?.cycleEndDate) <= new Date(Date.now()) && (
+          {new Date(data?.customer?.cycleEndDate) <= new Date(Date.now()) && (
             <span className="badge font-bold">Ended</span>
           )}
         </div>
 
         <div className="flex item-center mt-2 gap-2">
-          {new Date(customer?.cycleStartDate)
+          {new Date(data?.customer?.cycleStartDate)
             .toLocaleDateString()
             .replace(/\//g, "-")}
           <p className="font-bold text-[#FACC15]">To</p>
 
-          {new Date(customer?.cycleEndDate)
+          {new Date(data?.customer?.cycleEndDate)
             .toLocaleDateString()
             .replace(/\//g, "-")}
         </div>
 
         <div className=" mt-3 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-5">
-          <Reward reward={customer?.reward} />
+          <Reward reward={data?.customer?.reward} />
 
           <CyclePurchase />
 
