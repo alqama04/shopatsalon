@@ -8,9 +8,11 @@ const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
   },
 });
 const page = async () => {
-  const { rewards } = await fetchReward();
+  const rewardData = await fetchReward();
+  console.log(rewardData)
 
-  if (!rewards || !rewards.length) {
+
+  if (!rewardData) {
     return <div>No records found</div>;
   }
 
@@ -31,8 +33,8 @@ const page = async () => {
             </tr>
           </thead>
           <tbody>
-            {rewards.length &&
-              rewards.map((item) => (
+            {rewardData.rewards.length &&
+              rewardData.rewards.map((item) => (
                 <tr key={item._id}>
                   <td>Rs. {item?.reward}</td>
                   <td>Rs. {item?.cyclePurchase}</td>
@@ -40,7 +42,7 @@ const page = async () => {
                   <td>{new Date(item?.cycleStartDate).toDateString()}</td>
                   <td>{new Date(item?.cycleEndDate).toDateString()}</td>
                   <td>{item?.user?.username}</td>
-                  <td>{item.user?.email}</td>
+                  <td>{item?.user?.email}</td>
                   <td>
                     <UpdateReward id={item._id.toString()} />
                   </td>

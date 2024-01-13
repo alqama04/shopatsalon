@@ -26,7 +26,7 @@ const fetchReward = async () => {
         const ApiResponse: DataProps = await res.json();
         return ApiResponse;
     } catch (error) {
-        throw new Error("Unable to get Records");
+        console.log(error)
     }
 };
 
