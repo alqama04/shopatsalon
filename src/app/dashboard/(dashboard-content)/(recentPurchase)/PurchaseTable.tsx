@@ -1,8 +1,8 @@
 import React from "react";
 import fetchData from "../fetchData";
  
-const PurchaseTable = async({purchase}:any) => {
- 
+const PurchaseTable = async() => {
+  const {purchase} = await fetchData()
   return (
     <div className="mt-5">
       <div className="overflow-x-auto">
@@ -16,7 +16,7 @@ const PurchaseTable = async({purchase}:any) => {
           </thead>
           <tbody className="mt-2">
             {purchase.length ? (
-              purchase.map((item:any) => (
+              purchase.map((item) => (
                 <tr
                   key={item.createdAt}
                   style={{ borderRadius: "10px" }}

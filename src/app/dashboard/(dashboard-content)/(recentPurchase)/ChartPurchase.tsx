@@ -10,10 +10,10 @@ const  Chart   = dynamic(()=>import('@/components/Chart'),{
 })
 
 import fetchData from "../fetchData";
-const ChartPurchase = async({purchase}:any) => {
+const ChartPurchase = async() => {
+  const {purchase} = await fetchData()
  
- 
-  const data1= purchase.length?purchase.map((purchase:any ) => ({
+  const data1= purchase.length?purchase.map((purchase ) => ({
     purchases: purchase.amount,
     createdAt: `${new Date(purchase.createdAt).toDateString()}`,
 
