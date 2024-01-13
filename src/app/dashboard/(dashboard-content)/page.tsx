@@ -39,6 +39,13 @@ import React from "react";
 const page = async () => {
   // const data = await fetchData();
   // const { customer } = data;
+  let data
+  const res = await fetch('https://www.shopatsalon.com/api/dashboard')
+  if(!res.ok){
+    data = await res.json()
+  }
+
+  console.log(data)
 
   return (
     <div className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
