@@ -2,15 +2,14 @@ import React from "react";
 import "./Level.css";
 
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import fetchData from "../fetchData";
+ 
 
 interface LevelsStyle extends React.CSSProperties {
   "--dynamicTop": string;
   "--dynamicBg": string;
 }
 
-const Levels = async () => {
-  const { level, customer } = await fetchData();
+const Levels = async ({level,customer}:any) => {
 
   const currentLevel = level.find(
     (item:any) => item._id === customer.currentCycle._id

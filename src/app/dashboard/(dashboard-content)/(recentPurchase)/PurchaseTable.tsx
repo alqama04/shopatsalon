@@ -1,8 +1,8 @@
 import React from "react";
 import fetchData from "../fetchData";
  
-const PurchaseTable = async() => {
-  const {purchase} = await fetchData()
+const PurchaseTable = async({purchase}:any) => {
+ 
   return (
     <div className="mt-5">
       <div className="overflow-x-auto">

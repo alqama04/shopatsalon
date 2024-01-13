@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Reward from "./Reward";
 import { Skeleton, Skeleton2 } from "@/components/Skeleton";
 import fetchData from "./fetchData";
+import { headers } from "next/headers";
 
 const Levels = dynamic(() => import("./(currentCycle)/Levels"), {
   ssr: false,
@@ -37,8 +38,15 @@ const PurchaseTable = dynamic(
   }
 );
 const page = async () => {
-  const data = await fetchData();
-  
+  let data;
+
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`, {
+    headers: headers(),
+  });
+
+  if (res.ok) {
+    data = await res.json();
+  }
 
   return (
     <div className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
@@ -67,16 +75,16 @@ const page = async () => {
         <div className=" mt-3 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-5">
           <Reward reward={data?.customer?.reward} />
 
-          <CyclePurchase />
+          <CyclePurchase customer={data?.customer}/>
 
           <div className="col-span-2 mt-2 md:col-span-1  md:mt-0">
-            <Levels />
+            <Levels level={data?.level} customer={data?.customer} />
           </div>
         </div>
         <>
-          <ChartPurchase />
+          <ChartPurchase purchase={data?.purchase}/>
 
-          <PurchaseTable />
+          <PurchaseTable purchase={data?.purchase} />
         </>
       </div>
     </div>
