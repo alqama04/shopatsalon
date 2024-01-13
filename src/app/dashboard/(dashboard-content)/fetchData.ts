@@ -30,8 +30,8 @@ interface Purchase {
 }
 
 interface DataProps {
-    customer: Customer;
     level: Level[];
+    customer: Customer;
     purchase: Purchase[];
 }
 
@@ -40,9 +40,9 @@ export default async function fetchData() {
         let res = await fetch(`${process.env.NEXTAUTH_URL}/api/dashboard`
             , { headers: headers()}
         )
-        const apiResponse: DataProps = await res.json()
+        const apiResponse = await res.json()
         return apiResponse
     } catch (error) {
-        throw new Error("unable to get data");
+         console.log('unable to get Data',error)
     }
 }
