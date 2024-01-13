@@ -22,7 +22,7 @@ const page = async ({ searchParams }: any) => {
     `${process.env.NEXTAUTH_URL}/api/order/admin?isAccepted=${isAccepted}&${
       search && `search=${search}`
     }&page=${page}&limit=${limit}`,
-    { headers: headers() }
+    {headers : new Headers(headers()),}
   );
 
   const orders = await res.json();

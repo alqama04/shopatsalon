@@ -20,7 +20,7 @@ interface DataProps {
 const fetchReward = async () => {
     try {
         const res = await fetch(`${process.env.NEXTAUTH_URL}/api/reward`, {
-            headers: headers()
+            headers : new Headers(headers()),
         });
 
         const ApiResponse: DataProps = await res.json();

@@ -29,17 +29,17 @@ const FetchLevels = async () => {
   try {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/levels`, {
       method: "GET",
-      headers: headers(),
+      headers : new Headers(headers()),
     });
     if(response.ok){
       levels = await response.json();
     }
-    console.log(response)
+     
   } catch (error) {
     console.log(error)
 
   }
-  console.log(levels)
+ 
 
   return (
     <>

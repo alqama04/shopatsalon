@@ -16,7 +16,7 @@ const FetchPurchases = async () => {
   let purchases:any = [];
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/purchases/admin`, {
-      headers: headers(),
+      headers : new Headers(headers()),
     });
     if (res.ok) {
       purchases = await res.json();
