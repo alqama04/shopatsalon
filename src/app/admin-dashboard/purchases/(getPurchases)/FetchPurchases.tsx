@@ -13,27 +13,25 @@ const Purchases = dynamic(() => import("./Purchases"), {
 });
 
 const FetchPurchases = async () => {
-  let apiResponse;
+  let purchases:any = [];
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/purchases/admin`, {
       headers: headers(),
     });
-    apiResponse = await res.json();
+    if (res.ok) {
+      purchases = await res.json();
+    }
   } catch (error) {
-    throw new Error("Something went wrong");
+    console.log(error);
   }
-  if (apiResponse.error || !apiResponse) {
-    return (
-      <div>
-        <h1 className="text-center text-4xl font-bold mt-20">
-          {apiResponse?.error || "unknown error Occured"}{" "}
-        </h1>
-      </div>
-    );
-  }
+
   return (
     <div>
-      <Purchases purchase={apiResponse} />
+      {purchases.length ? (
+        <Purchases purchase={purchases} />
+      ) : (
+        <h2 className="text-center">0 Records found</h2>
+      )}
     </div>
   );
 };

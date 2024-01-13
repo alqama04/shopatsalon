@@ -32,8 +32,7 @@ interface GetPurchasesProps {
 const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
   return (
     <div className="w-full min-h-screen h-full ">
-      
-
+  
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
