@@ -4,7 +4,11 @@ import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import BusinessProfile from "./BusinessProfiles";
 import Help from "@/components/Help";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
 export default async function RootLayout({
   children,
 }: {

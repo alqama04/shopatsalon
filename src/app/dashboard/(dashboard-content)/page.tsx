@@ -55,13 +55,13 @@ const page = async () => {
 
         <div className="flex item-center mt-2 gap-2">
           {new Date(customer?.cycleStartDate)
-            .toLocaleDateString()
-            .replace(/\//g, "-")}
+            .toLocaleDateString("en-US", {day: 'numeric',month: 'short',   year: 'numeric'})}
+
           <p className="font-bold text-[#FACC15]">To</p>
 
           {new Date(customer?.cycleEndDate)
-            .toLocaleDateString()
-            .replace(/\//g, "-")}
+            .toLocaleDateString("en-US", {day: 'numeric',month: 'short',   year: 'numeric'})}
+
         </div>
 
         <div className=" mt-3 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-5">

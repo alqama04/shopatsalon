@@ -7,10 +7,15 @@ import AuthProvider from "./context/AuthProvider";
 const rubik = Montserrat({ subsets: ["latin"],weight:'400' });
 
 export const metadata: Metadata = {
-  title: "Shop At Salon",
+  title: {
+    template: '%s | Shop At Salon',
+    default: 'Shop At Salon',
+  },
   description:
     "Now There is a Newer, Smarter &  More Rewarding Way To Shop for Your Salons Needs.",
+  metadataBase: new URL('https://shopatsalon.com'),
 };
+
 
 export default function RootLayout({
   children,

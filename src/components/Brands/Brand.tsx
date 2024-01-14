@@ -1,6 +1,10 @@
 import React from 'react'
 import BrandImage from './BrandImage'
-
+import { Metadata } from 'next';
+ 
+export const metadata: Metadata = {
+  title: 'Invoices | Acme Dashboard',
+};
 const Brand = () => {
   return (
     <div className='my-5'>
