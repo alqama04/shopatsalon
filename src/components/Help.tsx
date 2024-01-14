@@ -14,7 +14,7 @@ const Help = () => {
        dragConstraints={{
          top: -100,
          left: -100,
-         right: -0,
+         right: 20,
          bottom: 0,
        }}
       
