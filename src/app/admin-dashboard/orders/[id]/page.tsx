@@ -22,7 +22,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   const res = await fetch(
     `${process.env.NEXTAUTH_URL}/api/order/order-detail?id=${params.id}`,
     {
-      headers: headers(),
+      headers:new Headers(headers()),
     }
   );
   const orderDetails = await res.json();
