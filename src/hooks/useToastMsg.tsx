@@ -17,7 +17,7 @@ const useToastMsg = () => {
 
   if (alertMsg) {
     component = (
-      <div className="toast toast-top toast-center">
+      <div className="toast toast-top toast-center z-[1100]">
         <div className={`alert  ${toastType ? toastType : "alert-info"}`}>
           <span className="tracking-wider capitalize">
             {alertMsg}
