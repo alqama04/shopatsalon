@@ -19,7 +19,7 @@ const CyclePurchase = async() => {
             <div>
               <h1 className="text-white flex items-center gap-1">
                 <FaIndianRupeeSign size={26} />
-                <span className="text-[1.2rem]">{customer.cyclePurchase || 0}</span>
+                <span className="text-[1.2rem]">{customer?.cyclePurchase || 0}</span>
               </h1>
             </div>
           </div>

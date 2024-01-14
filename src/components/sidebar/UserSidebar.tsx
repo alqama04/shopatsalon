@@ -19,7 +19,7 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image}) => {
   const [DrawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div>
+      <div>
       <div className={`md:hidden bg-gray-900 flex justify-between w-[100svw] px-2 py-0.5  ${DrawerOpen ? "hidden" : "block"}`}>
         <button
           onClick={() => setDrawerOpen((prev) => !prev)}

@@ -15,14 +15,16 @@ export default async function RootLayout({
 
   return (
     <div className="flex h-full flex-col md:flex-row items-start overflow-x-hidden">
-      <div className="md:fixed ">
+
+      <div className="md:fixed fixed z-[1000] w-[100vw] md:w-auto overflow-hidden">
         <UserSidebar
           name={session?.user.name || ""}
           image={session?.user.image || "Shop At salon"}
         />
       </div>
-      <div className="w-full md:ml-64 md:border-l-2 border-gray-600 bg-gray-900 text-white">{children}
 
+      <div className="mt-10 md:mt-0 w-full md:ml-64 md:border-l-2 border-gray-600 bg-gray-900 text-white">
+        {children}
       </div>
 
         <div className="absolute z-10 right-6 bottom-1">

@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { headers } from "next/headers";
-const Purchases = dynamic(()=>import('./Purchases'))
+const Purchases = dynamic(() => import("./Purchases"));
 
 const fetchData = async (
   page: number,
@@ -14,7 +14,7 @@ const fetchData = async (
   try {
     const res = await fetch(
       `${process.env.NEXTAUTH_URL}/api/purchases?page=${page}&limit=${limit}&fromDate=${fromDate}&toDate=${toDate}`,
-      { headers : new Headers(headers()) }
+      { headers: new Headers(headers()) }
     );
     apiResponse = await res.json();
   } catch (error) {
@@ -43,7 +43,6 @@ const FetchPurchases = async ({ searchParams }: any) => {
 
   return (
     <div className="bg-gray-900 text-white shadow-lg">
-
       <Purchases
         purchases={apiResponse.purchases}
         totalPurchasesCount={apiResponse.totalPurchasesCount}
@@ -62,10 +61,10 @@ const FetchPurchases = async ({ searchParams }: any) => {
         )}
 
         <button className="join-item base-btn">
-          Page
+          Page 
           {Math.ceil(
-            apiResponse.purchases.length/apiResponse.totalPurchasesCount 
-          )}
+            apiResponse.purchases.length / apiResponse.totalPurchasesCount
+          ) || 1}
         </button>
 
         {apiResponse.purchases.length === limit ? (
