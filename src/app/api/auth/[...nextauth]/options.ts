@@ -20,7 +20,7 @@ export const options: NextAuthOptions = {
                     });
                 }
                 let role;
-                if (['alqamaazmi11@gmail.com','amaan77866@gmail.com'].includes(user.email)) {
+                if (['blackscreen991@gmail.com','amaan77866@gmail.com'].includes(user.email)) {
                     role = 'admin'
                 } else { role = user.role }
                 const business_customer = user.business_customer ?? false;
