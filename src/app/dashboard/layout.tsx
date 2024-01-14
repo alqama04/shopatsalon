@@ -16,7 +16,7 @@ export default async function RootLayout({
   return (
     <div className="flex h-full flex-col md:flex-row items-start overflow-x-hidden">
 
-      <div className="md:fixed fixed z-[1000] w-[100vw] md:w-auto overflow-hidden">
+      <div className="md:fixed fixed z-10 w-[100svw] md:w-auto overflow-hidden">
         <UserSidebar
           name={session?.user.name || ""}
           image={session?.user.image || "Shop At salon"}

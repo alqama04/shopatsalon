@@ -72,7 +72,7 @@ const Levels = async () => {
           className="box flex-shrink-0 flex justify-center items-center"
           style={style}
         >
-          <span className="absolute text-[0.9rem] font-bold tracking-wider z-10">
+          <span className="absolute text-[0.9rem] font-bold tracking-wider z-1">
             {percentageAchieved}
           </span>
         </div>

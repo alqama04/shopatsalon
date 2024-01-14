@@ -13,7 +13,7 @@ const CyclePurchase = async() => {
         <div className="flex-1">
           <div className="flex flex-col justify-between h-full">
             <h1 className="uppercase tracking-widest font-semibold text-[1.1rem] leading-5">
-              cycle Purchase
+            Purchase cycle 
             </h1>
 
             <div>
