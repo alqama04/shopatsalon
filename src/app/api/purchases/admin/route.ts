@@ -14,16 +14,27 @@ export async function GET(req: NextRequest) {
         if (!isAdmin) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
-        
-       
+        let queryObj: {
+            phone?: number
+        } = {}
 
-        
-        const purchases = await Purchase.find({})
+        const page = Number(req.nextUrl.searchParams.get('page')) || 1
+        const limit = Number(req.nextUrl.searchParams.get('limit')) || 20
+        const phone = Number(req.nextUrl.searchParams.get('phone'))
+
+        if(phone){
+            queryObj.phone = phone
+        }
+
+        const skip = (page - 1) * limit
+
+
+        const purchases = await Purchase.find(queryObj)
             .populate(['user', 'addedBy'])
             .sort({ createdAt: -1 })
-            .limit(18)
-            // .skip()
-            
+            .limit(limit)
+            .skip(skip)
+
         return NextResponse.json(purchases, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: "internal server error" }, { status: 500 })

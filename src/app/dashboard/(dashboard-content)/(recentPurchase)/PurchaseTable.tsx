@@ -24,7 +24,7 @@ const PurchaseTable = async() => {
                 >
                   <td>Rs {item.amount} </td>
                   <td>{new Date(item.createdAt).toDateString()}</td>
-                  <td>Purple</td>
+                  <td>{item?.addedBy.username}</td>
                 </tr>
               ))
             ) : (

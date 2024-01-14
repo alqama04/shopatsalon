@@ -1,3 +1,5 @@
+import Pagination from "@/components/Pagination";
+import Search from "@/components/Search";
 import dynamic from "next/dynamic";
 const DeletePurchases = dynamic(
   () => import("../(deletePurchases)/DeletePurchases"),
@@ -31,42 +33,42 @@ interface GetPurchasesProps {
 
 const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
   return (
-    <div className="w-full min-h-screen h-full ">
-  
-      <div className="overflow-x-auto">
-        <table className="table">
-          <thead>
-            <tr className="text-white text-[0.9rem]">
-              <th>Bill</th>
-              <th>Amount</th>
-              <th>Purchase Date</th>
-              <th>Buyer</th>
-              <th>Record Added by</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {purchase.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <DownloadFile
-                    url={item.billFile}
-                    fileName={`bill of ${item.amount}`}
-                  />
-                </td>
-                <td>{item?.amount}</td>
-                <td>{item?.createdAt}</td>
-                <td>{item?.user?.username}</td>
-                <td className="font-bold">{item?.addedBy?.username}</td>
-                <td>
-                  <DeletePurchases id={item._id} url={item.billFile} />
-                </td>
+   
+      <div className="h-full">
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr className="text-white text-[0.9rem]">
+                <th>Bill</th>
+                <th>Amount</th>
+                <th>Purchase Date</th>
+                <th>Buyer</th>
+                <th>Record Added by</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+            </thead>
+            <tbody>
+              {purchase.map((item) => (
+                <tr key={item._id} className="hover:bg-gray-800 transition-all duration-200">
+                  <td>
+                    <DownloadFile
+                      url={item.billFile}
+                      fileName={`bill of ${item.amount}`}
+                    />
+                  </td>
+                  <td>{item?.amount}</td>
+                  <td>{item?.createdAt}</td>
+                  <td>{item?.user?.username}</td>
+                  <td className="font-bold">{item?.addedBy?.username}</td>
+                  <td>
+                    <DeletePurchases id={item._id} url={item.billFile} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>    
   );
 };
 
