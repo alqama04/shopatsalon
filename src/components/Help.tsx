@@ -6,16 +6,18 @@ import { motion } from "framer-motion"
 
 const Help = () => {
   return (
-    <motion.div
-   
-    >
+    <div>
       <motion.a
        drag
        dragConstraints={{
          top: -100,
          left: -100,
          right: 20,
-         bottom: 0,
+         bottom:0,
+       }}
+       transition={{
+        duration: .3,
+        ease:"easeInOut"
        }}
       
       href="" className="bg-white flex gap-2 p-3 rounded-md font-bold items-center">
@@ -24,8 +26,7 @@ const Help = () => {
         <IoIosHelpCircle size={26} className="stroke-2"/>
         </motion.a>
 
-
-    </motion.div>
+    </div>
   );
 };
 
