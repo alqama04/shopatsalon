@@ -2,9 +2,13 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
 import { headers } from "next/headers";
-import Search from "@/components/Search";
-import Purchases from "./(getPurchases)/Purchases";
-import Pagination from "@/components/Pagination";
+
+const Purchases = dynamic(()=>import('./(getPurchases)/Purchases'),{
+  loading(){return<Skeleton/>}
+})
+
+const Search = dynamic(()=>import('@/components/Search'))
+const Pagination = dynamic(()=>import('@/components/Pagination'))
 
 const page = async ({ searchParams }: any) => {
   const page = searchParams.page || 1
