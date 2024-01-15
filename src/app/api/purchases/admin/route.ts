@@ -6,7 +6,6 @@ import { checkAdminPermission } from "../../(lib)/checkAuth";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
 import { Level } from "@/models/level";
 
-
 export async function GET(req: NextRequest) {
     try {
         await connectDb()
@@ -15,19 +14,27 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "unauthorized" }, { status: 401 })
         }
         let queryObj: {
-            phone?: number
+            user?: string
         } = {}
 
         const page = Number(req.nextUrl.searchParams.get('page')) || 1
         const limit = Number(req.nextUrl.searchParams.get('limit')) || 20
         const phone = Number(req.nextUrl.searchParams.get('phone'))
+        const email = req.nextUrl.searchParams.get('email')
 
         if(phone){
-            queryObj.phone = phone
+             const customer = await BusinessCustomer.findOne({phone_number:phone})
+             if(customer){
+                queryObj.user = customer.user.toString()
+             }
         }
-
+        if(email){
+            const user = await User.findOne({email:email})
+            if(user){
+                queryObj.user = user._id.toString()
+            }
+        }
         const skip = (page - 1) * limit
-
 
         const purchases = await Purchase.find(queryObj)
             .populate(['user', 'addedBy'])

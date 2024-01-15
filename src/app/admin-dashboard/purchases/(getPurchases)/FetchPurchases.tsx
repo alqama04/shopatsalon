@@ -16,8 +16,8 @@ const Purchases = dynamic(() => import("./Purchases"), {
 });
 
 
-const FetchPurchases = async () => {
-
+const FetchPurchases = async ({searchParams}:any) => {
+ 
 
   let purchases = [];
   try {

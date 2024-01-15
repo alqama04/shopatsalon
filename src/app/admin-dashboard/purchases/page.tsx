@@ -1,21 +1,59 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
+import { headers } from "next/headers";
+import Search from "@/components/Search";
+import Purchases from "./(getPurchases)/Purchases";
+import Pagination from "@/components/Pagination";
 
-const FetchPurchases = dynamic(()=>import("./(getPurchases)/FetchPurchases"),{
-  loading(){
-    return <div><Skeleton/></div>;
+const page = async ({ searchParams }: any) => {
+  const page = searchParams.page || 1
+  const limit = searchParams.limit || 10
+  const phone = searchParams.phone
+  const email = searchParams.email
+
+  let queryStr = `page=${page}&limit=${limit}${phone ?`&phone=${phone}`:''}${email ? `&email=${email}`:''}`;
+ 
+ 
+  let purchases = [];
+  try {
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/purchases/admin?${queryStr}`,
+      {
+        headers: new Headers(headers()),
+      }
+    );
+    if (res.ok) {
+      purchases = await res.json();
+    }
+  } catch (error) {
+    console.log(error);
   }
-})
 
-
-const page = () => {
   return (
-    <div className="min-h-screen h-full">
-      <Link className="btn btn-sm m-2" href="/admin-dashboard/purchases/add-purchase-record">
-        create Record
-      </Link>
-      <FetchPurchases />
+    <div className="min-h-screen h-full flex flex-col">
+      <div className="flex-1">
+        <Link
+          className="btn btn-sm m-1"
+          href="/admin-dashboard/purchases/add-purchase-record"
+        >
+          create Record
+        </Link>
+
+        <div className="m-1 text-black flex gap-2 w-full">
+          <Search placeholder="search Customer purchase" />
+        </div>
+
+        {purchases.length ? (
+          <Purchases purchase={purchases} />
+        ) : (
+          <h2 className="text-center">0 Records found</h2>
+        )}
+      </div>
+
+      <div className="my-auto">
+        <Pagination />
+      </div>
     </div>
   );
 };
