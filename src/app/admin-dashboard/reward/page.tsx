@@ -27,7 +27,7 @@ const page = async () => {
             </tr>
           </thead>
           <tbody>
-            {rewardData?.rewards.length &&
+            {rewardData? rewardData?.rewards.length &&
               rewardData?.rewards.map((item) => (
                 <tr key={item._id}>
                   <td>Rs. {item?.reward}</td>
@@ -41,7 +41,7 @@ const page = async () => {
                     <UpdateReward id={item._id.toString()} />
                   </td>
                 </tr>
-              ))}
+              )):""}
           </tbody>
         </table>
       </div>

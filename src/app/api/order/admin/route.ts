@@ -55,6 +55,7 @@ export async function PUT(req: NextRequest) {
         const admin = await checkAdminPermission()
         
         if (!admin) return NextResponse.json({ error: "unauthorized" }, { status: 401 })
+        
         const { id } = await req.json()
 
         if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 })
