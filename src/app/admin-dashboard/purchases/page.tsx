@@ -8,11 +8,13 @@ const Purchases = dynamic(()=>import('./(getPurchases)/Purchases'),{
 })
 
 const Search = dynamic(()=>import('@/components/Search'))
+
+
 const Pagination = dynamic(()=>import('@/components/Pagination'))
 
 const page = async ({ searchParams }: any) => {
-  const page = searchParams.page || 1
-  const limit = searchParams.limit || 10
+  const page = Number(searchParams.page) || 1
+  const limit = Number(searchParams.limit) || 2
   const phone = searchParams.phone
   const email = searchParams.email
 
@@ -56,7 +58,7 @@ const page = async ({ searchParams }: any) => {
       </div>
 
       <div className="my-auto">
-        <Pagination />
+        <Pagination page={page}limit={limit} email={email} phone={phone} datatLen={purchases.length || 0} />
       </div>
     </div>
   );
