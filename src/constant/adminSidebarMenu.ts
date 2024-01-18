@@ -1,10 +1,9 @@
 import { TbLayoutDashboard } from "react-icons/tb";
-import { FaRegCircleUser } from "react-icons/fa6";
 import { CiMemoPad } from "react-icons/ci";
 import { GiNotebook } from "react-icons/gi";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { PiMedalMilitaryFill } from "react-icons/pi";
-
+import { FaUsers } from "react-icons/fa";
 
 export const adminSidebarMenu = [
     {
@@ -17,8 +16,14 @@ export const adminSidebarMenu = [
     {
         name: "orders",
         icon: GiNotebook,
-        iconColor: "##800080",
+        iconColor: "#800080",
         href: "/admin-dashboard/orders"
+    },
+    {
+        name: "customers",
+        icon: FaUsers,
+        iconColor: "#FF004D",
+        href: "/admin-dashboard/customers"
     },
 
    
