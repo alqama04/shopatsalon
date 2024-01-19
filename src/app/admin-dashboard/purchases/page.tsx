@@ -14,7 +14,7 @@ const Pagination = dynamic(()=>import('@/components/Pagination'))
 
 const page = async ({ searchParams }: any) => {
   const page = Number(searchParams.page) || 1
-  const limit = Number(searchParams.limit) || 2
+  const limit = Number(searchParams.limit) || 20
   const phone = searchParams.phone
   const email = searchParams.email
 

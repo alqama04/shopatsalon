@@ -12,14 +12,14 @@ interface LevelsStyle extends React.CSSProperties {
 const Levels = async () => {
   const { level, customer } = await fetchData();
 
-  const currentLevel = level.find(
-    (item) => item?._id === customer.currentCycle?._id
+  const currentLevel =level.find(
+    (item) => item?._id === customer?.currentCycle?._id
   );
 
   const sortLevel = level
   .sort((a, b) => a.target_amt - b.target_amt)
  
-  const nextLevel = sortLevel.find((item) => item.target_amt > customer.currentCycle?.target_amt);
+  const nextLevel = sortLevel.find((item) => item.target_amt > customer?.currentCycle?.target_amt);
 
   let totalTarget = 0;
   level.forEach((item) => (totalTarget += item.target_amt));

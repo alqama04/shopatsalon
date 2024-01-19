@@ -25,7 +25,7 @@ const fetchData = async (
 
 const FetchPurchases = async ({ searchParams }: any) => {
   const page = Number(searchParams.page) || 1;
-  const limit = Number(searchParams.limit) || 5;
+  const limit = Number(searchParams.limit) || 20;
   const fromDate = searchParams.from;
   const toDate = searchParams.to;
 

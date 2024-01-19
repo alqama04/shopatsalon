@@ -37,9 +37,11 @@ const Search = ({ placeholder }: searchProp) => {
           <option className="bg-gray-900 text-white">phone</option>
           <option className="bg-gray-900 text-white">email</option>
         </select>
+
         <input
-          className="input-base border-gray-300 input-sm text-[0.9rem] font-semibold px-0"
+          className="input-base text-black border-gray-300 input-sm text-[0.9rem] font-semibold px-0"
           required
+          value={search.trim()}
           type={searchThrough === "phone" ? "number" : "email"}
           placeholder={placeholder}
           onChange={(e) => setSearchInput(e.target.value)}

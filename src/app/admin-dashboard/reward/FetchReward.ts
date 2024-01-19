@@ -13,17 +13,29 @@ interface RewardProps {
     cycleEndDate: string;
 }
 
-interface DataProps {
+interface DataResp {
     rewards: RewardProps[];
 }
 
-const fetchReward = async () => {
+interface fetchRewardProp{
+    page:number,
+    limit?:number,
+    phone:string,
+    email:string,
+}
+
+const fetchReward = async ({page,limit,phone,email}:fetchRewardProp) => {
+ 
+    
+    let queryStr = `page=${page}&limit=${limit}${phone ?`&phone=${phone}`:''}${email ? `&email=${email}`:''}`;
+  
+
     try {
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/reward`, {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/reward?${queryStr}`, {
             headers : new Headers(headers()),
         });
 
-        const ApiResponse: DataProps = await res.json();
+        const ApiResponse: DataResp = await res.json();
         return ApiResponse;
     } catch (error) {
         console.log(error)

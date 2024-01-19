@@ -15,7 +15,7 @@ const PurchaseTable = async() => {
             </tr>
           </thead>
           <tbody className="mt-2">
-            {purchase.length ? (
+            {purchase && purchase.length ? (
               purchase.map((item) => (
                 <tr
                   key={item.createdAt}

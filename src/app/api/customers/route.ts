@@ -30,10 +30,11 @@ export async function GET(req: NextRequest) {
 
         const skip = (page - 1) * limit
 
-        const user = await User.find({})
+        const user = await User.find(queryObj)
         .select('-isActive -__v')
         .skip(skip)
-
+        .limit(limit)
+        
        return NextResponse.json({ user }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error: "something went wrong" }, { status: 500 })
