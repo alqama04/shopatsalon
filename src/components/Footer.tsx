@@ -30,8 +30,8 @@ const Footer = () => {
       </div>
 
       <div className="flex h-8 justify-center items-center gap-5 mt-4 transition-all duration-200">
-        <Link href="/" className="hover:border-b-2 ">
-          Home
+        <Link href="/company/privacy-and-policy" className="hover:border-b-2 ">
+          privacy and policy
         </Link>
         <Link href="/company/about" className="hover:border-b-2">
           About Us
