@@ -18,7 +18,6 @@ const page = async () => {
   const apiResponse = await fetchProfile();
   const session = await getServerSession(options);
  
-
   return (
     <div className="h-[100vh]">
       <div className="flex justify-center items-center h-full">

@@ -1,8 +1,17 @@
-import Pagination from "@/components/Pagination";
-import Search from "@/components/Search";
 import { headers } from "next/headers";
 import React from "react";
-import CustomerList from "./CustomerList";
+import dynamic from "next/dynamic";
+
+const CustomerList = dynamic(()=>import('./CustomerList'),{
+  loading: () => <div>Loading...</div>,
+})
+
+const Pagination = dynamic(()=>import('@/components/Pagination'),{
+  loading: () => <div>Loading...</div>,
+})
+const Search = dynamic(()=>import('@/components/Search'),{
+  loading: () => <div>Loading...</div>,
+})
 
 const page = async ({ searchParams }: any) => {
   let customer = [];
@@ -32,7 +41,7 @@ const page = async ({ searchParams }: any) => {
     <div className="min-h-screen h-full flex flex-col ">
       <div className="flex-1 p-1">
         <h1 className="text-[1.3rem] font-semibold">Customers </h1>
-        <div className="w-1/3">
+        <div className="md:w-1/3">
           <Search placeholder="Find customer" />
         </div>
         <CustomerList  customers={customer}/>

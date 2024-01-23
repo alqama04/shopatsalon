@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 interface CustomerListProp {
   _id: string;
@@ -14,6 +15,7 @@ interface customerList {
 }
 
 const CustomerList = ({ customers }: customerList) => {
+  // console.log(customers)
   return (
     <div>
       <div className="overflow-x-auto">
@@ -34,7 +36,11 @@ const CustomerList = ({ customers }: customerList) => {
                 key={customer._id}
                 className="hover:bg-gray-900 transition-all duration-200  border-none"
               >
-                <td>{customer.username}</td>
+                <td className="underline cursor-pointer">
+                  <Link href={`/admin-dashboard/customers/${customer._id}`}>
+                    {customer.username}
+                  </Link>
+                </td>
                 <td>{customer.email}</td>
                 <td
                   className={

@@ -1,7 +1,7 @@
+import { socialLinks } from "@/constant/socialLinks";
 import React from "react";
 import { FaInstagram } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa6";
-
 
 const About = () => {
   return (
@@ -97,15 +97,14 @@ const About = () => {
           <div>
             <p className="font-semibold my-3 text-center">{`Elevate, Inspire, Transform – Welcome to Shop at Salon!`}</p>
             <div className="flex justify-center gap-5 items-center w-[10rem] m-auto bg-gray-900 p-2 rounded-md text-white">
-                <a href="https://www.instagram.com/shopatsalon/" target="_blank">
-                    <FaInstagram size={30} className='stroke-2'/>
-                </a>
+              <a href={socialLinks.ig} target="_blank">
+                <FaInstagram size={30} className="stroke-2" />
+              </a>
 
-                <a href="https://www.instagram.com/shopatsalon/" target="_blank">
-                    <FaWhatsapp size={30} className='stroke-2'/>
-                </a>
+              <a href={socialLinks.wtsp} target="_blank">
+                <FaWhatsapp size={30} className="stroke-2" />
+              </a>
             </div>
-            
           </div>
         </div>
       </div>

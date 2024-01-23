@@ -25,7 +25,7 @@ const page = async ({ searchParams }: any) => {
  
 
   return (
-    <div className="min-h-screen h-full flex flex-col p-2">
+    <div className="min-h-[100svh] h-full flex flex-col p-2">
       <h1 className="text-[1.2rem] font-semibold mb-2">Orders</h1>
       {orders.length ? (
         <>

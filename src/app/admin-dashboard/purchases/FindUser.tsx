@@ -91,7 +91,7 @@ const FindUser = () => {
             <p className="text-white">{userId}</p>
             <button
               title="copy"
-              className="btn btn-sm bg-transparent border-none hover:bg-gray-200"
+              className="btn btn-sm bg-transparent border-none hover:bg-gray-800"
               onClick={() => navigator.clipboard.writeText(userId)}
             >
               <FaCopy className="text-[1.4rem] text-gray-200" />

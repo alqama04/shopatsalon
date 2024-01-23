@@ -1,12 +1,12 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { userSidebarMenu } from "@/constant/userSidebarMenu";
 import { usePathname } from "next/navigation";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
-import dynamic from "next/dynamic";
 const Logout = dynamic(()=>import ('@/app/authenticate/Logout'))
 
 interface SidebarProps{

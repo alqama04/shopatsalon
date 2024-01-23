@@ -1,13 +1,19 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { adminSidebarMenu } from "@/constant/adminSidebarMenu";
 import { usePathname } from "next/navigation";
-import Logout from "@/app/authenticate/Logout";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
+
+const Logout = dynamic(() => import("@/app/authenticate/Logout"), {
+  loading: () => {
+    return <span>loading...</span>;
+  },
+});
 
 const AdminSdiebar = () => {
   const { data: session } = useSession();
@@ -17,7 +23,11 @@ const AdminSdiebar = () => {
 
   return (
     <div className="h-full bg-gray-900">
-      <div className={`md:hidden flex justify-between w-[100svw] px-2 py-0.5  ${DrawerOpen ? "hidden" : "block"}`}>
+      <div
+        className={`md:hidden flex justify-between w-[100svw] px-2 py-0.5  ${
+          DrawerOpen ? "hidden" : "block"
+        }`}
+      >
         <button
           onClick={() => setDrawerOpen((prev) => !prev)}
           className="text-3xl font-bold text-white"
@@ -35,7 +45,7 @@ const AdminSdiebar = () => {
             />
           ) : (
             <h1 className="uppercase font-bold text-gray-800 text-2xl">
-              {session?.user.name.charAt(0)}a
+              {session?.user.name.charAt(0)}
             </h1>
           )}
         </div>
@@ -66,16 +76,16 @@ const AdminSdiebar = () => {
               )}
               <h2 className="mt-2 text-[1.1rem]">{session?.user?.name}</h2>
               <p className="mt-1 text-gray-100 text-[0.8rem]">
-                {session?.user?.name}
+                {session?.user?.role}
               </p>
 
-              <div className="w-full mt-3 p-1.5">
+              <div className="w-full mt-2.5 p-1.5">
                 {adminSidebarMenu.map((item) => (
                   <Link
                     onClick={() => setDrawerOpen((prev) => !prev)}
                     key={item.name}
                     href={item.href}
-                    className={`flex gap-2 items-center mt-4 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
+                    className={`flex gap-2 items-center mt-3 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
                     transition-all ease-in duration-150 delay-0  ${
                       currentRoute == item.href &&
                       "shadow-gray-700 shadow-md border-l-[8px] border-gray-300"

@@ -41,7 +41,7 @@ const page = async () => {
   const { customer } = data;
 
   return (
-    <div className=" pt-3 flex-1 min-h-full max-h-max shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
+    <div className=" pt-3 flex-1 min-h-[100svh] h-full shadow-lg p-2 bg-gray-900 text-white md:border-l-2 border-gray-800">
       <div>
         <h2 className="font-extrabold text-[1.4rem] tracking-wider">
           Dashboard

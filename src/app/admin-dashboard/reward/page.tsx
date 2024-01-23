@@ -1,28 +1,38 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import fetchReward from "./FetchReward";
-import Search from "@/components/Search";
-import Pagination from "@/components/Pagination";
+
 const UpdateReward = dynamic(() => import("./(action)/UpdateReward"), {
   ssr: false,
   loading() {
     return <div>Loading...</div>;
   },
 });
-const page = async ({searchParams}:any) => {
-  const page = Number(searchParams.page) || 1
-  const limit = Number(searchParams.limit) || 20
-  const phone = searchParams.phone
-  const email = searchParams.email
 
-  const rewardData = await fetchReward({page,limit,phone,email});
+const Pagination = dynamic(() => import("@/components/Pagination"), {
+  loading() {
+    return <div>Loading...</div>;
+  },
+});
+const Search = dynamic(() => import("@/components/Search"), {
+  loading() {
+    return <div>Loading...</div>;
+  },
+});
+
+const page = async ({ searchParams }: any) => {
+  const page = Number(searchParams.page) || 1;
+  const limit = Number(searchParams.limit) || 20;
+  const phone = searchParams.phone;
+  const email = searchParams.email;
+
+  const rewardData = await fetchReward({ page, limit, phone, email });
 
   return (
     <div className="min-h-screen h-full flex flex-col ">
       <div className="flex-1">
         <div className="w-1/3 p-1">
-
-        <Search placeholder="Find User" />
+          <Search placeholder="Find User" />
         </div>
         <div className="overflow-x-auto">
           <table className="table">
@@ -39,7 +49,8 @@ const page = async ({searchParams}:any) => {
               </tr>
             </thead>
             <tbody>
-              { rewardData? rewardData?.rewards.length &&
+              {rewardData
+                ? rewardData?.rewards.length &&
                   rewardData?.rewards.map((item) => (
                     <tr key={item._id}>
                       <td>Rs. {item?.reward}</td>
@@ -54,13 +65,19 @@ const page = async ({searchParams}:any) => {
                       </td>
                     </tr>
                   ))
-                 :""}
+                : ""}
             </tbody>
           </table>
         </div>
       </div>
 
-      <Pagination page={page}limit={limit} email={email} phone={phone} datatLen={rewardData?.rewards.length || 0} />
+      <Pagination
+        page={page}
+        limit={limit}
+        email={email}
+        phone={phone}
+        datatLen={rewardData?.rewards.length || 0}
+      />
     </div>
   );
 };

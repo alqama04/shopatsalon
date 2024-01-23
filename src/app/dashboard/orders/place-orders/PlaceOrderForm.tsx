@@ -2,17 +2,23 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { Skeleton2 } from "@/components/Skeleton";
-import FormSubmit from "@/components/FormSubmit";
+const MultiImageUpload = dynamic(
+  () => import("@/components/media/MultiImageUpload"),
+  {
+    loading() {
+      return <Skeleton2 />;
+    },
+  }
+);
 
-const MultiImageUpload = dynamic(() => import("@/components/media/MultiImageUpload"), {
-  ssr: false,
+const FormSubmit = dynamic(() => import("@/components/FormSubmit"), {
   loading() {
-    return <Skeleton2 />;
+    return <span>Loading...</span>;
   },
 });
 
 interface PlaceOrderFormProps {
-  handler: (data: { orderList: string; files: string[] }) =>Promise<boolean>;
+  handler: (data: { orderList: string; files: string[] }) => Promise<boolean>;
 }
 
 const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
@@ -20,9 +26,9 @@ const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
   const [clearFileState, setClearFileState] = useState<boolean>(false);
   const [orderList, setOrderList] = useState("");
 
-  const handleOrder = async() => {
-   const success  = await handler({ orderList, files });
-    if(success){
+  const handleOrder = async () => {
+    const success = await handler({ orderList, files });
+    if (success) {
       setClearFileState((prev) => !prev);
       setOrderList("");
       setFiles([]);

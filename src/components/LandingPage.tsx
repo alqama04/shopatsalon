@@ -6,6 +6,8 @@ import { Playfair_Display } from "next/font/google";
 const tomorrow = Playfair_Display({ subsets: ["latin"], weight: "600" });
 
 import { GiDrippingStar } from "react-icons/gi";
+import Link from "next/link";
+import { socialLinks } from "@/constant/socialLinks";
 
 const LandingPage = () => {
   let text = "Change the way you shop";
@@ -47,9 +49,9 @@ const LandingPage = () => {
             Way To Shop for Your Salon’s Needs.
           </motion.h1>
           <div className="text-center md:text-left mt-6 mb-3">
-            <button className="btn rounded-full min-w-0 w-40 text-[1.2rem]">
+            <Link href={socialLinks.wtsp} className="btn rounded-full min-w-0 w-40 text-[1.2rem]">
               Contact Us
-            </button>
+            </Link>
           </div>
         </div>
 

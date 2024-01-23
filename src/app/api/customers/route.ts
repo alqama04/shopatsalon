@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
         const skip = (page - 1) * limit
 
         const user = await User.find(queryObj)
-        .select('-isActive -__v')
+        .select('-__v')
         .skip(skip)
         .limit(limit)
         

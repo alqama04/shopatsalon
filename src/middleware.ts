@@ -42,8 +42,7 @@ export const config = {
         '/admin-dashboard/purchases/add-purchase-record',
         '/admin-dashboard/orders',
         '/admin-dashboard/customers',
-
-
+        '/admin-dashboard/customers/:id*',
 
     ]
 }
