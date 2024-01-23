@@ -55,10 +55,10 @@ const OrdersList = ({ orders }: { orders: orderItem[] }) => {
               <div>
                 <textarea
                   rows={3}
-                  defaultValue={item.orderList || "nothing to show here"}
+                  defaultValue={item.orderList || ""}
                   readOnly
                   className="textarea textarea-ghost resize-none w-full font-semibold mt-1"
-                  placeholder="Enter order List"
+                   
                 ></textarea>
               </div>
             </div>

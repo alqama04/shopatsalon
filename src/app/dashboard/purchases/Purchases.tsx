@@ -58,7 +58,7 @@ const Purchases: React.FC<GetPurchasesProps> = ({
                   />
                 </td>
                 <td>Rs.{item?.amount}</td>
-                <td>{new Date(item.createdAt).toLocaleString()}</td>
+                <td>{new Date(item.createdAt).toDateString()}</td>
 
                 <td className="font-bold">{item?.addedBy?.username}</td>
               </tr>
