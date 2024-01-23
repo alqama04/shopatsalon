@@ -34,6 +34,7 @@ export async function GET(req: NextRequest) {
         .select('-__v')
         .skip(skip)
         .limit(limit)
+        .sort({ createdAt: -1 })
         
        return NextResponse.json({ user }, { status: 200 })
     } catch (error) {

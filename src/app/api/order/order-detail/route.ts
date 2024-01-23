@@ -4,8 +4,6 @@ import { Order } from "@/models/Order";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
 import { checkAdminPermission } from "../../(lib)/checkAuth";
  
-
-
 export async function GET(req: NextRequest) {
     try {
         connectDb()
