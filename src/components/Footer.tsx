@@ -21,7 +21,7 @@ const Footer = () => {
             size={40}
             className="border-b-4 rounded-b-full border-white shadow-md text-[#ffffff] p-0.5"
           />
-          {socialLinks.wtsp}
+          
         </a>
         <a href={`mailto:${socialLinks.gmail}`} target="_blank">
           <MdOutlineMail
