@@ -30,4 +30,5 @@ levelSchema.pre('save', function (next) {
     this.updatedAt = new Date();
     next();
 });
+
 export const Level = mongoose.models.Level || mongoose.model('Level', levelSchema)
