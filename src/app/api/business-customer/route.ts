@@ -4,6 +4,7 @@ import { User } from "@/models/User";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
 import { isAuthenticated } from "../(lib)/checkAuth";
 import { Level } from "@/models/Level";
+ 
 
 // get Business customer
 export async function GET(req: NextRequest) {
