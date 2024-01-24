@@ -18,20 +18,24 @@ const FindUser = () => {
   const [loading, setLoading] = useState(false);
   const { component, setAlertMsg, setToastType } = useToastMsg();
   const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
 
   async function findUser(e: any) {
     e.preventDefault();
     setLoading(true);
     try {
-      let res = await fetch(`/api/user?value=${value}&searchThrough=${searchThrough}`, {
-      });
+      let res = await fetch(
+        `/api/user?value=${value}&searchThrough=${searchThrough}`,
+        {}
+      );
       setLoading(false);
       const apiResponse: ApiResponse = await res.json();
-      
+
       if (apiResponse.user) {
         setAlertMsg("User Found");
         setToastType("alert-success");
         setUserId(apiResponse.user._id!);
+        setUsername(apiResponse.user.username!);
       } else {
         setAlertMsg(apiResponse.error || "Something Went Wrong");
         setToastType("alert-error");
@@ -68,7 +72,6 @@ const FindUser = () => {
           >
             <option>Email</option>
             <option>Phone</option>
-    
           </select>
 
           {!loading ? (
@@ -87,10 +90,13 @@ const FindUser = () => {
       </form>
       <div>
         {userId && (
-          <div className="flex gap-2 items-center">
-            <p className="text-white">{userId}</p>
+          <div className="flex gap-2 items-start">
+            <div className="text-white">
+              <p className="text-white mt-1">{userId}</p>
+              <span className="text-sm">Name: {username}</span>
+            </div>
             <button
-              title="copy"
+              title="copy user Id"
               className="btn btn-sm bg-transparent border-none hover:bg-gray-800"
               onClick={() => navigator.clipboard.writeText(userId)}
             >

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/database/connectdb";
-import { Level } from "@/models/level";
+import { Level } from "@/models/Level";
 import { checkAdminPermission } from "../(lib)/checkAuth";
 
 export async function GET() {

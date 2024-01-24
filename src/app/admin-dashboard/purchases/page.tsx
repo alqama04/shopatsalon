@@ -3,24 +3,34 @@ import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
 import { headers } from "next/headers";
 
-const Purchases = dynamic(()=>import('./(getPurchases)/Purchases'),{
-  loading(){return<Skeleton/>}
-})
+const Purchases = dynamic(() => import("./(getPurchases)/Purchases"), {
+  loading() {
+    return <Skeleton />;
+  },
+});
 
-const Search = dynamic(()=>import('@/components/Search'))
+const Search = dynamic(() => import("@/components/Search"), {
+  loading() {
+    return <p>loading...</p>;
+  },
+});
 
-
-const Pagination = dynamic(()=>import('@/components/Pagination'))
+const Pagination = dynamic(() => import("@/components/Pagination"), {
+  loading() {
+    return <p>loading...</p>;
+  },
+});
 
 const page = async ({ searchParams }: any) => {
-  const page = Number(searchParams.page) || 1
-  const limit = Number(searchParams.limit) || 20
-  const phone = searchParams.phone
-  const email = searchParams.email
+  const page = Number(searchParams.page) || 1;
+  const limit = Number(searchParams.limit) || 20;
+  const phone = searchParams.phone;
+  const email = searchParams.email;
 
-  let queryStr = `page=${page}&limit=${limit}${phone ?`&phone=${phone}`:''}${email ? `&email=${email}`:''}`;
- 
- 
+  let queryStr = `page=${page}&limit=${limit}${phone ? `&phone=${phone}` : ""}${
+    email ? `&email=${email}` : ""
+  }`;
+
   let purchases = [];
   try {
     const res = await fetch(
@@ -58,7 +68,13 @@ const page = async ({ searchParams }: any) => {
       </div>
 
       <div className="my-auto">
-        <Pagination page={page}limit={limit} email={email} phone={phone} datatLen={purchases.length || 0} />
+        <Pagination
+          page={page}
+          limit={limit}
+          email={email}
+          phone={phone}
+          datatLen={purchases.length || 0}
+        />
       </div>
     </div>
   );

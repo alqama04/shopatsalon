@@ -62,10 +62,6 @@ const UserDetail: React.FC<UserDetailProps> = ({ customer }) => {
           </p>
         </div>
 
-        <div className={`${colClass} col-span-2`}>
-          <h1>Address</h1>
-          <p className="text-white">{customer.address}</p>
-        </div>
         <div className={colClass}>
           <h1>City</h1>
           <p className="text-white">{customer.city}</p>
@@ -74,6 +70,11 @@ const UserDetail: React.FC<UserDetailProps> = ({ customer }) => {
         <div className={colClass}>
           <h1>State</h1>
           <p className="text-white">{customer.state}</p>
+        </div>
+
+        <div className={`${colClass} col-span-2`}>
+          <h1>Address</h1>
+          <p className="text-white">{customer.address}</p>
         </div>
       </div>
 

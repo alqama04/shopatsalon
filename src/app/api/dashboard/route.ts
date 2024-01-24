@@ -3,7 +3,7 @@ import connectDb from "@/database/connectdb";
 
 import { BusinessCustomer } from "@/models/BusinessCustomer";
 import { isAuthenticated } from "../(lib)/checkAuth";
-import { Level } from "@/models/level";
+import { Level } from "@/models/Level";
 import { Purchase } from "@/models/Purchase";
 
 export async function GET() {

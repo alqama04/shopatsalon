@@ -4,7 +4,7 @@ import { Purchase } from "@/models/Purchase";
 import { User } from "@/models/User";
 import { checkAdminPermission } from "../../(lib)/checkAuth";
 import { BusinessCustomer } from "@/models/BusinessCustomer";
-import { Level } from "@/models/level";
+import { Level } from "@/models/Level";
 
 export async function GET(req: NextRequest) {
     try {
