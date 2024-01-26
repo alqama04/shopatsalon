@@ -8,8 +8,6 @@ import { Level } from "@/models/Level";
 
 export async function GET(req: NextRequest, context: { params: { id: string } }) {
     try {
-
-
         connectDb()
         const isAdmin = await checkAdminPermission()
         if (!isAdmin) return NextResponse.json({ error: "unauthorized" }, { status: 401 })
@@ -18,6 +16,8 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
         // conver id to objectId
         const objectId = new mongoose.Types.ObjectId(id);
         
+        console.log(objectId)
+
         let customer = await BusinessCustomer.findOne({ user: objectId })
         .populate("user", { '__v': 0 })
         .populate('currentCycle', { name: 1, target_amt: 1 })
