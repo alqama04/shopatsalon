@@ -94,8 +94,7 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image,role}) => {
                 ))}
               </div>
               <div className="m-auto w-full gap-2 p-2 flex flex-col">
-                {role ==='admin' &&
-
+                {role?.toLowerCase() ==='admin' &&
                   <Link href={'/admin-dashboard'}
                   className=" px-1 py-1 w-max rounded-full underline"
                   >Admin Dashboard</Link>
