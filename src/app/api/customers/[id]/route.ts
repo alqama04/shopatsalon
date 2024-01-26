@@ -21,6 +21,7 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
         let customer = await BusinessCustomer.findOne({ user: objectId })
         .populate("user", { '__v': 0 })
         .populate('currentCycle', { name: 1, target_amt: 1 })
+        .lean()
         .exec()
 
         if (!customer) {

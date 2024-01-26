@@ -1,4 +1,3 @@
-import mongoose from 'mongoose'
 import { BusinessCustomer } from '@/models/BusinessCustomer'
 import { User } from '@/models/User'
 import { NextRequest, NextResponse } from 'next/server'
@@ -35,6 +34,8 @@ export async function GET(req: NextRequest) {
         .skip(skip)
         .limit(limit)
         .sort({ createdAt: -1 })
+        .lean()
+        .exec()
         
        return NextResponse.json({ user }, { status: 200 })
     } catch (error) {

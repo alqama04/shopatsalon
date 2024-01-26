@@ -15,7 +15,11 @@ export async function GET() {
 
         let customer = await BusinessCustomer.findOne({ user: isAuth.userId }).select(
             'currentCycle cyclePurchase reward cycleStartDate cycleEndDate',
-        ).populate('currentCycle',{name:1,target_amt:1})
+        )
+        .populate('currentCycle',{name:1,target_amt:1})
+        .lean()
+        .exec()
+
         const level = await Level.find().select('name target_amt reward_percentage').sort({target_amt:-1})
 
         const currentDate = new Date();
@@ -25,7 +29,10 @@ export async function GET() {
         const purchase = await Purchase.find({
             user: isAuth.userId,
             createdAt: { $gte: firstDayOfMonth, $lt: lastDayOfMonth },
-        }).select('-billFile -addedBy -user -_id -updatedAt').populate('addedBy', { username: 1 }).limit(30);
+        })
+        .select('-billFile -addedBy -user -_id -updatedAt').populate('addedBy', { username: 1 })
+        .lean()
+        .limit(30);
 
         return NextResponse.json({ customer, level, purchase }, { status: 200 })
     } catch (error) {
