@@ -21,6 +21,7 @@ interface Customer {
   currentCycle: {
     name: string;
     target_amt: number;
+    reward_percentage:number
   };
   cyclePurchase: number;
   reward: number;
@@ -79,7 +80,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ customer }) => {
       </div>
 
       <h2 className="text-[1.4rem] tracking-wider mt-3 mb-1.5">
-        Purchase Cycle{" "}
+        Purchase Cycle 
         <span className="flex text-[0.9rem] text-red-700">
           {new Date(customer.cycleStartDate).toDateString()} -{" "}
           {new Date(customer.cycleEndDate).toDateString()}
@@ -89,11 +90,15 @@ const UserDetail: React.FC<UserDetailProps> = ({ customer }) => {
       <div className="grid gap-2 grid-cols-2 md:4 lg:grid-cols-4 2xl:grid-cols-6">
         <div className={colClass}>
           <h1>Level</h1>
-          <p className="text-white">{customer.currentCycle.name}</p>
+          <div className="flex gap-2 items-center">
+          <p className="text-white capitalize">{customer.currentCycle.name}</p>
+          <p className="text-white">{customer.currentCycle.reward_percentage}%</p>
+          </div>
+          
         </div>
 
         <div className={colClass}>
-          <h1>Level Taget</h1>
+          <h1>Level Target</h1>
           <p className="text-white">{customer.currentCycle.target_amt}</p>
         </div>
 

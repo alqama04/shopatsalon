@@ -16,19 +16,24 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
         // conver id to objectId
         const objectId = new mongoose.Types.ObjectId(id);
         
-        console.log(objectId)
-
+        
         let customer = await BusinessCustomer.findOne({ user: objectId })
+        // .populate('currentCycle')
         .populate("user", { '__v': 0 })
-        .populate('currentCycle', { name: 1, target_amt: 1 })
-        .lean()
+        
         .exec()
-
+        
         if (!customer) {
             return NextResponse.json({ error: "customer profile not created" }, { status: 402 })
         }
+
+        const level = await Level.findById(customer.currentCycle).select('-createdAT -updatedAt -user')
+        
+        customer.currentCycle = level
+
+        console.log(customer)
        
-        return NextResponse.json({ customer }, { status: 200 })
+        return NextResponse.json({ customer}, { status: 200 })
     } catch (error) {
         console.log(error)
         return NextResponse.json({ error: "something went wrong" }, { status: 500 })
