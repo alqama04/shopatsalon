@@ -26,6 +26,7 @@ export default async function RootLayout({
         <UserSidebar
           name={session?.user.name || ""}
           image={session?.user.image || "Shop At salon"}
+          role={session?.user.role}
         />
       </div>
 

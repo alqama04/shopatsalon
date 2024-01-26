@@ -11,10 +11,11 @@ const Logout = dynamic(()=>import ('@/app/authenticate/Logout'))
 
 interface SidebarProps{
   name:string,
-  image:string
+  image:string,
+  role?:string,
 }
 
-const UserSidebar:React.FC<SidebarProps> = ({name,image}) => {
+const UserSidebar:React.FC<SidebarProps> = ({name,image,role}) => {
   const currentRoute = usePathname();
   const [DrawerOpen, setDrawerOpen] = useState(false);
 
@@ -63,21 +64,20 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image}) => {
                 <Image
                   src={image}
                   alt={name}
-                  width={80}
-                  height={80}
+                  width={75}
+                  height={75}
                   className="rounded-full object-fill"
                 />
               )}
-              <h2 className="mt-2 text-[1.1rem]">{name}</h2>
+              <h2 className="mt-1 text-[1.1rem]">{name}</h2>
               
-
-              <div className="w-full mt-4 p-1.5">
+              <div className="w-full mt-3 p-1.5">
                 {userSidebarMenu.map((item) => (
                   <Link
                     onClick={() => setDrawerOpen((prev) => !prev)}
                     key={item.name}
                     href={item.href}
-                    className={`flex gap-2 items-center mt-4 capitalize tracking-wider text-[1rem]   py-[0.7rem] px-1 rounded-md
+                    className={`flex gap-2 items-center mt-3 capitalize tracking-wider text-[1rem]   py-[0.7rem] px-1 rounded-md
                     transition-all ease-in duration-150 delay-0 border-gray-700  ${
                       currentRoute === item.href &&
                       "shadow-gray-800 shadow-inner border-l-[6px]"
@@ -93,7 +93,13 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image}) => {
                   </Link>
                 ))}
               </div>
-              <div className="m-auto w-full p-2">
+              <div className="m-auto w-full gap-2 p-2 flex flex-col">
+                {role ==='admin' &&
+
+                  <Link href={'/admin-dashboard'}
+                  className=" px-1 py-1 w-max rounded-full underline"
+                  >Admin Dashboard</Link>
+                }
                 <Logout />
               </div>
             </div>

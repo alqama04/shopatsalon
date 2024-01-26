@@ -31,7 +31,7 @@ const page = async ({ searchParams }: any) => {
   return (
     <div className="min-h-screen h-full flex flex-col ">
       <div className="flex-1">
-        <div className="w-1/3 p-1">
+        <div className="w-full md:w-1/3 p-1">
           <Search placeholder="Find User" />
         </div>
         <div className="overflow-x-auto">
