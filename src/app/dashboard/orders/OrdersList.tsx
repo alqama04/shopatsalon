@@ -51,14 +51,16 @@ const OrdersList = ({ orders }: { orders: orderItem[] }) => {
                     ))
                   : ""}
               </div>
-
+              
+              <div>
+                <small> Order Id - {item._id.toString()}</small>
+              </div>
               <div>
                 <textarea
                   rows={3}
                   defaultValue={item.orderList || ""}
                   readOnly
                   className="textarea textarea-ghost resize-none w-full font-semibold mt-1"
-                   
                 ></textarea>
               </div>
             </div>
