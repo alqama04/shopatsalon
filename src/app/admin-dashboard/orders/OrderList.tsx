@@ -33,10 +33,12 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
           <div className="flex justify-between gap-2 items-center">
             <div className="flex gap-2 items-center">
               <h1>{new Date(item.createdAt).toDateString()}</h1>
+
               {!item.isAccepted && (
                 <span className="badge badge-sm badge-warning ">pending</span>
               )}
             </div>
+
             <div>
               <Link
                 href={`/admin-dashboard/orders/${item._id}`}
@@ -56,11 +58,13 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
                 ))
               : ""}
           </div>
-
+          <div>
+            <small> Order Id - {item._id.toString()}</small>
+          </div>
           <div>
             <textarea
-              rows={3}
-              defaultValue={item.orderList || "nothing to show here"}
+              rows={2}
+              defaultValue={item.orderList || ""}
               readOnly
               className="textarea textarea-ghost w-full font-semibold "
               placeholder="Enter order List"
