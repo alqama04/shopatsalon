@@ -19,7 +19,7 @@ const Reward: React.FC<RewardProps> = ({ reward }) => {
             <div>
               <h1 className="flex items-center gap-1">
                 <FaIndianRupeeSign size={26} />
-                <span className="text-[1.2rem]">{reward}</span>
+                <span className="text-[1.2rem]">{reward?.toFixed(2)}</span>
               </h1>
             </div>
           </div>

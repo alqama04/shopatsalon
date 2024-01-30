@@ -53,7 +53,7 @@ const page = async ({ searchParams }: any) => {
                 ? rewardData?.rewards.length &&
                   rewardData?.rewards.map((item) => (
                     <tr key={item._id}>
-                      <td>Rs. {item?.reward}</td>
+                      <td>Rs. {item?.reward.toFixed(2)}</td>
                       <td>Rs. {item?.cyclePurchase}</td>
                       <td>{item?.currentCycle?.name || ""}</td>
                       <td>{new Date(item?.cycleStartDate).toDateString()}</td>
