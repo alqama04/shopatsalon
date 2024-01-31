@@ -15,7 +15,7 @@ const Search = dynamic(()=>import('@/components/Search'),{
 
 const page = async ({ searchParams }: any) => {
   let customer = [];
-
+  let totalCustomer = 0
   const page = Number(searchParams.page) || 1;
   const limit = Number(searchParams.limit) || 20;
   const phone = searchParams.phone;
@@ -33,14 +33,16 @@ const page = async ({ searchParams }: any) => {
   );
 
   if (res.ok) {
-    const users= await res.json();
-    customer = users?.user
+    const data= await res.json();
+    customer = data?.user
+    totalCustomer = data.totalUsers
   }
+  
 
   return (
     <div className="min-h-screen h-full flex flex-col ">
       <div className="flex-1 p-1">
-        <h1 className="text-[1.3rem] font-semibold">Customers </h1>
+        <h1 className="text-[1.3rem] font-semibold">Total Customers - {totalCustomer} </h1>
         <div className="md:w-1/3">
           <Search placeholder="Find customer" />
         </div>

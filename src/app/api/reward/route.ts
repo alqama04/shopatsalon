@@ -19,11 +19,9 @@ export async function GET(req: NextRequest) {
         const limit = Number(req.nextUrl.searchParams.get('limit')) || 20
         const phone = req.nextUrl.searchParams.get('phone')
         const email = req.nextUrl.searchParams.get('email')
-     
-
+        const sort = req.nextUrl.searchParams.get('sort') || '-reward'
+    
         const skip = (page - 1) * limit
-
-        console.log(phone)
 
         if (phone) {
             queryObj.phone_number = phone            
@@ -34,18 +32,17 @@ export async function GET(req: NextRequest) {
             if (user) {
                 queryObj.user = user._id
             }
-        }
-
-      
+        }     
 
         const rewards = await BusinessCustomer.find(queryObj)
-            .sort({ createdAt: -1 })
+            
             .populate('user', { username: 1, email: 1 })
             .populate('currentCycle', { name: 1 })
             .select('cyclePurchase reward cycleStartDate cycleEndDate')
-            .sort('-cycleEndDate')
             .limit(limit)
             .skip(skip)
+            .sort(sort)
+
         return NextResponse.json({ rewards: rewards }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error: "internal server error" }, { status: 500 })

@@ -62,10 +62,14 @@ const PlaceOrder = () => {
         <h1 className="my-2">Place Order Via:</h1>
         <PlaceOrderForm handler={handleOrder} />
 
-        <h1 className="text-red-700">
+        <div className="text-white  bg-gray-800 rounded-lg p-2 ">
+        <p className="text-green-600 mb-1 font-medium">Free Delivery over Rs 999</p>
+
+        <h1 className="text-[0.8rem]">
           Note: Please do not forget to mention the requried quantity and brand
-          name of the product
+          name of the product.
         </h1>
+        </div>
       </div>
     </div>
   );

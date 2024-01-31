@@ -109,7 +109,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ customer }) => {
 
         <div className={colClass}>
           <h1>Reward</h1>
-          <p className="text-white">{customer.reward}</p>
+          <p className="text-white">{customer?.reward.toFixed(2)}</p>
         </div>
         <div className={colClass}>
           <h1>All Time Purchase</h1>

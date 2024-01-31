@@ -55,7 +55,19 @@ const page = async ({ searchParams }: any) => {
                     <tr key={item._id}>
                       <td>Rs. {item?.reward.toFixed(2)}</td>
                       <td>Rs. {item?.cyclePurchase}</td>
-                      <td>{item?.currentCycle?.name || ""}</td>
+                      <td>
+                        <div
+                          className={`badge border-none badge-md capitalize ${
+                            item?.currentCycle.name === "bronze"
+                              ? "bg-yellow-600 text-gray-200"
+                              : item?.currentCycle.name === "silver"
+                              ? "bg-silver-300"
+                              : "bg-purple-800 text-gray-200"
+                          }`}
+                        >
+                          {item?.currentCycle?.name || ""}
+                        </div>
+                      </td>
                       <td>{new Date(item?.cycleStartDate).toDateString()}</td>
                       <td>{new Date(item?.cycleEndDate).toDateString()}</td>
                       <td>{item?.user?.username}</td>
