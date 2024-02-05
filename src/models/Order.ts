@@ -17,7 +17,13 @@ const orderSchema = new mongoose.Schema({
     isAccepted: {
         type: Boolean,
         default: false
-    }
-},{timestamps:true})
+    },
+    status: {
+        type: String,
+        default: "pending"
+    },
+    
+    
+}, { timestamps: true })
 
 export const Order = mongoose.models.Order || mongoose.model('Order', orderSchema)

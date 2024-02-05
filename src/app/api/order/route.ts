@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
         connectDb()
         const isAuth = await isAuthenticated()
         if (!isAuth) return NextResponse.json({ error: "unauthorized" }, { status: 401 })
-        
+
         const page = Number(req.nextUrl.searchParams.get('page')) || 1
         const limit = Number(req.nextUrl.searchParams.get('limit')) || 20
         const skip = (page - 1) * limit
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "one field is required" }, { status: 400 })
         }
 
-        const order = await Order.create({
+        await Order.create({
             user: isAuth.userId,
             orderList: orderList,
             files: files
@@ -51,7 +51,11 @@ export async function POST(req: NextRequest) {
     }
 }
 
-export async function DELETE(req: NextRequest) {
+
+
+
+
+export async function PUT(req: NextRequest) {
     try {
         connectDb()
         const isAuth = await isAuthenticated()
@@ -67,9 +71,11 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: "can't cancel others orders" }, { status: 401 })
         }
 
-        if (order && !order.isAccepted) {
-           
-            await order.deleteOne()
+        if (order.status === 'pending') {
+
+            order.status = 'cancelled'
+            await order.save()
+
             return NextResponse.json({ message: 'order is cancelled' }, { status: 200 })
         }
         else {

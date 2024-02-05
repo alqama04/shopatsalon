@@ -18,7 +18,8 @@ interface orderItem {
   createdAt: string;
   orderList: string;
   files: string[];
-  isAccepted: boolean;
+
+  status: string;
 }
 
 const OrdersList = ({ orders }: { orders: orderItem[] }) => {
@@ -33,12 +34,22 @@ const OrdersList = ({ orders }: { orders: orderItem[] }) => {
             >
               <div className="flex justify-between">
                 <h1>{new Date(item.createdAt).toDateString()}</h1>
-                {!item.isAccepted ? (
+                {item.status ==='pending'? (
                   <h1>
-                    <CancelOrder id={item._id} files={item.files} />
+                    <CancelOrder id={item._id} />
                   </h1>
                 ) : (
-                  <span className="badge badge-success ">accepted</span>
+                  <span
+                    className={`badge badge-sm ${
+                      item.status === "accepted"
+                        ? "badge-success"
+                        : item.status === "cancelled"
+                        ? "badge-error"
+                        : "badge-warning"
+                    }`}
+                  >
+                    {item.status}
+                  </span>
                 )}
               </div>
 
@@ -51,7 +62,7 @@ const OrdersList = ({ orders }: { orders: orderItem[] }) => {
                     ))
                   : ""}
               </div>
-              
+
               <div>
                 <small> Order Id - {item._id.toString()}</small>
               </div>

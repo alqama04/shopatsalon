@@ -46,7 +46,7 @@ const page = async ({ params }: { params: { id: string } }) => {
       <Order order={order} />
 
       <div className="flex gap-10">
-        <UpdateOrder id={order._id} />
+        <UpdateOrder id={order._id} status={order.status} />
 
         <DeleteOrder id={order._id} files={order.files} />
 

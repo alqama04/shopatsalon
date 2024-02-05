@@ -11,7 +11,7 @@ const ViewImage = ({ imageUrl }: { imageUrl: string }) => {
           width={600}
           height={500}
           alt="Order Image"
-          className=""
+          className="object-fill"
         />
       </Link>
     </div>

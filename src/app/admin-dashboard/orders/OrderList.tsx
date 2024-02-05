@@ -18,7 +18,7 @@ interface orders {
   };
   orderList: string;
   files: string[];
-  isAccepted: boolean;
+  status: string;
   createdAt: string;
 }
 
@@ -33,10 +33,12 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
           <div className="flex justify-between gap-2 items-center">
             <div className="flex gap-2 items-center">
               <h1>{new Date(item.createdAt).toDateString()}</h1>
+              
+              <span className={`badge badge-sm ${item.status==='accepted'? 'badge-success':item.status==='cancelled'?'badge-error':"badge-warning"}`}>
+                {item.status}
+              </span>
 
-              {!item.isAccepted && (
-                <span className="badge badge-sm badge-warning ">pending</span>
-              )}
+              
             </div>
 
             <div>

@@ -19,7 +19,9 @@ interface orderProp {
     orderList: string;
     files: string[];
     user: string;
-    isAccepted: boolean;
+    status: string;
+    createdAt:string,
+    updatedAt:string,
   };
 }
 const Order = ({ order }: orderProp) => {
@@ -27,16 +29,29 @@ const Order = ({ order }: orderProp) => {
     <div className="mt-4">
       <div className="flex gap-2 items-center">
         <h1 className="text-[1.2rem] ">Order </h1>
-        {order.isAccepted ? (
-          <span className="badge badge-success font-semibold">Accepted</span>
-        ) : (
-          <span className="badge badge-warning">Pending</span>
-        )}
+        <span
+          className={`badge badge-sm ${
+            order.status === "accepted"
+              ? "badge-success"
+              : order.status === "cancelled"
+              ? "badge-error"
+              : "badge-warning"
+          }`}
+        >
+          {order.status}
+        </span>
       </div>
       <small> order Id - {order._id}</small>
+      <div className="flex flex-col md:flex-row gap-1 mb-1">
+      <small className="badge badge-neutral">Order Date {new Date (order.createdAt).toLocaleString("en-US")} </small>
+      <small className="badge badge-neutral">Updated Date {new Date (order.updatedAt).toLocaleString("en-US")}</small>
+
+      </div>
       <div className="flex flex-col ga-2">
-        <p className="bg-gray-800 textarea text-white">Order - {order?.orderList}</p>
-        <div className="grid gap-2 mt-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <p className="bg-gray-800 textarea text-white">
+          Order - {order?.orderList}
+        </p>
+        <div className="grid gap-2 mt-3 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {order.files.length
             ? order.files.map((file: string) => (
                 <div key={file}>

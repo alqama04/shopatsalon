@@ -6,15 +6,17 @@ import { CiSearch } from "react-icons/ci";
 import { useSearchParams } from "next/navigation";
 
 const FilterOrder = () => {
+  const searchParams = useSearchParams();
   const [seachInput, setSearchInput] = useState("");
-  const [orderType, setOrderType] = useState("pending");
+  const orderStatus = searchParams.get("status");
+
+  const [orderType, setOrderType] = useState(orderStatus || "pending");
+
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const isAccepted = searchParams.get("isAccepted");
-    if (isAccepted !== "false" || orderType !== "pending") {
+    if (orderType?.toLowerCase() !== orderStatus?.toLocaleLowerCase()) {
       handleOrderType();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,16 +24,10 @@ const FilterOrder = () => {
 
   const handleOrderType = () => {
     const search = searchParams.get("search");
- 
-    if (orderType.toLowerCase() === "pending") {
-      router.push(
-        `${pathname}?isAccepted=${false}&${search && `search=${search}`}`
-      );
-    } else if (orderType.toLowerCase() === "accepted") {
-      router.push(
-        `${pathname}?isAccepted=${true}&${search && `search=${search}`}`
-      );
-    }
+
+    router.push(
+      `${pathname}?status=${orderType}&${search && `search=${search}`}`
+    );
   };
 
   const handleSearch = () => {
@@ -40,12 +36,10 @@ const FilterOrder = () => {
     }
     setOrderType('pending')
   };
- 
 
-  const clearFilter =()=>{
-    router.push(pathname)
-     
-  }
+  const clearFilter = () => {
+    router.push(pathname);
+  };
   return (
     <div className="text-gray-900 items-center .">
       <div className="flex gap-2 w-full p-1">
@@ -70,15 +64,15 @@ const FilterOrder = () => {
           onChange={(e) => setOrderType(e.target.value)}
           className="bg-gray-800 text-white font-semibold select select-sm  focus:border-2 focus:border-gray-700 focus:outline-none  rounded-md"
         >
-          <option className="bg-gray-900 text-white">Pending</option>
-          <option className="bg-gray-900 text-white">Accepted</option>
+          <option className="bg-gray-900 text-white">pending</option>
+          <option className="bg-gray-900 text-white">accepted</option>
+          <option className="bg-gray-900 text-white">cancelled</option>
         </select>
-        {searchParams.get("search")&&
-
-          <button
-          onClick={clearFilter}
-          className="btn btn-sm">Clear Filter</button>
-        }
+        {searchParams.get("search") && (
+          <button onClick={clearFilter} className="btn btn-sm">
+            Clear Filter
+          </button>
+        )}
       </div>
     </div>
   );

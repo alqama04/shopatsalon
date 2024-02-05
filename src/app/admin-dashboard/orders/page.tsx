@@ -3,8 +3,7 @@ import { headers } from "next/headers";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
 import Link from "next/link";
-const FilterOrder = dynamic(()=>import('./(filter-order)/FilterOrder'))
-
+const FilterOrder = dynamic(() => import("./(filter-order)/FilterOrder"));
 
 const OrderList = dynamic(() => import("./OrderList"), {
   loading() {
@@ -15,18 +14,18 @@ const OrderList = dynamic(() => import("./OrderList"), {
 const page = async ({ searchParams }: any) => {
   const page = Number(searchParams.page) || 1;
   const limit = Number(searchParams.limit) || 20;
-  const isAccepted = searchParams.isAccepted || false;
+ 
+  const orderStatus = searchParams.status || "pending";
   const search = searchParams.search;
 
   const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/order/admin?isAccepted=${isAccepted}&${
+    `${process.env.NEXTAUTH_URL}/api/order/admin?${orderStatus&& `status=${orderStatus}`}&${
       search && `search=${search}`
     }&page=${page}&limit=${limit}`,
-    {headers : new Headers(headers()),}
+    { headers: new Headers(headers()) }
   );
 
   const orders = await res.json();
-
 
   if (orders.error) {
     return <div className="min-h-screen p-2">{orders.error}</div>;
@@ -47,7 +46,7 @@ const page = async ({ searchParams }: any) => {
         <div className="mt-auto join justify-center w-full m-auto">
           {page !== 1 && (
             <Link
-              href={`/admin-dashboard/orders?isAccepted=${isAccepted}&page=${
+              href={`/admin-dashboard/orders?status=${orderStatus}&page=${
                 page - 1
               }&limit=${limit}`}
               className="join-item base-btn "
@@ -58,7 +57,7 @@ const page = async ({ searchParams }: any) => {
           <button className="join-item base-btn">Page {page}</button>
           {orders.length === limit && (
             <Link
-              href={`/admin-dashboard/orders?isAccepted=${isAccepted}&page=${
+              href={`/admin-dashboard/orders?status=${orderStatus}&page=${
                 page + 1
               }&limit=${limit}`}
               className="join-item base-btn"
