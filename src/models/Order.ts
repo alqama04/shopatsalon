@@ -14,10 +14,7 @@ const orderSchema = new mongoose.Schema({
             type: String
         }
     ],
-    isAccepted: {
-        type: Boolean,
-        default: false
-    },
+  
     status: {
         type: String,
         default: "pending"
