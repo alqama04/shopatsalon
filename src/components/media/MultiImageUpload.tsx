@@ -62,7 +62,7 @@ export default function MultiImageUpload({
       <MultiImageDropzone
         value={fileStates}
         dropzoneOptions={{
-          maxFiles: 4,
+          maxFiles: 15,
           maxSize: 1024 * 1024 * 10,
         }}
         onChange={(files) => {

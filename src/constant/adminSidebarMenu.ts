@@ -4,6 +4,7 @@ import { GiNotebook } from "react-icons/gi";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { PiMedalMilitaryFill } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa";
+import { IoIosAdd } from "react-icons/io";
 
 export const adminSidebarMenu = [
     {
@@ -17,7 +18,11 @@ export const adminSidebarMenu = [
         name: "orders",
         icon: GiNotebook,
         iconColor: "#800080",
-        href: "/admin-dashboard/orders"
+        href: "/admin-dashboard/orders",
+        create:{
+            icon:IoIosAdd,
+            href:"/admin-dashboard/orders/place-order"
+        }
     },
     {
         name: "customers",
@@ -43,6 +48,10 @@ export const adminSidebarMenu = [
         name: "Purchase Records",
         icon: CiMemoPad,
         iconColor: "#D3D3D3",
-        href: "/admin-dashboard/purchases"
+        href: "/admin-dashboard/purchases",
+        create:{
+            icon:IoIosAdd,
+            href:"/admin-dashboard/purchases/add-purchase-record"
+        }
     },
 ]

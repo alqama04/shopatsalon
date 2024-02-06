@@ -12,7 +12,7 @@ const UploadFile = dynamic(() => import("@/components/UploadFile"), {
   },
 });
 
-const FindUser = dynamic(() => import("../FindUser"), {
+const FindUser = dynamic(() => import("../../../../components/user/FindUser"), {
   loading() {
     return (
       <div>

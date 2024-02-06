@@ -40,10 +40,10 @@ const PlaceOrderForm = ({ handler }: PlaceOrderFormProps) => {
       <form action={handleOrder}>
         <div className="flex flex-col gap-1 justify-center items-center">
           <textarea
-            rows={5}
+            rows={4}
             value={orderList}
             onChange={(e) => setOrderList(e.target.value)}
-            className="textarea textarea-ghost w-full font-semibold "
+            className="textarea bg-gray-800 focus:outline-none  w-full font-semibold "
             placeholder="Enter order List"
           ></textarea>
           <div className="divider divider-vertical">OR</div>

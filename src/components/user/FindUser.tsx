@@ -59,7 +59,7 @@ const FindUser = () => {
                 ? "email"
                 : "text"
             }
-            className="input-base"
+            className="bg-gray-800 py-2 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md "
             value={value.trim()}
             onChange={(e) => selectValue(e.target.value)}
             placeholder="Search User"
@@ -68,7 +68,7 @@ const FindUser = () => {
           <select
             defaultValue={value}
             onChange={(e) => selectSearchThrough(e.target.value)}
-            className="select select-sm focus:border-2 focus:border-gray-800 pl-0.5 pr-[24px] focus:outline-none  rounded-md min-h-auto h-[2.8rem]"
+            className="select bg-gray-800 select-sm focus:border-2 focus:border-gray-800 pl-0.5 pr-[24px] focus:outline-none  rounded-md min-h-auto h-[2.3rem]"
           >
             <option>Email</option>
             <option>Phone</option>
@@ -77,9 +77,9 @@ const FindUser = () => {
           {!loading ? (
             <button
               type="submit"
-              className="bg-gray-200 p-2 px-2 shadow-md rounded-lg "
+              className="bg-gray-800 p-2 px-2 shadow-md rounded-lg "
             >
-              <CiSearch className="stroke-2 text-gray-800 text-2xl " />
+              <CiSearch className="stroke-2 text-gray-200 text-2xl " />
             </button>
           ) : (
             <button className="bg-gray-800 p-2 px-2 shadow-md rounded-lg ">
@@ -88,7 +88,7 @@ const FindUser = () => {
           )}
         </div>
       </form>
-      <div>
+      <div> 
         {userId && (
           <div className="flex gap-2 items-start">
             <div className="text-white">

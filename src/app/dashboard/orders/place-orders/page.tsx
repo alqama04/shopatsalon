@@ -2,7 +2,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
-const PlaceOrderForm = dynamic(() => import("./PlaceOrderForm"), {
+const PlaceOrderForm = dynamic(() => import("../../../../components/forms/PlaceOrderForm"), {
   ssr: false,
   loading() {
     return <Skeleton />;

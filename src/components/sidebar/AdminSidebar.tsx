@@ -81,24 +81,44 @@ const AdminSdiebar = () => {
 
               <div className="w-full mt-2.5 p-1.5">
                 {adminSidebarMenu.map((item) => (
-                  <Link
-                    onClick={() => setDrawerOpen((prev) => !prev)}
+                  <div
                     key={item.name}
-                    href={item.href}
-                    className={`flex gap-2 items-center mt-3 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
-                    transition-all ease-in duration-150 delay-0  ${
-                      currentRoute == item.href &&
-                      "shadow-gray-700 shadow-md border-l-[8px] border-gray-300"
+                    className={` 
+                    flex gap-1 items-center mt-3 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
+                      transition-all ease-in duration-150 delay-0 
+                    ${
+                      currentRoute == item.href || currentRoute === item.create?.href &&
+                      "shadow-gray-700 shadow-md border-l-[6px] border-gray-300"
                     }`}
                   >
-                    <item.icon
-                      size="25"
-                      style={{
-                        color: `${item.iconColor}`,
-                      }}
-                    />
-                    {item.name}
-                  </Link>
+                    <Link
+                      onClick={() => setDrawerOpen((prev) => !prev)}
+                      key={item.name}
+                      href={item.href}
+                      className="flex-1 flex gap-2 items-center capitalize tracking-wider text-[1rem]"
+                    >
+                      <item.icon
+                        size="25"
+                        style={{
+                          color: `${item.iconColor}`,
+                        }}
+                      />
+                      {item.name}
+                    </Link>
+
+                    {item.create ? (
+                      <Link href={item.create.href} className="rounded-full shadow-lg">
+                        <item.create.icon
+                        size="25"
+                        style={{
+                          color: `${item.iconColor}`,
+                        }}/>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+
+                  </div>
                 ))}
               </div>
               <div className="m-auto w-full p-2">

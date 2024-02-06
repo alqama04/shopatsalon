@@ -49,6 +49,34 @@ export async function GET(req: NextRequest) {
     }
 }
 
+
+export async function POST(req: NextRequest) {
+    try {
+        connectDb()
+        const admin = await checkAdminPermission()
+        if (!admin) {
+            return NextResponse.json({ error: "unauthorized" }, { status: 401 })
+        }
+
+        const { orderList, files, userId, orderStatus } = await req.json()
+        if (!orderList && !files) {
+            return NextResponse.json({ error: "one field is required" }, { status: 400 })
+        }
+
+        await Order.create({
+            user: userId,
+            orderList: orderList,
+            files: files,
+            status: orderStatus
+        })
+        return NextResponse.json({ message: 'order created' }, { status: 201 })
+
+
+    } catch (error) {
+        return NextResponse.json({ message: 'something went wrong' }, { status: 500 })
+    }
+}
+
 export async function PUT(req: NextRequest) {
     try {
         connectDb()
@@ -63,10 +91,10 @@ export async function PUT(req: NextRequest) {
         const updatedOrder = await Order.findByIdAndUpdate({ _id: id }, {
             status: orderStatus
         },
-        {
-            new:true
-        })
- 
+            {
+                new: true
+            })
+
 
         if (!updatedOrder) {
             return NextResponse.json({ error: "unable to update order" }, { status: 400 })
