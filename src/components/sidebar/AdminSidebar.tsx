@@ -87,8 +87,9 @@ const AdminSdiebar = () => {
                     flex gap-1 items-center mt-3 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
                       transition-all ease-in duration-150 delay-0 
                     ${
-                      currentRoute == item.href || currentRoute === item.create?.href &&
-                      "shadow-gray-700 shadow-md border-l-[6px] border-gray-300"
+                      currentRoute == item.href ||
+                      (currentRoute === item.create?.href &&
+                        "shadow-gray-700 shadow-md border-l-[6px] border-gray-300")
                     }`}
                   >
                     <Link
@@ -107,17 +108,21 @@ const AdminSdiebar = () => {
                     </Link>
 
                     {item.create ? (
-                      <Link href={item.create.href} className="rounded-full shadow-lg">
+                      <Link
+                        onClick={() => setDrawerOpen((prev) => !prev)}
+                        href={item.create.href}
+                        className="rounded-full shadow-lg"
+                      >
                         <item.create.icon
-                        size="25"
-                        style={{
-                          color: `${item.iconColor}`,
-                        }}/>
+                          size="25"
+                          style={{
+                            color: `${item.iconColor}`,
+                          }}
+                        />
                       </Link>
                     ) : (
                       ""
                     )}
-
                   </div>
                 ))}
               </div>

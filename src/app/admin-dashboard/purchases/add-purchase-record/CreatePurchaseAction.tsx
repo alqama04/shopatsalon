@@ -73,7 +73,7 @@ const CreatePurchaseAction = () => {
       {component}
       <div className="flex md:items-stretch md:flex-row gap-4 flex-col">
         <div>
-          <FindUser />
+          <FindUser className="bg-white"/>
           <input
             value={purchaseInput.userId}
             onChange={(e) =>

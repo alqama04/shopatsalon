@@ -12,7 +12,7 @@ interface ApiResponse {
     email?: string;
   };
 }
-const FindUser = () => {
+const FindUser = ({className='bg-gray-800'}:{className?:string}) => {
   const [searchThrough, selectSearchThrough] = useState("email");
   const [value, selectValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ const FindUser = () => {
                 ? "email"
                 : "text"
             }
-            className="bg-gray-800 py-2 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md "
+            className={`${className} py-2 px-1 rounded-md shadow-md placeholder:capitalize outline-none focus:shadow-md `}
             value={value.trim()}
             onChange={(e) => selectValue(e.target.value)}
             placeholder="Search User"
@@ -68,7 +68,7 @@ const FindUser = () => {
           <select
             defaultValue={value}
             onChange={(e) => selectSearchThrough(e.target.value)}
-            className="select bg-gray-800 select-sm focus:border-2 focus:border-gray-800 pl-0.5 pr-[24px] focus:outline-none  rounded-md min-h-auto h-[2.3rem]"
+            className={`${className} select bg-gray-800 select-sm focus:border-2 focus:border-gray-800 pl-0.5 pr-[24px] focus:outline-none  rounded-md min-h-auto h-[2.3rem]`}
           >
             <option>Email</option>
             <option>Phone</option>

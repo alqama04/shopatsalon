@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   description:
     "Now There is a Newer, Smarter &  More Rewarding Way To Shop for Your Salons Needs.",
   metadataBase: new URL('https://shopatsalon.com'),
+  manifest:"/manifest.webmanifest"
 };
 
 
