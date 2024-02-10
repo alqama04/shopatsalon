@@ -69,27 +69,27 @@ const AdminSdiebar = () => {
                 <Image
                   src={session?.user?.image!}
                   alt={session?.user?.name!}
-                  width={80}
-                  height={80}
+                  width={70}
+                  height={70}
                   className="rounded-full object-fill"
                 />
               )}
-              <h2 className="mt-2 text-[1.1rem]">{session?.user?.name}</h2>
+              <h2 className="mt-1 text-[1.1rem]">{session?.user?.name}</h2>
               <p className="mt-1 text-gray-100 text-[0.8rem]">
                 {session?.user?.role}
               </p>
 
-              <div className="w-full mt-2.5 p-1.5">
+              <div className="w-full mt-2 p-1.5">
                 {adminSidebarMenu.map((item) => (
                   <div
                     key={item.name}
                     className={` 
-                    flex gap-1 items-center mt-3 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
+                    flex gap-1 items-center mt-2.5 capitalize tracking-wider text-[1rem] py-[0.7rem] px-1 rounded-md
                       transition-all ease-in duration-150 delay-0 
                     ${
-                      currentRoute == item.href ||
-                      (currentRoute === item.create?.href &&
-                        "shadow-gray-700 shadow-md border-l-[6px] border-gray-300")
+                      currentRoute === item.href ||
+                      currentRoute === item.create?.href ?
+                        "shadow-gray-700 shadow-md border-l-[6px] border-gray-300":""
                     }`}
                   >
                     <Link
@@ -126,7 +126,13 @@ const AdminSdiebar = () => {
                   </div>
                 ))}
               </div>
-              <div className="m-auto w-full p-2">
+              <div className="m-auto px-2 w-full gap-2   flex flex-col">
+                <Link
+                  href={"/dashboard"}
+                  className=" px-1 py-1 w-max rounded-full underline"
+                >
+                 User Dashboard
+                </Link>
                 <Logout />
               </div>
             </div>

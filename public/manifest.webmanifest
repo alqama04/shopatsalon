@@ -1,12 +1,12 @@
 {
-    "theme_color": "#090908",
-    "background_color": "#090908",
+    "theme_color": "#000000",
+    "background_color": "#100f0f",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Shopatsalon",
-    "short_name": "Shopatsalon",
-    "description": "Now There is a Newer, Smarter & More RewardingWay To Shop for Your Salon's Needs.",
+    "name": "Shop At Salon",
+    "short_name": "Shop At Salon",
+    "description": "Now There is a Newer, Smarter & More RewardingWay To Shop for Your Salon\u2019s Needs.",
     "icons": [
         {
             "src": "/icon-192x192.png",
