@@ -35,7 +35,7 @@ const page = async ({ searchParams }: any) => {
           <Search placeholder="Find User" />
         </div>
         <div className="overflow-x-auto">
-          <table className="table">
+          <table className="table align-middle rounded-md bg-gray-800 p-1">
             <thead>
               <tr className="text-white tracking-wider  ">
                 <th>Reward</th>
@@ -52,7 +52,7 @@ const page = async ({ searchParams }: any) => {
               {rewardData
                 ? rewardData?.rewards.length &&
                   rewardData?.rewards.map((item) => (
-                    <tr key={item._id}>
+                    <tr key={item._id} className="hover:bg-gray-900 transition-all duration-200  border-none">
                       <td>Rs. {item?.reward.toFixed(2)}</td>
                       <td>Rs. {item?.cyclePurchase}</td>
                       <td>

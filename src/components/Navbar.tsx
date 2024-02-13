@@ -10,8 +10,14 @@ const Navbar = () => {
   const session = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  
   const onClick = () => {
-    session.data ? router.push("/dashboard") : router.push("/authenticate");
+    if(session?.data?.user?.role ==='admin'){
+      router.push("/admin-dashboard/orders")
+    }else{
+
+      session.data ? router.push("/dashboard") : router.push("/authenticate");
+    }
     setLoading(true);
   };
 

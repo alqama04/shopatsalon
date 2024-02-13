@@ -20,8 +20,8 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image,role}) => {
   const [DrawerOpen, setDrawerOpen] = useState(false);
 
   return (
-      <div>
-      <div className={`md:hidden bg-gray-900 flex justify-between w-[100svw] px-2 py-0.5  ${DrawerOpen ? "hidden" : "block"}`}>
+      <div className="bg-gray-900">
+      <div className={`md:hidden  flex justify-between w-[100svw] px-2 py-0.5  ${DrawerOpen ? "hidden" : "block"}`}>
         <button
           onClick={() => setDrawerOpen((prev) => !prev)}
           className="text-3xl font-bold text-white"
@@ -49,8 +49,8 @@ const UserSidebar:React.FC<SidebarProps> = ({name,image,role}) => {
       >
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-        <div className="drawer-side">
-          <div className="w-screen md:w-64 pt-5 px-1 menu min-h-full h-full bg-gray-900 text-gray-100">
+        <div className="drawer-side ">
+          <div className="w-screen md:w-64 pt-5 px-1 menu min-h-full h-full text-gray-100">
             <div className="flex flex-col items-center h-full">
               <button
                 onClick={() => setDrawerOpen((prev) => !prev)}

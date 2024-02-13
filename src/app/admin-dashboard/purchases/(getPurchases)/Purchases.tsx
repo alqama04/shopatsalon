@@ -1,6 +1,6 @@
-import Pagination from "@/components/Pagination";
-import Search from "@/components/Search";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+
 const DeletePurchases = dynamic(
   () => import("../(deletePurchases)/DeletePurchases"),
   {
@@ -23,7 +23,7 @@ interface Purchase {
   billFile: string;
   amount: string;
   createdAt: string;
-  user: { username: string };
+  user: { username: string; _id: string };
   addedBy: { username: string };
 }
 
@@ -32,43 +32,61 @@ interface GetPurchasesProps {
 }
 
 const Purchases: React.FC<GetPurchasesProps> = ({ purchase }) => {
+ 
   return (
-   
-      <div className="h-full">
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr className="text-white text-[0.9rem]">
-                <th>Bill</th>
-                <th>Amount</th>
-                <th>Purchase Date</th>
-                <th>Buyer</th>
-                <th>Record Added by</th>
-                <th>Action</th>
+    <div className="h-full">
+      <div className="overflow-x-auto">
+        <table className="table align-middle rounded-md bg-gray-800 p-1">
+          <thead>
+            <tr className="text-white text-[0.9rem]">
+              <th>Bill</th>
+              <th>Amount</th>
+              <th>Purchase Date</th>
+              <th>Buyer</th>
+              <th>Record Added by</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {purchase.map((item) => (
+              <tr
+                key={item._id}
+                className="hover:bg-gray-900 transition-all duration-200  border-none"
+              >
+                <td>
+                  <DownloadFile
+                    url={item.billFile}
+                    fileName={`bill of ${item.amount}`}
+                  />
+                </td>
+
+                <td>
+                  <Link href={`/admin-dashboard/customers/${item?.user?._id}`}>
+                    {item?.amount}
+                  </Link>
+                </td>
+
+                <td>
+                  <Link href={`/admin-dashboard/customers/${item?.user?._id}`}>
+                    {new Date(item?.createdAt).toDateString()}
+                  </Link>
+                </td>
+                <td>
+                <Link href={`/admin-dashboard/customers/${item?.user?._id}`}>
+
+                  {item?.user?.username}
+                </Link>
+                  </td>
+                <td className="font-bold">{item?.addedBy?.username}</td>
+                <td>
+                  <DeletePurchases id={item._id} url={item.billFile} />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {purchase.map((item) => (
-                <tr key={item._id} className="hover:bg-gray-800 transition-all duration-200">
-                  <td>
-                    <DownloadFile
-                      url={item.billFile}
-                      fileName={`bill of ${item.amount}`}
-                    />
-                  </td>
-                  <td>{item?.amount}</td>
-                  <td>{item?.createdAt}</td>
-                  <td>{item?.user?.username}</td>
-                  <td className="font-bold">{item?.addedBy?.username}</td>
-                  <td>
-                    <DeletePurchases id={item._id} url={item.billFile} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>    
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 

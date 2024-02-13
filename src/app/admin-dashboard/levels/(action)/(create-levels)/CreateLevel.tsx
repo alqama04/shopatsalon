@@ -17,7 +17,7 @@ const CreateLevel = () => {
       {isModalOpen && (
         <dialog id="my_modal_1" className="modal" open>
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Add Levels</h3>
+            <h3 className="font-bold text-lg text-black">Add Levels</h3>
             <div className="modal-action">
               <HandleCreate />
             </div>

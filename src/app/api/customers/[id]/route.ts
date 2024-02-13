@@ -18,7 +18,7 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
         
         
         let customer = await BusinessCustomer.findOne({ user: objectId })
-        // .populate('currentCycle')
+  
         .populate("user", { '__v': 0 })
         
         .exec()
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
         
         customer.currentCycle = level
 
-        console.log(customer)
+ 
        
         return NextResponse.json({ customer}, { status: 200 })
     } catch (error) {

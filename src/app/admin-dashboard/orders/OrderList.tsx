@@ -26,6 +26,7 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
   return (
     <>
       {orders.map((item) => (
+        
         <div
           key={item._id}
           className="shadow-md rounded-lg px-1 py-2 bg-gray-800"
@@ -51,7 +52,7 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
             </div>
           </div>
 
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex flex-wrap justify-center items-center gap-2">
             {item.files.length
               ? item.files.map((file) => (
                   <div key={file}>
@@ -68,8 +69,8 @@ const OrderList = ({ orders }: { orders: orders[] }) => {
               rows={2}
               defaultValue={item.orderList || ""}
               readOnly
-              className="textarea textarea-ghost w-full font-semibold "
-              placeholder="Enter order List"
+              className="textarea bg-gray-700  w-full font-semibold "
+              placeholder=""
             ></textarea>
           </div>
         </div>

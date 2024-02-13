@@ -44,7 +44,7 @@ const FetchLevels = async () => {
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="table table-md">
+        <table className="table align-middle rounded-md bg-gray-800 p-1">
           <thead>
             <tr className="text-white tracking-wider text-[0.9rem]">
               <th>Name</th>
@@ -57,7 +57,7 @@ const FetchLevels = async () => {
           </thead>
           <tbody>
             {levels.length >0 && levels.map((item: Level) => (
-              <tr key={item?._id}>
+              <tr key={item?._id} className="hover:bg-gray-900 transition-all duration-200  border-none">
                 <td>{item?.name}</td>
                 <td>{item?.target_amt}</td>
                 <td>{item?.reward_percentage}</td>
