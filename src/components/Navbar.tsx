@@ -69,7 +69,7 @@ const Navbar = () => {
             {loading ? (
               <span className="loading loading-dots loading-sm" />
             ) : status === "loading" ? (
-              "Loading..."
+              <span className="loading loading-dots loading-sm" />
             ) : session ? (
               "Dash"
             ) : (
