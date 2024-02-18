@@ -21,9 +21,8 @@ const Services = () => {
             <div className="flex flex-col gap-3" key={index}>
               {half.map((item) => (
                 <div key={item.title}>
-                  <div className="collapse rounded-sm transition ease-in-out delay-150 bg-white p-1">
-                    <input type="checkbox" className="peer" />
-                    <div className="collapse-title flex justify-between items-center px-2">
+                  <div className="rounded-sm transition ease-in-out delay-150 bg-white p-1">
+                    <div className="py-3.5 flex justify-between items-center px-2">
                       <h1 className="tracking-wider font-semibold">{item.title}</h1>
                       
                       <span className="rounded-full bg-gray-200 scale-125 p-1.5">
@@ -36,7 +35,7 @@ const Services = () => {
                       </span>
 
                     </div>
-                    <div className="collapse-content peer-checked:bg-gray-100">
+                    <div className="px-2 py-1 bg-gray-100">
                       <p>{item.description}</p>
                     </div>
                   </div>

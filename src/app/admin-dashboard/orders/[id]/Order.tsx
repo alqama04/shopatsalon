@@ -43,8 +43,8 @@ const Order = ({ order }: orderProp) => {
       </div>
       <small> order Id - {order._id}</small>
       <div className="flex flex-col md:flex-row gap-1 mb-1">
-      <small className="badge badge-neutral">Order Date {new Date (order.createdAt).toLocaleString("en-US")} </small>
-      <small className="badge badge-neutral">Updated Date {new Date (order.updatedAt).toLocaleString("en-US")}</small>
+      <small className="badge badge-neutral">Order Date {new Date (order.createdAt).toDateString()} </small>
+      <small className="badge badge-neutral">Updated Date {new Date (order.updatedAt).toDateString()}</small>
 
       </div>
       <div className="flex flex-col ga-2">
