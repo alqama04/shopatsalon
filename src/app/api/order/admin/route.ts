@@ -84,12 +84,13 @@ export async function PUT(req: NextRequest) {
 
         if (!admin) return NextResponse.json({ error: "unauthorized" }, { status: 401 })
 
-        const { id, orderStatus } = await req.json()
+        const { id, orderStatus,orderListText } = await req.json()
 
         if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 })
 
         const updatedOrder = await Order.findByIdAndUpdate({ _id: id }, {
-            status: orderStatus
+            status: orderStatus,
+            orderList:orderListText
         },
             {
                 new: true

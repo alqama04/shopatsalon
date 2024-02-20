@@ -78,4 +78,4 @@ const FilterOrder = () => {
   );
 };
 
-export default FilterOrder;
+export default React.memo(FilterOrder);

@@ -53,4 +53,4 @@ const CustomerDetail = ({customer}:customerProp) => {
   );
 };
 
-export default CustomerDetail;
+export default React.memo(CustomerDetail);

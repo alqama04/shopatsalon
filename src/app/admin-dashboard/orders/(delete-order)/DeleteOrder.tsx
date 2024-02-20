@@ -1,5 +1,4 @@
 "use client";
-
 import useToastMsg from "@/hooks/useToastMsg";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -73,4 +72,4 @@ const DeleteOrder = ({ id, files }: { id: string; files: string[] }) => {
   );
 };
 
-export default DeleteOrder;
+export default React.memo(DeleteOrder);

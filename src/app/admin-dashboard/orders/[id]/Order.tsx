@@ -26,7 +26,7 @@ interface orderProp {
 }
 const Order = ({ order }: orderProp) => {
   return (
-    <div className="mt-4">
+    <div>
       <div className="flex gap-2 items-center">
         <h1 className="text-[1.2rem] ">Order </h1>
         <span
@@ -51,7 +51,7 @@ const Order = ({ order }: orderProp) => {
         <p className="bg-gray-800 textarea text-white">
           Order - {order?.orderList}
         </p>
-        <div className="grid gap-2 mt-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid gap-2 mt-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {order.files.length
             ? order.files.map((file: string) => (
                 <div key={file}>

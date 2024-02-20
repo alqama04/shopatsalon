@@ -3,19 +3,28 @@ import useToastMsg from "@/hooks/useToastMsg";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const UpdateOrder = ({ id,status }: { id: string,status:string }) => {
+const UpdateOrder = ({
+  id,
+  status,
+  orderList,
+}: {
+  id: string;
+  status: string;
+  orderList: string;
+}) => {
   const [loading, setLoading] = useState(false);
   const { component, setToastType, setAlertMsg } = useToastMsg();
-  const [orderStatus, setOrderStatus] = useState(status||"pending");
+  const [orderStatus, setOrderStatus] = useState(status || "pending");
+  const [orderListText, setOrderListText] = useState(orderList || '');
+  const [editList, setEditList] = useState(false);
   const router = useRouter();
 
-   
   const handleUpdate = async () => {
     try {
       setLoading(true);
       const res = await fetch("/api/order/admin", {
         method: "PUT",
-        body: JSON.stringify({ id, orderStatus }),
+        body: JSON.stringify({ id, orderStatus, orderListText }),
       });
 
       const apiResp = await res.json();
@@ -30,15 +39,33 @@ const UpdateOrder = ({ id,status }: { id: string,status:string }) => {
         setAlertMsg(apiResp.error || "unknown error occured");
       }
     } catch (error) {
-      setLoading(true);
+      setLoading(false);
       throw new Error("something went wrong");
     }
   };
 
+  // console.log()
   return (
     <div>
       {component}
-      <div className="flex gap-1">
+      <div>
+        {editList && (
+          <textarea
+            rows={orderList.split("\n").length}
+            value={orderListText}
+            onChange={(e) => setOrderListText(e.target.value)}
+            className="w-full textarea bg-gray-800 -mb-1 "
+          />
+        )}
+
+        <button
+          onClick={() => setEditList((prev) => !prev)}
+          className="p-1 text-sm rounded-md bg-warning-content"
+        >
+          {editList ? "Done" : "Edit Order"}
+        </button>
+      </div>
+      <div className="flex gap-1 mt-1.5">
         <select
           value={orderStatus}
           onChange={(e) => setOrderStatus(e.target.value)}
@@ -59,4 +86,4 @@ const UpdateOrder = ({ id,status }: { id: string,status:string }) => {
   );
 };
 
-export default UpdateOrder;
+export default React.memo(UpdateOrder);

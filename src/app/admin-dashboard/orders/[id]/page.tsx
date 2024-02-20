@@ -2,7 +2,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/Skeleton";
 import { headers } from "next/headers";
- 
 
 const Order = dynamic(() => import("./Order"), {
   loading() {
@@ -15,14 +14,14 @@ const CustomerDetail = dynamic(() => import("./CustomerDetail"), {
   },
 });
 
-const DeleteOrder = dynamic(()=>import('../(delete-order)/DeleteOrder'))
-const UpdateOrder = dynamic(()=>import('../(update-order)/UpdateOrder'))
+const DeleteOrder = dynamic(() => import("../(delete-order)/DeleteOrder"));
+const UpdateOrder = dynamic(() => import("../(update-order)/UpdateOrder"));
 
 const page = async ({ params }: { params: { id: string } }) => {
   const res = await fetch(
     `${process.env.NEXTAUTH_URL}/api/order/order-detail?id=${params.id}`,
     {
-      headers:new Headers(headers()),
+      headers: new Headers(headers()),
     }
   );
   const orderDetails = await res.json();
@@ -35,19 +34,21 @@ const page = async ({ params }: { params: { id: string } }) => {
     );
   }
   const { order, customer } = orderDetails;
+  
 
   return (
     <div className="min-h-screen h-full p-2">
-       
       <CustomerDetail customer={customer} />
 
-      <Order order={order} />
-
-      <div className="flex gap-10">
-        <UpdateOrder id={order._id} status={order.status} />
+      <div className="flex flex-col gap-2 mt-3">
+        <Order order={order} />
+        <UpdateOrder
+          id={order._id}
+          status={order.status}
+          orderList={order.orderList}
+        />
 
         <DeleteOrder id={order._id} files={order.files} />
-
       </div>
     </div>
   );

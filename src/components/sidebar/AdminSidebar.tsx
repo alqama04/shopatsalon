@@ -143,4 +143,4 @@ const AdminSdiebar = () => {
   );
 };
 
-export default AdminSdiebar;
+export default React.memo(AdminSdiebar);
